@@ -35,7 +35,7 @@
                   	@foreach($lstpost as $post)
                     <tr>
                       <td>{!!$post->title!!}</td>
-                      <td>The Loai</td>
+                      <td>{!!$post->namecategory->name!!}</td>
                       <td><img src="{!!$post->thumbimg!!}" alt="" style="width: 100px; height: 100px;"></td>
                       <td>
                             <a class="fa fa-eye" style="color:green; padding-right: 10%" href="{{route('show.post',$post->id)}}"></a>

@@ -127,7 +127,7 @@ class PostController extends Controller
                         'title' => $request->title,
                         'content' => $request->content,
                         'status' => $request->status,
-                        'idpost' => $request->idpost,
+                        'idcategory' => $request->idcategory,
                     ]);
                 return 'Update Thành công!!!';
             } catch (\Exception $e) {

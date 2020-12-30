@@ -29,9 +29,9 @@
                   </div>
                   <div class="form-group">
                     <label>Thể loại bài viết</label>
-                  <select class="form-control select2" style="width: 100%;" name="idpost">
+                  <select class="form-control select2" style="width: 100%;" name="idcategory">
                     @foreach($lstcategory as $category)
-                    <option @if($post->idpost == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
+                    <option @if($post->idcategory == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                   </select>
                   </div>
@@ -135,7 +135,7 @@
                 'title': $('#title').val(),
                 'content': data,
                 'status': 1,
-                'idpost': jQuery('[name=idpost]').val()
+                'idcategory': jQuery('[name=idcategory]').val()
             }, function(data){
                 console.log(data);
                 toastr.success('Thành công!!!','THÔNG BÁO');
@@ -156,11 +156,11 @@
                       "showMethod": "fadeIn",
                       "hideMethod": "fadeOut"
                 }
-                location.reload(); 
+                // location.reload(); 
 
             }).fail(function(data)
             {
-                console.log(data);
+                console.log(data.responseText);
                 toastr.error('Không thàng công!!!','THÔNG BÁO');
                 toastr.options = {
                       "closeButton": true,

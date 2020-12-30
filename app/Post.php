@@ -39,4 +39,9 @@ class Post extends Model
             'idcategory' => 'Thể loại',
         ]);
     }	
+
+    public function namecategory()
+    {
+        return $this->belongsTo('App\Category','idcategory','id');
+    }
 }
