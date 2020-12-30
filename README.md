@@ -1,0 +1,3 @@
+# mvog
+MVOG Giáo Phận Hà Tĩnh
+Quản lý sinh hoạt dự tu của Giáo Phận. Bao gồm điểm danh, nhập điểm, quản lý theo khu vực...
