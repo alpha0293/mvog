@@ -24,13 +24,14 @@ $config = array();
 
 $config['loadRoutes'] = true;
 
-$config['authentication'] = '\CKSource\CKFinderBridge\CKFinderMiddleware';
+//$config['authentication'] = '\CKSource\CKFinderBridge\CKFinderMiddleware';
+$config['authentication'] = '\App\Http\Middleware\CustomCKFinderAuth';
 
 /*============================ License Key ============================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-$config['licenseName'] = '';
-$config['licenseKey']  = '';
+$config['licenseName'] = 'localhost';
+$config['licenseKey']  = '*5?7-*1**-2**M-*2**-*1**-4*T*-3**D';
 
 /*============================ CKFinder Internal Directory ============================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_privateDir
@@ -82,7 +83,7 @@ $config['backends']['laravel_logs'] = array(
 $config['backends']['default'] = array(
     'name'         => 'default',
     'adapter'      => 'local',
-    'baseUrl'      => config('app.url').'/userfiles/',
+    'baseUrl'      => config('app.url').'/mvoggphatinh/public/userfiles/',
     'root'         => public_path('/userfiles/'),
     'chmodFiles'   => 0777,
     'chmodFolders' => 0755,
