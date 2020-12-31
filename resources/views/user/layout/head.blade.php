@@ -1,4 +1,4 @@
-<head>
+
 <title>MVOGHT</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,6 @@
 <link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/jquery.fancybox.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/theme.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/style.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/them.css')}}">
 <!--[if lt IE 9]>
 <script src="assets/js/html5shiv.min.js"></script>
 <script src="assets/js/respond.min.js"></script>
@@ -37,4 +36,3 @@
     	padding-bottom: 5px;	
     }
 </style>
-</head>
