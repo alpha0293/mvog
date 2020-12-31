@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $lstpost = Post::paginate(3);
+        $lstpost = Post::paginate(10);
         return view('post.list',compact('lstpost'));
     }
 
