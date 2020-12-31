@@ -34,7 +34,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="hold-transition register-page">
+<body style="background-image: url("{{asset('user_asset/images/vanhanh.jpg')}}");" class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
     <a href="#"><b>Đăng Ký</b> thành viên mới</a>

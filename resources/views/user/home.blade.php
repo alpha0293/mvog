@@ -1,6 +1,6 @@
 @extends('user.layout.layout')
 @section('content')
-<div class="col-lg-8 col-md-8 col-sm-8">
+<section class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           @foreach($lstcat as $cat)
             <p style="display:none">{{$i++}}</p>
@@ -66,7 +66,7 @@
             </div>
             
 
-            @elseif($i%3 == 0)
+  @elseif($i%3 == 0)
             <div class="technology">
               <div class="single_post_content">
                 <h2><span>{{$cat->name}}</span></h2>
@@ -91,10 +91,8 @@
             </div> 
 
           </div>
-          @if($i == $lstcat->count() && $lstcat->count() %3 == 2)
-            </div>
-          @endif
-        @endif
+       
+  @endif
 
 
 
@@ -210,5 +208,5 @@
             </ul>
           </div>
         </div>
-      </div>
+      </section>
 @endsection

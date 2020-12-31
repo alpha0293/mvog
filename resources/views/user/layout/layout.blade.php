@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
- @include('user.layout.head')
+<head>
+   @include('user.layout.head')
+    <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
+</head>
+
 <body>
 
 

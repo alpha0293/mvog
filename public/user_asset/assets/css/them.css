@@ -97,18 +97,22 @@ input[type=checkbox]
   padding-bottom: 25px;
 }
 .sl_at{
-    height: calc(2.25rem + 2px);
-    padding: .375rem .75rem;
+    
+    padding: 6px 7px;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
+    border: 1px solid #8fb5b0;
+    border-radius: 13.25rem;
     box-shadow: inset 0 0 0 transparent;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+ #ac_year{
+   margin-bottom: 7px;
+    border-radius: 9px;
+  }
 #preview{
   max-height: 200px;
   min-height: 100px;
@@ -153,3 +157,9 @@ input[type=checkbox]
   .spost_nav .media-body > a{
     font-family: Anton;
   }
+.table-bordered>thead>tr>th{
+      text-align: center;
+}
+body h1 h2 h3 h4 p span{
+   font-family: Anton;
+}
