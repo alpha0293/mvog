@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $lstpost = Post::paginate(3);
+        $lstpost = Post::paginate(10);
         return view('post.list',compact('lstpost'));
     }
 
@@ -127,7 +127,7 @@ class PostController extends Controller
                         'title' => $request->title,
                         'content' => $request->content,
                         'status' => $request->status,
-                        'idpost' => $request->idpost,
+                        'idcategory' => $request->idcategory,
                     ]);
                 return 'Update Thành công!!!';
             } catch (\Exception $e) {

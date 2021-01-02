@@ -29,6 +29,10 @@ class DiemthiController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
         //
         // $lstdutu = Dutu::all();
         $lstdutu = Dutu::with('nameyear')->get();
@@ -44,7 +48,45 @@ class DiemthiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            $data = json_decode($request->data, true);
+            $roleid = Auth::user()->roleid;
+            $lstdiemthi = Diemthi::all();
+            foreach ($data as $dt) {
+                if(Diemthi::validator($dt)->fails())
+                {
+                    return -1; //validate không thành công
+                }
+                else
+                {
+                    if($lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])){ //update diem thi
+                        try {
+                            Diemthi::where('iddutu',$dt['iddutu'])->where('idnam',$dt['idnam'])->update(['diem' => $dt['diem']]);
+                        } catch (Exception $e) {
+                            return 0;
+                        }
+                    }
+                    else{
+                        try {
+                            Diemthi::create([
+                                'iddutu' => $dt['iddutu'],
+                                'idnam' => $dt['idnam'],
+                                'diem' => $dt['diem'],
+                                'nam' => $dt['nam'],
+                            ]);
+                            return 1;
+                        } catch (Exception $e) {
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**

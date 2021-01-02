@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
   @include('admin.layout.head')
-=======
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -92,7 +90,6 @@
 
 
 </head>
->>>>>>> tbl_user
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
   <!-- Navbar -->
@@ -114,10 +111,6 @@
 </div>
 <!-- ./wrapper -->
 @include('admin.layout.js')
-
-<<<<<<< HEAD
-=======
-
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -143,6 +136,5 @@
 <!-- thu nhe -->
 
 <!-- het thu --> 
->>>>>>> tbl_user
 </body>
 </html>

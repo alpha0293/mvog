@@ -100,5 +100,11 @@ class Dutu extends Model
             'email' => 'Email',
 
     	]);
-    }	
+    }
+
+    //get diem  for dutu
+    public function getdiem()
+    {
+        return $this->hasMany('App\Diemthi','iddutu','id');
+    }
 }

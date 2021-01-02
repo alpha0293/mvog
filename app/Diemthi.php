@@ -24,5 +24,11 @@ class Diemthi extends Model
             'idnam' => ['required', 'int', 'max:255'],
 			'diem' => ['required|numeric|between:0,99.99'],
         ]);
-    }	
+    }
+
+    //get tendutu tu bảng điểm
+    public function getdutu()
+    {
+        return $this->belongsTo('App\Dutu','iddutu','id');
+    }
 }
