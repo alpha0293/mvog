@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\User;
 use App\Role;
+use App\Notifications;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,8 @@ class HomeController extends Controller
     {
         $lstcat = Category::all()->load('getpost');
         $lstcat2 = collect([]);
+        $lstnoti = Notifications::all()->where('status',1);
+        $postsilde = Post::take(5);
         foreach($lstcat as $cat){
             if($cat->getpost->count()){
                 $lstcat2->push($cat);
@@ -37,6 +40,6 @@ class HomeController extends Controller
         }
         $lstcat = $lstcat2;
         $i = 0;
-        return view('user.home',compact('lstcat','i'));//
+        return view('user.home',compact('lstcat','i','lstnoti'));//
     }
 }
