@@ -32,7 +32,7 @@ class HomeController extends Controller
         $lstcat = Category::all()->load('getpost');
         $lstcat2 = collect([]);
         $lstnoti = Notifications::all()->where('status',1);
-        $postsilde = Post::take(5);
+        $postslide = Post::all()->take(5);
         foreach($lstcat as $cat){
             if($cat->getpost->count()){
                 $lstcat2->push($cat);
@@ -40,6 +40,6 @@ class HomeController extends Controller
         }
         $lstcat = $lstcat2;
         $i = 0;
-        return view('user.home',compact('lstcat','i','lstnoti'));//
+        return view('user.home',compact('lstcat','i','lstnoti','postslide'));//
     }
 }
