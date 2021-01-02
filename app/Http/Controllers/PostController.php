@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Dutu;
 use App\Post;
 use App\Category;
+use App\Notifications;
 // 
 use Auth;
 use Redirect;
@@ -79,8 +80,9 @@ class PostController extends Controller
         //
 		// $post = Post::get()->where('id',$id)->first();
         $post = Post::findOrFail($id);
-       
-        return view('post.show',compact('post'));
+        $postslide = Post::all()->take(5);
+        $lstnoti = Notifications::all()->where('status',1);
+        return view('post.show',compact('post','postslide','lstnoti'));
     }
 
     /**
