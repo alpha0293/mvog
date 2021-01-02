@@ -107,6 +107,9 @@ Route::post('notifi/edit/{id}','NotificationsController@update')->name('update.n
 Route::post('notifi/store','NotificationsController@store')->name('save.notifi')->middleware('auth');
 Route::get('notifi/edit/{id}','NotificationsController@edit')->name('getupdate.notifi')->middleware('auth');
 
+Route::get('lenlop','AdminController@lstlenlop')->middleware('auth');;
+Route::get('xetduyet','AdminController@lstxetduyet')->middleware('auth');;
+
 //route CKFINDER
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
     ->name('ckfinder_connector');
