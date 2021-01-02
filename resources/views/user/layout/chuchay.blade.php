@@ -3,11 +3,8 @@
       <div class="col-lg-12 col-md-12">
         <div class="latest_newsarea"> <span>Latest News</span>
           <ul id="ticker01" class="news_sticker">
-            <li><a href="#"><img src="{{asset('user_asset/assets/images/news_thumbnail3.jpg')}}" alt="">My First News Item</a></li>
-            <li><a href="#"><img src="{{asset('user_asset/assets/images/news_thumbnail3.jpg')}}" alt="">My Second News Item</a></li>
-            <li><a href="#"><img src="{{asset('user_asset/assets/images/news_thumbnail3.jpg')}}" alt="">My Third News Item</a></li>
-            <li><a href="#"><img src="{{asset('user_asset/assets/images/news_thumbnail3.jpg')}}" alt="">My Four News Item</a></li>
-            <li><a href="#"><img src="{{asset('user_asset/assets/images/news_thumbnail3.jpg')}}" alt="">My Five News Item</a></li>
+            <li><a href="#"><img src="{{asset('user_asset/assets/images/news_thumbnail3.jpg')}}" alt="">Thiên Chúa là Tình Yêu!! (Ga 4, 16)</a></li>
+
           </ul>
           <div class="social_area">
             <ul class="social_nav">

@@ -80,7 +80,7 @@ class PostController extends Controller
 		// $post = Post::get()->where('id',$id)->first();
         $post = Post::findOrFail($id);
        
-        return view('post.view',compact('post'));
+        return view('post.show',compact('post'));
     }
 
     /**
