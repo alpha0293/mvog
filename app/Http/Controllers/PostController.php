@@ -22,6 +22,10 @@ class PostController extends Controller
     public function index()
     {
         //
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
         $lstpost = Post::paginate(10);
         return view('post.list',compact('lstpost'));
     }
@@ -33,6 +37,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
         $lstcategory = Category::all();
         return view('post.create',compact('lstcategory'));
         //
@@ -97,6 +105,10 @@ class PostController extends Controller
     public function edit($id)
     {
         //
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
 		$post = Post::findOrFail($id);
         $lstcategory = Category::all();
         // dd($post);

@@ -11,7 +11,7 @@ use App\Role;
 use App\Dutu;
 use App\Zone;
 use Auth;
-
+use App\User;
 class AdminController extends Controller
 {
     /**
@@ -185,6 +185,38 @@ class AdminController extends Controller
                 try {
                     $idyear = Dutu::findOrFail($dt['id'])->idyear;
                     Dutu::where($dt['id']->update(['idyear' => $idyear + 1]));
+                } catch (Exception $e) {
+                    
+                }
+            }
+        }            
+    }
+
+    public function lstnhomtruong() //load danh sách Dự tu ra để set nhóm trưởng
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        $lstzone = Zone::all();
+        $index = 1;
+        $lstnhomtruong = Dutu::all()->where('idstatus',1);
+        return view('admin.dutu.nhomtruong',compact('lstnhomtruong','index','lstzone'));
+    }
+
+    public function nhomtruong(Request $request)
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            $data = json_decode($request->data, true);
+            foreach ($data as $dt) {
+                try {
+                    // $idyear = Dutu::findOrFail($dt['id'])->idyear;
+                    User::where($dt['id']->update(['roleid' => 2]));
                 } catch (Exception $e) {
                     
                 }

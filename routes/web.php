@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin','AdminController@index')->name('admin')->middleware('auth');
 
@@ -42,7 +43,7 @@ Route::get('attend/edit/{id}','AttendanceController@edit')->name('getupdate.atte
 
 
 //Route for Post
-Route::get('post','PostController@index');
+Route::get('post','PostController@index')->middleware('auth');
 Route::get('post/create','PostController@create')->name('create.post')->middleware('auth');
 Route::get('post/{id}','PostController@show')->name('show.post');
 Route::get('post/delete/{id}','PostController@destroy')->name('delete.post')->middleware('auth');
@@ -107,8 +108,9 @@ Route::post('notifi/edit/{id}','NotificationsController@update')->name('update.n
 Route::post('notifi/store','NotificationsController@store')->name('save.notifi')->middleware('auth');
 Route::get('notifi/edit/{id}','NotificationsController@edit')->name('getupdate.notifi')->middleware('auth');
 
-Route::get('lenlop','AdminController@lstlenlop')->middleware('auth');;
-Route::get('xetduyet','AdminController@lstxetduyet')->middleware('auth');;
+Route::get('lenlop','AdminController@lstlenlop')->middleware('auth');
+Route::get('xetduyet','AdminController@lstxetduyet')->middleware('auth');
+Route::get('nhomtruong','AdminController@lstnhomtruong')->middleware('auth');
 
 //route CKFINDER
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
