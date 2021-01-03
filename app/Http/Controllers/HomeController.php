@@ -31,8 +31,8 @@ class HomeController extends Controller
     {
         $lstcat = Category::all()->load('getpost');
         $lstcat2 = collect([]);
-        $lstnoti = Notifications::all()->where('status',1);
-        $postslide = Post::all()->where('status',1)->take(5);
+        $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
+        $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
         $lstpopularpost = Post::all()->where('status',1)->random(5);
         foreach($lstcat as $cat){
             if($cat->getpost->count()){

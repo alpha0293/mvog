@@ -80,10 +80,12 @@ class PostController extends Controller
         //
 		// $post = Post::get()->where('id',$id)->first();
         $post = Post::findOrFail($id);
-        $postslide = Post::all()->where('status',1)->take(5);
-        $lstpopularpost = Post::all()->where('status',1)->random(5);
-        $lstnoti = Notifications::all()->where('status',1);
-        return view('post.show',compact('post','postslide','lstnoti','lstpopularpost'));
+        $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
+        $lstpopularpost = Post::all()->where('status',1)->random(5); //post ngẫu nhiên
+        $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
+        $lstcat = Category::all()->where('status',1);
+        $lstrelatedpost = Post::all()->where('status',1)->where('idcategory',$post->idcategory)->sortByDesc('created_at')->take(3);
+        return view('post.show',compact('post','postslide','lstnoti','lstpopularpost','lstcat','lstrelatedpost'));
     }
 
     /**
