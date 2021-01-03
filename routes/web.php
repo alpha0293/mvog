@@ -18,10 +18,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin','AdminController@index')->name('admin')->middleware('auth');
+Route::get('/admin','AdminController@index')->name('admin')->middleware('verified');
 
 Route::get('dutu','DutuController@index');
 Route::get('dutu/create','DutuController@create')->name('create.dutu')->middleware('auth');
