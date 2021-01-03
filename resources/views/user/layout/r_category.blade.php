@@ -6,7 +6,7 @@
               @foreach($lstpopularpost as $post)
               <li>
                 <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                  <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title">{{$post->title}}</a> </div>
+                  <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title">{{strlen($post->title) > 80 ? substr($post->title,0,80) : $post->title}}...</a> </div>
                 </div>
               </li>
               @endforeach

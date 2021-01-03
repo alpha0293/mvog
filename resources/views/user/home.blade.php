@@ -16,7 +16,7 @@
                 <li>
                   <figure class="bsbig_fig"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
                     <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
+                    <p>{!!strlen($cat->getpost[0]->content) > 200 ? substr($cat->getpost[0]->content,0,200) : $cat->getpost[0]->content!!} ...</p>
                   </figure>
                 </li>
               </ul>
@@ -28,7 +28,7 @@
 
                 <li>
                   <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                    <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{$post->title}}</a> </div>
+                    <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{ substr($post->title,0,80)}}</a> </div>
                   </div>
                 </li>
                 @endforeach
@@ -49,7 +49,7 @@
                   <li>
                     <figure class="bsbig_fig"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
                       <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
+                      <p>{!!strlen($cat->getpost[0]->content) > 200 ? substr($cat->getpost[0]->content,0,200) : $cat->getpost[0]->content!!} ...</p>
                     </figure>
                   </li>
                 </ul>
@@ -57,7 +57,7 @@
                   @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
                   <li>
                     <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{$post->title}}</a> </div>
+                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{strlen($post->title) > 80 ? substr($post->title,0,80) : $post->title}}...</a> </div>
                     </div>
                   </li>
                   @endforeach
@@ -74,7 +74,7 @@
                   <li>
                     <figure class="bsbig_fig wow fadeInDown"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
                       <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
+                      <p>{!!strlen($cat->getpost[0]->content) > 200 ? substr($cat->getpost[0]->content,0,200) : $cat->getpost[0]->content!!} ...</p>
                     </figure>
                   </li>
                 </ul>
@@ -82,7 +82,7 @@
                   @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
                   <li>
                     <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{$post->title}}</a> </div>
+                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{strlen($post->title) > 80 ? substr($post->title,0,80) : $post->title}}...</a> </div>
                     </div>
                   </li>
                   @endforeach
