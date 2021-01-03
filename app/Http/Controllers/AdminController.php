@@ -126,4 +126,69 @@ class AdminController extends Controller
         //$total = array('' => , );
        // return $lstdd;
     }
+
+
+    public function lstxetduyet()
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        $lstxetduyet = Dutu::all()->where('idstatus',2);
+        $index = 1;
+        return view('admin.dutu.xetduyet',compact('lstxetduyet','index'));
+    }
+
+    public function xetduyet(Request $request) //xét duyệt dự tu vào sinh hoạt
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            $data = json_decode($request->data, true);
+            foreach ($data as $dt)
+            {
+                try {
+                    Dutu::where($dt['id']->update(['idstatus' => 1]));
+                } catch (Exception $e) {
+                    
+                }
+            }
+        }
+    }
+
+    public function lstlenlop()
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        $index = 1;
+        $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4);
+        return view('admin.dutu.lenlop',compact('lstlenlop','index'));
+    }
+
+
+
+    public function lenlop(Request $request)
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            $data = json_decode($request->data, true);
+            foreach ($data as $dt) {
+                try {
+                    $idyear = Dutu::findOrFail($dt['id'])->idyear;
+                    Dutu::where($dt['id']->update(['idyear' => $idyear + 1]));
+                } catch (Exception $e) {
+                    
+                }
+            }
+        }            
+    }
 }

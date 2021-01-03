@@ -19,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -32,7 +32,8 @@ class HomeController extends Controller
         $lstcat = Category::all()->load('getpost');
         $lstcat2 = collect([]);
         $lstnoti = Notifications::all()->where('status',1);
-        $postslide = Post::all()->take(5);
+        $postslide = Post::all()->where('status',1)->take(5);
+        $lstpopularpost = Post::all()->where('status',1)->random(5);
         foreach($lstcat as $cat){
             if($cat->getpost->count()){
                 $lstcat2->push($cat);
@@ -40,6 +41,6 @@ class HomeController extends Controller
         }
         $lstcat = $lstcat2;
         $i = 0;
-        return view('user.home',compact('lstcat','i','lstnoti','postslide'));//
+        return view('user.home',compact('lstcat','i','lstnoti','postslide','lstpopularpost'));//
     }
 }
