@@ -14,8 +14,8 @@
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
-                    <figcaption> <a href="pages/single_page.html">{{$cat->getpost[0]->title}}</a> </figcaption>
+                  <figure class="bsbig_fig"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
                     <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
                   </figure>
                 </li>
@@ -27,8 +27,8 @@
                 @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
 
                 <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> {{$post->title}}</a> </div>
+                  <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
+                    <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{$post->title}}</a> </div>
                   </div>
                 </li>
                 @endforeach
@@ -47,8 +47,8 @@
                 <h2><span>{{$cat->name}}</span></h2>
                 <ul class="business_catgnav wow fadeInDown">
                   <li>
-                    <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="pages/single_page.html">{{$cat->getpost[0]->title}}</a> </figcaption>
+                    <figure class="bsbig_fig"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                      <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
                       <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
                     </figure>
                   </li>
@@ -56,8 +56,8 @@
                 <ul class="spost_nav">
                   @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
                   <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> {{$post->title}}</a> </div>
+                    <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
+                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{$post->title}}</a> </div>
                     </div>
                   </li>
                   @endforeach
@@ -72,8 +72,8 @@
                 <h2><span>{{$cat->name}}</span></h2>
                 <ul class="business_catgnav">
                   <li>
-                    <figure class="bsbig_fig wow fadeInDown"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="pages/single_page.html">{{$cat->getpost[0]->title}}</a> </figcaption>
+                    <figure class="bsbig_fig wow fadeInDown"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                      <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
                       <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
                     </figure>
                   </li>
@@ -81,8 +81,8 @@
                 <ul class="spost_nav">
                   @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
                   <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> {{$post->title}}</a> </div>
+                    <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
+                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{$post->title}}</a> </div>
                     </div>
                   </li>
                   @endforeach
