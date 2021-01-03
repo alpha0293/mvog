@@ -5,6 +5,9 @@
 </head>
 <body>
 	<label>{{$cat->name}}</label>
-	{{$cat->getpost->count()}}
+	@foreach($lstpost as $post)
+	<p>{{$post->title}}</p>
+	@endforeach
+	{{$lstpost->links()}}
 </body>
 </html>

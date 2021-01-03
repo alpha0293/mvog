@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Redirect;
 use Auth;
 use App\Category;
-
+use App\Post;
 
 
 
@@ -81,7 +81,8 @@ class CategoryController extends Controller
     {
         //
         $cat = Category::findOrFail($id);
-        return view('category.view',compact('cat'));
+        $lstpost = Post::where('idcategory',$id)->where('status',1)->paginate(10);
+        return view('category.view',compact('cat','lstpost'));
     }
 
     /**
