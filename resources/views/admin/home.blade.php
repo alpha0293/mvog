@@ -144,7 +144,7 @@
           	<div class="card-header">
                 <h3 class="card-title" style="text-align: center; float: none; font-weight: 800; font-size:18pt; color: red;">Danh sách thành viên dự tu</h3>
               </div>
-            <table id="example1" class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>STT</th>

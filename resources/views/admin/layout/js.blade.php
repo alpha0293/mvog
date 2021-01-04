@@ -134,32 +134,5 @@
             }
         }
     </script>
-    <script >
-      
-      $(document).ready(function(){
-      
-        $("#loc").click(function(){
-          var nhom = $("#sl_nhom").find(":selected").val();
-          var xu = $("#sl_xu").find(":selected").val();
-          var nam = $("#sl_nam").find(":selected").val();
-
-          if(nhom!=0 | xu!=0|nam!=0){
-            
-              
-               if(nhom!=""){
-                alert(nhom);
-               }
-               if(nam!=""){
-                alert(nam);
-               }
-               if(xu!=""){
-                alert(xu);
-               }
-
-          }
-        });
-        
-
-      });
-    </script>
+   
     <!-- het thu --> 

@@ -21,8 +21,11 @@
             </ul>
           @endauth
           @guest
-             <li><a href="{{ route('login') }}">Login</a></li>
-             <li><a href="{{ route('register') }}">Register</a></li>
+              <ul class="top_nav" style="">
+                <li style="float: right; "><a href="{{ route('register') }}">Đăng Ký</a></li>
+                <li style="float: right; "><a href="{{ route('login') }}">Đăng nhập</a></li>
+              </ul>
+
           @endguest
           </div>
 
