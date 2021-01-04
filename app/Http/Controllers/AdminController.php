@@ -12,6 +12,9 @@ use App\Dutu;
 use App\Zone;
 use Auth;
 use App\User;
+use App\Exports\UsersExport;
+use App\Exports\DutuExportView;
+use Maatwebsite\Excel\Facades\Excel;
 class AdminController extends Controller
 {
     /**
@@ -222,5 +225,20 @@ class AdminController extends Controller
                 }
             }
         }            
+    }
+
+    public function export() //export EXCELL
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function exportview() //export EXCELL
+    {
+        return Excel::download(new DutuExportView, 'users-view.xlsx');
+    }
+
+    public function import()
+    {
+        
     }
 }
