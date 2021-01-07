@@ -119,11 +119,11 @@ class AdminController extends Controller
        // foreach (Attendance as $i => where) {
             # code...
         //}
-        $lstdd = Attendance::all();
-       
+        $lstdd = Attendance::all()->where('year',$year);
+       // return $lstdd;
         //$lstdd[] = (array)$lstdd1;
-        $lstdutu = Dutu::all();
-       
+        $lstdutu = Dutu::get()->where('idstatus',1);
+       // return $lstdutu->count();
         //$lstdutu[] = (array)$lstdutu1;
         return array($lstdutu,$lstdd);
         //$total = array('' => , );
