@@ -123,7 +123,7 @@
                 @if (is_null($izone->first->attend))
                   <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
                 @else
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="" class="table table-bordered table-striped">
                       <thead>
                       <tr>
                       <th>STT</th>
@@ -137,7 +137,7 @@
                         @foreach ($iddt as $i)
                         <tr>
                           <td id="stt">{{$index++}}</td>
-                          <td id="ten">{{$i->name}}</td>
+                          <td id="ten">{{$i->name}} _{{$i->id}}</td>
                                   @for($k=1;$k<=12;$k++)
                             <td></td>
                                   @endfor
@@ -173,12 +173,13 @@
     //});
     var nam =$('#year').val();
       $.get("{{ route('gety') }}",{year: nam},function(data){
-        console.log(nam);
+        
       var uncheck = "<input type='checkbox' disabled id='checkboxSuccess3'>";
       var hacheck = "<input type='checkbox' checked disabled id='checkboxSuccess3'>";
       var tero = $('tr');
       var tero1=$("tr");
-      for (var i = 0; i < data[0].length; i++){
+      
+      for (var i = 0; i < Object.values(data[0]).length; i++){
          for (var h = 2; h <= 14; h++) {
           tero1.find("td").eq(h).children().remove();
           
@@ -186,10 +187,11 @@
           tero1 = tero1.next();
       }
       const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12];
-      data[0].forEach(function(i){ 
-        //console.log(data[1]);
-        data[1].forEach(function(j){
-          if (i.id == j.iddutu && j.year == nam ) {
+       Object.values(data[0]).forEach(function(i){ 
+        //console.log(data[1]); data diem danh
+        //data 0: dutu
+        Object.values(data[1]).forEach(function(j){
+          if (i.id == j.iddutu) {
             numbers.forEach(function(k) {
                if (j.month==k) {
                 if (j.month >= 9) {
@@ -216,14 +218,18 @@
     $(document).ready(function(){
       var nam =$('#year').val();
       $.get("{{ route('gety') }}",{year: nam},function(data){
+        // console.log(data[0][3]['id']);
+        // console.log(data[1][0]);
+        // console.log(typeof(data[0]));
       var uncheck = "<input type='checkbox' disabled id='checkboxSuccess3'>";
       var hacheck = "<input type='checkbox' checked disabled id='checkboxSuccess3'>";
       var tero = $('tr');      
       const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12];
-      data[0].forEach(function(i){ 
-        //console.log(data[1]);
-        data[1].forEach(function(j){
-          if (i.id == j.iddutu && j.year == nam ) {
+      Object.values(data[0]).forEach(function(i){ 
+        //console.log(data[1]); data diem danh
+        //data 0: dutu
+        Object.values(data[1]).forEach(function(j){
+          if (i.id == j.iddutu) {
             numbers.forEach(function(k) {
                if (j.month==k) {
                 if (j.month >= 9) {
