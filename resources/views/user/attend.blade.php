@@ -44,10 +44,18 @@
       </select>
       <!-- select năm -->
       <select aria-label="Năm" name="year" id="year" title="Năm" class="sl_at">
-        <option value="0">Năm</option>
+        <option value="0">Năm học</option>
+                      @for($i=2016; $i<=date("Y"); $i++)
+                      @if(date("m")<9)
+                      <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
+                      @else
+                      <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
+                      @endif
+                      @endfor
+        <!-- <option value="0">Năm</option>
         @for($i=2019; $i<=date("Y"); $i++)
         <option @if($i==date("Y")) selected @endif value="{{$i}}">{{$i}}</option>
-        @endfor
+        @endfor -->
       </select>
     </div>
     <div class="card">
@@ -139,7 +147,7 @@
                $ ('tr').show ();
            }
            else{
-            for (i = 0; i < tr.length; i++) {
+            for (i = 1; i < tr.length; i++) {
                   td = tr[i].children[3];
                   if (td) {
                     slValue = td.textContent || td.innerText;

@@ -25,10 +25,12 @@
 		<marquee>{{session('message')}}</marquee>	
         <div class="alert alert-info"></div>
     @endif
+    	
+
 	<form method="post" action="{{route('save.notifi')}}">
 	@csrf
 	<input type="text" name="title">
-	<input type="text" name="content">
+	<input type="area" name="content">
 	<input type="checkbox" name="status" value="1">
 	<button>Submit</button>
 	</form>

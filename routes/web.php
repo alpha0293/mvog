@@ -120,3 +120,4 @@ Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderC
 Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
     ->name('ckfinder_browser');
 
+Route::get('gety','AdminController@gety')->name('gety');

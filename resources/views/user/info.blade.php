@@ -1,22 +1,42 @@
 
-@extends('user.layout.layout')
-@section('content')
-<div class="col-lg-9">
-<div class="">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+   @include('user.layout.head')
+    <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
+   @include('user.layout.script')
+</head>
+
+<body>
+
+
+   @include('user.layout.loader')
+    <!-- ***** Preloader End ***** -->
+ 
+<div class="container">
+   @include('user.layout.header')
+   @include('user.layout.menu')
+   @include('user.layout.chuchay')
+  <section id="sliderSection">
+    
+  </section>
+  <section id="contentSection">
+    <div class="row">
+       <section class="col-lg-9 col-md-9 col-sm-9">
+    <div class="left_content">
+      <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-3">
             <h1>Profile</h1>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-9" style="display:none">
             <ol class="breadcrumb float-sm-right">
                <div class="alert alert-danger print-error-msg" style="display:none"></div>
                 <div class="success alert alert-success"></div>
             </ol>
           </div>
-        </div>
+        </div>  
       </div><!-- /.container-fluid -->
     </section>
     <!-- Main content -->
@@ -33,7 +53,7 @@
                        @if (File::exists(public_path("file/profileimg/".$dutu->profileimg)))
                           <img id="preview" class="profile-user-img img-fluid img-circle" src="{{ asset('file/profileimg/' . $dutu->profileimg) }}" alt="User profile picture" style="margin-right: -100px;" />
                           @else 
-                          <img id="preview" class="profile-user-img img-fluid img-circle" src="{{ asset('file/profileimg/noavatar.png') }}" alt="User profile picture" style="margin-right: -100px;" />
+                          <img id="preview" class="profile-user-img img-fluid img-circle" src="http://127.0.0.1/mvog/public/file/profileimg/noavatar.png" alt="User profile picture" style="margin-right: -100px;" />
                       @endif
                       <label id="c_image" class="btn fa fa-camera" for="my-file-selector"> 
                       <input name="profileimg" id="my-file-selector" type="file" style="display:none" 
@@ -44,7 +64,7 @@
                     </div>
                     
                     <div class="row text-center" style="margin-bottom: 15px;">
-                      <div class="col-sm-6 text-center" style="margin: 0 auto;">
+                      <div class="col-sm-6 text-center" style="width: 100%">
                         <input name="holyname" type="text" class="form-control profile-username thongtinten" value="{{$dutu->holyname}}" disabled placeholder="Chưa có"> 
                       <input name="name" type="text" class="form-control profile-username thongtinten" value="{{$dutu->name}}" disabled placeholder="Chưa có">
                       </div>
@@ -225,9 +245,29 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
-  </div>
-</div>
+    </div>
+  </section>
+  <section class="col-lg-3 col-md-3 col-sm-3">
+        <aside class="right_content">
+          <div class="latest_post">
+          <h2><span>Thông báo</span></h2>
+          <div class="latest_post_container">
+            <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
+            <ul class="latest_postnav">
+              
+              <li>
+                <div class="media"> <a href="#" class="media-left">  </a>
+                  <div class="media-body"> <a href="#" class="catg_title"> ssss</a> </div>
+                  <div class="media-body"> <a href="#" class="catg_title"> sssss</a> </div>
+                </div>
+              </li>
+              
+            </ul>
+            <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
+          </div>
+        </div>
+        </aside>
+      </section>
 
   <script type="text/javascript">
 //checkbox su kien status name
@@ -269,8 +309,8 @@ $('#btnedit').click(function(){
 
       // ajax chuyen du lieu
       var frm = $('#frmupdate');
-
-       frm.submit(function (e) {
+ // submit form
+    frm.submit(function (e) {
          $.ajaxSetup({
       headers: {
         'X-CSSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -314,5 +354,25 @@ $('#btnedit').click(function(){
         
      })
     </script>
+       
+    </div>
+  </section>
+  @include('user.layout.footer')
+</div>
+
+ <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+      
+    </script>
+</body>
+</html>
+
+
  
-    @endsection

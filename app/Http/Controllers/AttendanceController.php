@@ -28,7 +28,7 @@ class AttendanceController extends Controller
         $iddt=Dutu::get()->where('idstatus','1');
         //get all dutu from zone...
         $izone=Attendance::get();
-
+        // dd($iddt->first->attend);
         return view('admin.diemdanh.list',compact('index','iddt','izone'));
         //return view('admin.diemdanh.list');
     }

@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="{{asset('admin_asset/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('toastr/toastr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin_asset/dist/css/themcss.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <meta name="csrf-token" content="{{ csrf_token() }}">
