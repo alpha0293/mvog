@@ -1,4 +1,4 @@
-<div class="col-lg-8 col-md-8 col-sm-8">
+<section class="col-lg-8 col-md-8 col-sm-8">
         <div class="slick_slider">
           
           @foreach($postslide as $post)
@@ -11,4 +11,4 @@
           </div>
           @endforeach
         </div>
-      </div>
+      </section>

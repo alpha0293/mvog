@@ -191,4 +191,10 @@
     </section>
     <!-- /.content -->
   <!-- /.content-wrapper -->
+ 
+  <!-- chart -->
+  <script src="{{asset('admin_asset/mystyle/js_them/stackchart.js')}}"></script>
+  <script src="{{asset('admin_asset/mystyle/js_them/donutchart.js')}}"></script>
+  <!-- end chart -->
+  
 @endsection

@@ -1,16 +1,12 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    
+        <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{url('admin')}}" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li> </ul>
+
+    
 <!--
     !-- SEARCH FORM --
     <form class="form-inline ml-3">
@@ -25,6 +21,12 @@
     </form> -->
 
     <!-- Right navbar links -->
+
+
+
+
+
+
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -40,11 +42,11 @@
      onclick="event.preventDefault();
            document.getElementById('logout-form').submit();">Đăng xuất
       </a>
-	  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-			@csrf
-	  </form>
-	  
-	  
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+      @csrf
+    </form>
+    
+    
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
@@ -54,3 +56,4 @@
 
     @include('admin.layout.menu')
   </nav>
+  @include('admin.layout.modaladd')

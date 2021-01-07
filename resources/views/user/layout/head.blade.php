@@ -19,38 +19,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cuprum:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
 <!--[if lt IE 9]>
 <script src="assets/js/html5shiv.min.js"></script>
 <script src="assets/js/respond.min.js"></script>
 <![endif]-->
-<style type="text/css">
-	.affix {
-     top:1px;
-    position: fixed;
-   	width: auto;
-	z-index:777;
-	float: right;
-	}
-	.header_bottom {
-    padding: 1px 30px 10px;
-    height: 75px;
-    }
-    .top_nav li a{
-    	padding-top: 5px;
-    	padding-bottom: 5px;	
-    }
-    body {
-        font-family: 'Anton';
-        font-size: 18px;
-        line-height: 1.42857143;
-        color: #333;
-        background-color: #fff;
-        text-align: justify;
-      }
-      h1 h2 h3 h4 h5 p{
-        font-family: Anton;
-      }
-    .navbar-inverse .navbar-nav > li > a {
-    font-family: 'Josefin Sans', sans-serif;
-     }
-</style>
+

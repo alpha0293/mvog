@@ -50,8 +50,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('admin_asset/dist/js/demo.js')}}"></script>
 
-    <script src="{{asset('admin_asset/mystyle/js_them/stackchart.js')}}"></script>
-    <script src="{{asset('admin_asset/mystyle/js_them/donutchart.js')}}"></script>
+   
 
 
     <script>
