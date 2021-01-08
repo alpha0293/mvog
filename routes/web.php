@@ -114,6 +114,7 @@ Route::get('xetduyet','AdminController@lstxetduyet')->middleware('auth');
 Route::get('nhomtruong','AdminController@lstnhomtruong')->middleware('auth');
 Route::get('export/', 'AdminController@export')->name('export');
 Route::get('export/view', 'AdminController@exportview');
+Route::get('canhbao','AdminController@canhbao')->name('canhbao')->middleware('auth');
 //route CKFINDER
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
     ->name('ckfinder_connector');

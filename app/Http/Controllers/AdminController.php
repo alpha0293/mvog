@@ -241,4 +241,42 @@ class AdminController extends Controller
     {
         
     }
+    public function canhbao()
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            $lstdutu = Dutu::with('namezone','namestatus','getattend','getdiem')->where('idstatus',1)->get();
+        $lstdutu2 = collect([]);
+        foreach ($lstdutu as $dutu) {
+            # code...
+            // dd();
+            $vang = 0;
+            foreach ($dutu->getattend as $attend) {
+                # code...
+                if($attend->status == 0)
+                    $vang++;
+            }
+            if($vang/$dutu->getattend->count() >= 1/3)
+            {
+                // dd(gettype($dutu));
+                $dutu = collect($dutu);
+                try {
+                    $dutu->put('vang',$vang);
+                } catch (Exception $e) {
+                    dd($e->getMessage());
+                }
+                $lstdutu2->push($dutu);
+
+            }
+        }
+        // dd($lstdutu2);
+        $lstdutu2 = (object) $lstdutu2;
+        $index = 1;
+        return view('admin.dutu.canhbao',compact('lstdutu2','index'));
+        }   
+    }
 }
