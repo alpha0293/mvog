@@ -252,20 +252,22 @@ class AdminController extends Controller
             $lstdutu = Dutu::with('namezone','namestatus','getattend','getdiem')->where('idstatus',1)->get();
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
-            # code...
-            // dd();
             $vang = 0;
+            $diemtb = 0;
+            $diemtb = $dutu->getdiem->avg('diem');
             foreach ($dutu->getattend as $attend) {
-                # code...
                 if($attend->status == 0)
                     $vang++;
             }
             if($vang/$dutu->getattend->count() >= 1/3)
             {
+                $tongdiemdanh = $dutu->getattend->count();
                 // dd(gettype($dutu));
                 $dutu = collect($dutu);
                 try {
                     $dutu->put('vang',$vang);
+                    $dutu->put('tongdiemdanh',$tongdiemdanh);
+                    $dutu->put('diemtb',$diemtb);
                 } catch (Exception $e) {
                     dd($e->getMessage());
                 }

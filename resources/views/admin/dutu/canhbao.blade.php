@@ -20,6 +20,7 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
+  <h3>DANH SÁCH NHỮNG THANH NIÊN VẮNG QUÁ 30%</h3>
 <table>
   <thead>
                   <tr>
@@ -33,7 +34,8 @@ tr:nth-child(even) {
                     <th>Trạng thái</th>
                     <th>Nhóm</th>
                     <th>Số lần vắng</th>
-                    <th>Chức năng</th>
+                    <th>Điểm</th>
+                    <th>Điểm TB</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -49,8 +51,9 @@ tr:nth-child(even) {
                             <td id="xu">{{$i['parish']}}</td>
                             <td id="nam">{{$i['namestatus']['name']}}</td>
                             <td id="nhom">{{$i['namezone']['name']}}</td>
-                            <td id="trangthai">{{$i['vang']}}<small class="badge badge-primary"></small></td>
-                            <td></td>
+                            <td id="trangthai">{{$i['vang']}}/{{$i['tongdiemdanh']}}<small class="badge badge-primary"></small></td>
+                            <td>@if($i['getdiem']!=null) {{$i['getdiem'][0]['diem']}} @endif</td>
+                            <td>{{$i['diemtb']}}</td>
                           </tr>
                         @endforeach
                     </tr>
