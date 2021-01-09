@@ -1,0 +1,12 @@
+.bg-image-1 {
+    background-color: rgb(60,60,60);
+     background-position: center center;
+     background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: overlay;
+}
+
+.templatemo-login-form-2 .templatemo-one-signin {
+	margin: 0 auto;
+    border: none;
+}

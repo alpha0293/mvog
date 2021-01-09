@@ -177,4 +177,27 @@ class PostController extends Controller
         }
 		
     }
+    public function offpost(Request $request)
+    {
+        //
+        // return $request->value == true ? 1 : 0;
+        if(Auth::user()->roleid != 1)
+        {
+            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
+        }
+        else
+        {
+            if($request->value == 'true')
+                $status = 1;
+            else
+                $status = 0;
+            try {
+                Post::where('id',$request->postid)->update(['status'=> $status]);
+                return 'thanh cong!!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }
+        
+    }
 }

@@ -68,53 +68,19 @@
                   </div>
                   <div class="col-md-7" >
                     <div class="row">
-                    <div class="form-group col-md-3">
-                       <select  id="sl_xu" class="select2bs4" data-placeholder="  Giáo xứ" 
-                          style="width: 100%;">
-                         <option value="">Giáo xứ</option>
-                         <option>Khe Gát</option>
-                         <option>Đồng Trooc</option>
-                         <option>Văn Hạnh</option>
-                         <option>Trại Lê</option>
-                         <option>Chân Thành</option>
-                         <option>Kinh Nhuận</option>
-                         <option>Sen Bàng</option>
-                       </select>
+                  <div class="form-group" style="    display: flex; margin-top: 5px;">
+                      <label style="width: 75%; margin-top: 6px;" for="year">Năm học: </label>
+                       <select style="width: auto; margin-left: 9px;" aria-label="Năm" name="year" id="year" title="Năm" class="form-control sl_at">
+                          <option value="0">Năm học</option>
+                          @for($i=2016; $i<=date("Y"); $i++)
+                          @if(date("m")<9)
+                          <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
+                          @else
+                          <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
+                          @endif
+                          @endfor
+                        </select>
                     </div>
-                    <div class="form-group col-md-3">
-                       <select id="sl_nhom" class="select2bs4" data-placeholder="  Nhóm sinh hoạt"
-                          style="width: 100%;">
-                         <option value="">Nhóm sinh hoạt</option>
-                         <option>Vinh</option>
-                         <option>Huế</option>
-                         <option>Sài Gòn</option>
-                         <option>Đà Nẵng</option>
-                         <option>Hà Nội</option>
-                       </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                       <select id="sl_nam" class="select2bs4" data-placeholder="  Năm sinh hoạt"
-                          style="width: 100%;">
-                         <option value="">Năm sinh hoạt</option>
-                         <option>Năm 1</option>
-                         <option>Năm 2</option>
-                         <option>Năm 3</option>
-                         <option>Đã hoàn thành</option>
-                       </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                       <button type="button" id="loc" class="btn btn-primary"><i class='fas fa-filter'></i>   Lọc</button>
-                    </div>
-                   <select aria-label="Năm" name="year" id="year" title="Năm" class="sl_at">
-                      <option value="0">Năm học</option>
-                      @for($i=2016; $i<=date("Y"); $i++)
-                      @if(date("m")<9)
-                      <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
-                      @else
-                      <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
-                      @endif
-                      @endfor
-                    </select>
                     </div>
                     
                   </div>
@@ -123,7 +89,7 @@
                 @if (is_null($izone->first->attend))
                   <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
                 @else
-                    <table id="" class="table table-bordered table-striped">
+                    <table id="mytable" class="table table-bordered table-striped">
                       <thead>
                       <tr>
                       <th>STT</th>
@@ -165,8 +131,12 @@
    </section>
 
   <script type="text/javascript">
+     
     $('#year').change(function(){
-      
+      var tb = $('#mytable').DataTable();
+      tb.destroy();
+      // tb.clear();
+      // tb.draw();
     //const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //let sum = 0;
     //numbers.forEach(function(element){ 
@@ -212,6 +182,15 @@
         });
         tero = tero.next();
       });
+       $('#mytable').dataTable({
+            // "retrieve": true,
+            "autoWidth":false,
+            "pageLength": 25,
+            "paging": true,
+            "bSort": true,
+            "language": {
+            "lengthMenu": "Hiển thị _MENU_ Dòng"}
+        });
       })
     })
     
@@ -250,6 +229,14 @@
         });
         tero = tero.next();
       });
+
+      $('#mytable').dataTable({
+            "pageLength": 25,
+            "paging": true,
+            "bSort": true,
+            "language": {
+            "lengthMenu": "Hiển thị _MENU_ Dòng"  } 
+        });
       })
     })
   </script>

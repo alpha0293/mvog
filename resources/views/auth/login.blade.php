@@ -11,7 +11,7 @@
     <link href="{{asset('user_asset/assets/css/lg/bootstrap-theme.min.css')}}" rel="stylesheet" >
     <link href="{{asset('user_asset/assets/css/lg/bootstrap-social.css')}}" rel="stylesheet" >   
     <link href="{{asset('user_asset/assets/css/lg/templatemo_style.css')}}" rel="stylesheet" >   
-    <link href="{{asset('user_asset/assets/css/lg/lg.css')}}" rel="stylesheet" > 
+    <link href="{{asset('user_asset/assets/css/lg.css')}}" rel="stylesheet" > 
     <link rel="stylesheet" href="{{asset('admin_asset/plugins/fontawesome-free/css/all.min.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,7 +29,7 @@
 
     
 </head>
-<body class="templatemo-bg-image-1">
+<body class="bg-image-1" style="background-image: url('{{ asset('user_asset/images/vanhanh.jpg')}}');">
     <div class="container-fluid">
         <div class="col-md-12">         
             <form class="templatemo-login-form-2" role="form" action="{{ route('login') }}" method="post"> @csrf
