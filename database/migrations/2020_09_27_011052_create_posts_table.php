@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('thumbimg');
             $table->string('title');
-			$table->longText('content');
+            $table->longText('content');
             $table->unsignedBigInteger('idcategory');
             $table->unsignedBigInteger('status');
             $table->foreign('idcategory')->references('id')->on('categories');

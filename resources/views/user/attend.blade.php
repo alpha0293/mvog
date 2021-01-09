@@ -4,6 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{asset('toastr/toastr.min.css')}}">
      @include('user.layout.head')
    
     <!-- DataTables -->
@@ -34,8 +35,8 @@
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
      <div class="header-attend">
-      <h3><b>Điểm danh nhóm Đà Nẵng</b></h3>
-      <h4 style="padding:15px;">Trưởng nhóm: Giuse Nguyễn Anh Tuấn</h4>
+      <h3><b>Điểm danh nhóm {{$lstdutu->first()->namezone->name}}</b></h3>
+      <h4 style="padding:15px;">Trưởng nhóm: {{'asdasd'}}</h4>
       <select aria-label="Tháng" name="month" id="month" title="Tháng" class="sl_at">
         <option value="0">Tháng</option>
         @for($i=1; $i<=12; $i++)
@@ -110,8 +111,9 @@
 </div>
 
 <!--script-->
-  @include('user.layout.script')
 
+  @include('user.layout.script')
+ <script src="{{asset('toastr/toastr.min.js')}}"></script>
           <script type="text/javascript">
        $('#Save').click(function () {
           statusList = jQuery('input[type=checkbox]')
@@ -131,6 +133,7 @@
                 'year': jQuery('[name=year]').val() ,
                 'data': JSON.stringify(data)} 
                 ,function(data){
+                  toastr.success('Thành công!!!','THÔNG BÁO');
                console.log(JSON.stringify(data));
               });
 

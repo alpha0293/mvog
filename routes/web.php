@@ -121,3 +121,4 @@ Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderCon
     ->name('ckfinder_browser');
 
 Route::get('gety','AdminController@gety')->name('gety');
+Route::post('offpost','PostController@offpost')->name('offpost')->middleware('auth');
