@@ -180,6 +180,28 @@ class AdminController extends Controller
         }
         else
         {
+            return $request->id;
+            $data = json_decode($request->data, true);
+            foreach ($data as $dt) {
+                try {
+                    $idyear = Dutu::findOrFail($dt['id'])->idyear;
+                    Dutu::where($dt['id']->update(['idyear' => $idyear + 1]));
+                } catch (Exception $e) {
+                    
+                }
+            }
+        }            
+    }
+     public function lenlopall(Request $request)
+    {
+        return $request->all();
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            return $request->id;
             $data = json_decode($request->data, true);
             foreach ($data as $dt) {
                 try {
@@ -223,4 +245,15 @@ class AdminController extends Controller
             }
         }            
     }
+    //  public function lenlop(Request $request)
+    // {
+    //     if(Auth::user()->roleid != 1)
+    //     {
+    //         abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+    //     }
+    //     else
+    //     {
+    //         return $request->id;
+    //     }            
+    // }
 }

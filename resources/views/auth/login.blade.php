@@ -1,20 +1,19 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
-    <link href="{{asset('user_asset/assets/css/lg/font-awesome.min.css')}}" rel="stylesheet" >
-    <link href="{{asset('user_asset/assets/css/lg/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('user_asset/assets/css/lg/bootstrap-theme.min.css')}}" rel="stylesheet" >
-    <link href="{{asset('user_asset/assets/css/lg/bootstrap-social.css')}}" rel="stylesheet" >   
-    <link href="{{asset('user_asset/assets/css/lg/templatemo_style.css')}}" rel="stylesheet" >   
-    <link href="{{asset('user_asset/assets/css/lg.css')}}" rel="stylesheet" > 
-    <link rel="stylesheet" href="{{asset('admin_asset/plugins/fontawesome-free/css/all.min.css')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Font Awesome -->
+       <link rel="stylesheet" href="{{asset('admin_asset/plugins/fontawesome-free/css/all.min.css')}}">
+      <!-- Ionicons -->
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- icheck bootstrap -->
+      <link rel="stylesheet" href="{{asset('admin_asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+      <!-- Theme style -->
+      <link rel="stylesheet" href="{{asset('admin_asset/dist/css/adminlte.min.css')}}">
+      <!-- Google Font: Source Sans Pro -->
+      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">  
+      <link href="{{asset('user_asset/assets/css/lg.css')}}" rel="stylesheet" > 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -26,50 +25,51 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <!--   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"> -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
 
     
 </head>
 <body class="bg-image-1" style="background-image: url('{{ asset('user_asset/images/vanhanh.jpg')}}');">
     <div class="container-fluid">
-        <div class="col-md-12">         
-            <form class="templatemo-login-form-2" role="form" action="{{ route('login') }}" method="post"> @csrf
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>Đăng nhập</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="templatemo-one-signin col-md-6">
-                        <div class="form-group">
-                          <div class="col-md-12">                   
-                            <label for="email" class="control-label">Email</label>
-                            <div class="templatemo-input-icon-container">
-                                <i class="fa fa-user"></i>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        <div class="col-md-12" >
+            <div class="col-md-offset-4 col-md-4" id="box"> 
+               <h2>Đăng nhập</h2> 
+               <hr> 
+               <form class="form-horizontal" id="login_form" role="form" action="{{ route('login') }}" method="post"> @csrf
+                <fieldset> 
+                 <div class="form-group"> 
+
+                  <div class="col-md-12">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-addon input-group-text"><i class="fas fa-envelope"></i></span>
+                      </div>
+                        <input type="email" placeholder="Nhập Email..." class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>                                                          
-                          </div>              
-                        </div>
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <label for="password" class="control-label">Password</label>
-                            <div class="templatemo-input-icon-container">
-                                <i class="fa fa-lock"></i>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required autocomplete="current-password">
+                    </div>
+                  </div> 
+                 </div> 
+                 <div class="form-group"> 
+                  <div class="col-md-12"> 
+                   <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-addon input-group-text"><i class="fas fa-lock"></i></span>
+                      </div>
+                    <input type="password" placeholder="Nhập Password..." class="form-control @error('password') is-invalid @enderror" id="password" name="password" required autocomplete="current-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group">
+                   </div> 
+                  </div> 
+                 </div> 
+                 <div class="form-group">
                           <div class="col-md-12">
                        <!--     <div class="checkbox">
                                 <label>
@@ -85,28 +85,28 @@
                                 </div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="col-md-12">
-                            <input type="submit" value="LOG IN" class="btn btn-warning" > 
-                          </div>
-                        </div>
-                        <div class="form-group">
+                 <div class="form-group"> 
+                  <div class="col-md-12"> 
+                   <input type="submit" value="Đăng nhập" class="btn btn-md btn-danger pull-right" > 
+                  </div> 
+                 </div> 
+                 <div class="form-group">
                             <div class="col-md-12">
                                  @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}">
+                                    <a style="color: color: #ffffffc4;" href="{{ route('password.request') }}">
                                         {{ __('Quên mật khẩu') }}
                                     </a>
                                 @endif
                             </div>
                             <div class="col-md-12"> 
-                                <a href="{{'register'}}" class="text-center">Đăng ký</a>
+                                <a style="color: #ffffffc4;" href="{{'register'}}" class="text-center">Đăng ký</a>
                             </div>
                             </div>
                         </div>
-                    </div>
-                      
-                </div>                  
-              </form>                         
+                </fieldset> 
+               </form> 
+              </div> 
+          
         </div>
     </div>
 </body>

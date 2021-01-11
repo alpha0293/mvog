@@ -6,7 +6,7 @@
     float: right;
 }
 </style>
-	<!-- /.row -->
+  <!-- /.row -->
     <section class="content">
       <div class="container-fluid">
        <div class="row">
@@ -29,13 +29,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                  	@foreach($lstpost as $post)
+                    @foreach($lstpost as $post)
                     <tr>
                       <td>{!!$post->title!!}</td>
                       <td>{!!$post->namecategory->name!!}</td>
                       <td><img src="{!!$post->thumbimg!!}" alt="" style="width: 100px; height: 100px;"></td>
                       <td>
-                        <input type="checkbox" class="form-control" @if($post->status==1) checked="checked" @endif onclick="offpost({{$post->id}},this.checked);">
+                        <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                          <input type="checkbox" class="custom-control-input" id="{{$post->id}}" @if($post->status==1) checked="checked" @endif onclick="offpost({{$post->id}},this.checked);">
+                          <label class="custom-control-label" for="{{$post->id}}"></label>
+                        </div>
                       </td>
                       <td>
                             <a class="fa fa-eye" style="color:green; padding-right: 10%" href="{{route('show.post',$post->id)}}"></a>
