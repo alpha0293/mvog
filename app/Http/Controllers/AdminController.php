@@ -12,6 +12,9 @@ use App\Dutu;
 use App\Zone;
 use Auth;
 use App\User;
+use App\Exports\UsersExport;
+use App\Exports\DutuExportView;
+use Maatwebsite\Excel\Facades\Excel;
 class AdminController extends Controller
 {
     /**
@@ -245,15 +248,59 @@ class AdminController extends Controller
             }
         }            
     }
-    //  public function lenlop(Request $request)
-    // {
-    //     if(Auth::user()->roleid != 1)
-    //     {
-    //         abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-    //     }
-    //     else
-    //     {
-    //         return $request->id;
-    //     }            
-    // }
+
+    public function export() //export EXCELL
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function exportview() //export EXCELL
+    {
+        return Excel::download(new DutuExportView, 'users-view.xlsx');
+    }
+
+    public function import()
+    {
+        
+    }
+    public function canhbao()
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            $lstdutu = Dutu::with('namezone','namestatus','getattend','getdiem')->where('idstatus',1)->get();
+        $lstdutu2 = collect([]);
+        foreach ($lstdutu as $dutu) {
+            $vang = 0;
+            $diemtb = 0;
+            $diemtb = $dutu->getdiem->avg('diem');
+            foreach ($dutu->getattend as $attend) {
+                if($attend->status == 0)
+                    $vang++;
+            }
+            if($vang/$dutu->getattend->count() >= 1/3)
+            {
+                $tongdiemdanh = $dutu->getattend->count();
+                // dd(gettype($dutu));
+                $dutu = collect($dutu);
+                try {
+                    $dutu->put('vang',$vang);
+                    $dutu->put('tongdiemdanh',$tongdiemdanh);
+                    $dutu->put('diemtb',$diemtb);
+                } catch (Exception $e) {
+                    dd($e->getMessage());
+                }
+                $lstdutu2->push($dutu);
+
+            }
+        }
+        // dd($lstdutu2);
+        $lstdutu2 = (object) $lstdutu2;
+        $index = 1;
+        return view('admin.dutu.canhbao',compact('lstdutu2','index'));
+        }   
+    }
 }

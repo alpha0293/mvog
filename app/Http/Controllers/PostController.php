@@ -26,7 +26,7 @@ class PostController extends Controller
         {
             abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
         }
-        $lstpost = Post::paginate(10);
+        $lstpost = Post::orderBy('updated_at','DESC')->paginate(10);
         return view('post.list',compact('lstpost'));
     }
 
