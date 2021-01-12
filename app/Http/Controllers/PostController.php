@@ -26,7 +26,7 @@ class PostController extends Controller
         {
             abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
         }
-        $lstpost = Post::orderBy('updated_at','DESC')->paginate(10);
+        $lstpost = Post::orderBy('id','DESC')->paginate(10);
         return view('post.list',compact('lstpost'));
     }
 
@@ -88,6 +88,19 @@ class PostController extends Controller
         //
 		// $post = Post::get()->where('id',$id)->first();
         $post = Post::findOrFail($id);
+        if ($post->status == 0)
+        {
+            if (Auth::check() && Auth::user()->roleid == 1)
+            {
+                # code...
+            }
+            else
+            {
+                abort(404);
+            }
+            
+            # code...
+        }
         $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
         $lstpopularpost = Post::all()->where('status',1)->random(5); //post ngẫu nhiên
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');

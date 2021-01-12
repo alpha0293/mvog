@@ -10,7 +10,7 @@ class DutuExportView implements FromView
     public function view(): View
     {
         return view('admin.dutu.lenlop', [
-            'lstlenlop' => Dutu::all()->where('idstatus',1)->where('idyear','<>',4),
+            'lstlenlop' => Dutu::all(),
             'index' => 1,
         ]);
     }

@@ -1,36 +1,3 @@
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-</head>
-<body>
-
-<h2>Chuyển Năm SH</h2>
-<h3>Tất cả các dự tu sẽ tự động chuyển năm sinh hoạt từ 1 lên 2, 2 lên 3, 3 thành dự tu tự do. Quản trị viên cần cân nhắc trước khi thực thiện hành động này</h3>
-
 <table>
   <thead>
                   <tr>
@@ -54,23 +21,16 @@ tr:nth-child(even) {
                             <td id="stt">{{$index++}}</td>
                             <td id="ma">{{$i->holyname}}</td>
                             <td id="ten">{{$i->name}}</td>
-                            <td id=ns>{{$i->dob}}</td>
+                            <td id="ns">{{$i->dob}}</td>
                             <td id="truong">{{$i->school}}</td>
                             <td id="nganh">{{$i->majors}}</td>
                             <td id="xu">{{$i->parish}}</td>
                             <td id="nam">{{$i->nameyear->name}}</td>
                             <td id="nhom">{{$i->namezone->name}}</td>
                             <td id="trangthai"><small class="badge badge-primary">{{$i->namestatus->name}}</small></td>
-                            <td>
-                              <a class="fa fa-eye" style="color:green; padding-right: 10%" href="{{url('dutu',$i->id)}}"></a>
-                <a class="fa fa-trash-alt" style="color:green; padding-right: 10%" href="{{url('dutu/delete',$i->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Dự tu này không?');" title="Xóa"></a>
-                              <i class="fas fa-edit" style="color:red"></i>
-                            </td>
+                            <td></td>
                           </tr>
                         @endforeach
                     </tr>
                   </tbody>
 </table>
-<button>Xác nhận</button>
-</body>
-</html>
