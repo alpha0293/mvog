@@ -271,7 +271,7 @@ class AdminController extends Controller
         }
         else
         {
-            $lstdutu = Dutu::with('namezone','namestatus','getattend','getdiem')->where('idstatus',1)->get();
+            $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get();
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
             $vang = 0;

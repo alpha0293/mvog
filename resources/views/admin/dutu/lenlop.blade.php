@@ -13,7 +13,7 @@ table {
 
 td, th {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
@@ -28,7 +28,7 @@ tr:nth-child(even) {
           <div class="col-lg-12">
             <h3 class="card-title" style="color: #0d83c5cc;margin-top: 15px; margin-bottom: 15px;" id="addnhom_title">Danh sách những dự tu đủ điều kiện lên lớp </h3>
               <div  class="card-header">
-                <button class="button danger" onclick="lenlopall()">Lên lớp tất cả </button>
+                <button class="btn btn-primary" onclick="lenlopall()">Cho lên lớp tất cả</button>
               </div>
               
               <!-- /.card-header -->
