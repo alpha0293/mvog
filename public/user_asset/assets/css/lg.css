@@ -10,3 +10,16 @@
 	margin: 0 auto;
     border: none;
 }
+#box {  
+border: 2px solid rgb(200, 200, 200);   
+box-shadow: rgba(0, 0, 0, 0.9) 0px 10px 40px 2px; 
+background: rgba(200, 200, 200, 0.1);   
+border-radius: 15px; top:50px;
+margin: 40px;
+
+}
+ 
+h2 {    
+text-align:center;  
+color:#fff;
+}

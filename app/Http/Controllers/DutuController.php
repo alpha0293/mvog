@@ -57,7 +57,7 @@ class DutuController extends Controller
 		{
 			if(Dutu::all()->where('id',$id)->count()==1)
 			{
-				return redirect()->route('getupdate.dutu',$id);
+				return redirect()->route('show.dutu',$id);
 			}
 			else
 			{
@@ -85,7 +85,7 @@ class DutuController extends Controller
 			{
 				//dd(Dutu::validator($request->all())->errors());
 				$vali=Dutu::validator($request->all());
-				dd($vali->errors());
+				// dd($vali->errors());
 				return Redirect::back()->withErrors($vali);
 			}
 			else

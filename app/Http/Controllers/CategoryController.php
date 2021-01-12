@@ -157,4 +157,27 @@ class CategoryController extends Controller
             return $e->getMessage();
         }
     }
+    public function offcat(Request $request)
+    {
+        //
+        // return $request->all();
+        if(Auth::user()->roleid != 1)
+        {
+            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
+        }
+        else
+        {
+            if($request->value == 'true')
+                $status = 1;
+            else
+                $status = 0;
+            try {
+                Category::where('id',$request->catid)->update(['status'=> $status]);
+                return 'thanh cong!!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }
+        
+    }
 }

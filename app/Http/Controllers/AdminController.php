@@ -183,6 +183,28 @@ class AdminController extends Controller
         }
         else
         {
+            return $request->id;
+            $data = json_decode($request->data, true);
+            foreach ($data as $dt) {
+                try {
+                    $idyear = Dutu::findOrFail($dt['id'])->idyear;
+                    Dutu::where($dt['id']->update(['idyear' => $idyear + 1]));
+                } catch (Exception $e) {
+                    
+                }
+            }
+        }            
+    }
+     public function lenlopall(Request $request)
+    {
+        return $request->all();
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            return $request->id;
             $data = json_decode($request->data, true);
             foreach ($data as $dt) {
                 try {
@@ -249,7 +271,7 @@ class AdminController extends Controller
         }
         else
         {
-            $lstdutu = Dutu::with('namezone','namestatus','getattend','getdiem')->where('idstatus',1)->get();
+            $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get();
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
             $vang = 0;

@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $lstcat = Category::all()->load('getpost');
+        $lstcat = Category::all()->where('status',1)->load('getpost');
         $lstcat2 = collect([]);
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
         $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
