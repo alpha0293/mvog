@@ -189,3 +189,15 @@ span{
     .navbar-inverse .navbar-nav > li > a {
     font-family: 'Josefin Sans', sans-serif;
      }
+    .single_page > h1 {
+    color: #333;
+    font-family: 'Philosopher';
+    font-size: 30px;
+    line-height: 38px;
+    margin: 10px 0 -10px;
+    padding: 0 0 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+   }

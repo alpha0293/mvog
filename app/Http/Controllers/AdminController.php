@@ -10,6 +10,7 @@ use App\Attendance;
 use App\Role;
 use App\Dutu;
 use App\Zone;
+use App\Year;
 use Auth;
 use App\User;
 use App\Exports\UsersExport;
@@ -31,7 +32,10 @@ class AdminController extends Controller
         $iddt=Dutu::get()->where('idstatus','1');
 		//get all dutu from zone...
 		$izone=Dutu::get();
-
+        $zone1 = Zone::all();
+        $year = Year::all();
+        $lstchoduyet = Dutu::all()->where('idstatus','<>',1);
+        $truongnhom = User::all()->where('roleid',2);
         try {
             //dd(($izone->first->getattend->getattend)->sortBy('month'));
         } catch (\Exception $e) {
@@ -40,7 +44,7 @@ class AdminController extends Controller
         //dd($izone->first->getattend->getattend->all());
         $index=1;
         $index2=1;
-        return view('admin.home',compact('iddt','izone','index','index2'));
+        return view('admin.home',compact('iddt','izone','index','index2','zone1','year','lstchoduyet','truongnhom'));
 
 		
     }

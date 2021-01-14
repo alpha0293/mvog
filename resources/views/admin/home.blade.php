@@ -1,8 +1,7 @@
 @extends('admin.layout.layout')
 @section('content')
  <!-- Content Wrapper. Contains page content -->
-  
-    
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -29,7 +28,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{$iddt->count()}}</h3>
 
                 <p>Dự tu đang sinh hoạt</p>
               </div>
@@ -44,7 +43,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53</h3>
+                <h3>{{$lstchoduyet->count()}}</h3>
                 <!-- phần trăm : <sup style="font-size: 20px"></sup> -->
 
                 <p>Chờ duyệt</p>
@@ -60,7 +59,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$truongnhom->count()}}</h3>
 
                 <p>Trưởng các nhóm</p>
               </div>
@@ -75,7 +74,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{$zone1->count()}}</h3>
 
                 <p>Số lượng nhóm</p>
               </div>
@@ -144,7 +143,7 @@
           	<div class="card-header">
                 <h3 class="card-title" style="text-align: center; float: none; font-weight: 800; font-size:18pt; color: red;">Danh sách thành viên dự tu</h3>
               </div>
-            <table class="table table-bordered table-striped">
+            <table id="mytable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>STT</th>
@@ -161,7 +160,6 @@
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
                           @foreach ($iddt as $i)
                           <tr>
                             <td id="stt">{{$index++}}</td>
@@ -181,9 +179,9 @@
                             </td>
                           </tr>
                         @endforeach
-                    </tr>
                   </tbody>
                 </table>
+                <button id="btnExport">EXPORT REPORT</button>
           </section>
         </div>
         <!-- /.row (main row) -->
@@ -193,8 +191,34 @@
   <!-- /.content-wrapper -->
  
   <!-- chart -->
-  <script src="{{asset('admin_asset/mystyle/js_them/stackchart.js')}}"></script>
-  <script src="{{asset('admin_asset/mystyle/js_them/donutchart.js')}}"></script>
-  <!-- end chart -->
+    @include('admin.layout.chart')
+    @include('admin.layout.donutchart')
+  <!-- <script src="{{asset('admin_asset/mystyle/js_them/donutchart.js')}}"></script> -->
+  <script src="{{asset('admin_asset/mystyle/js_them/jquery-table2excel.js')}}"></script>
+
+  <script type="text/javascript">
+    
+
+      $(document).ready( function() {
+          $("#mytable").dataTable({
+            "pageLength": 10,
+            "paging": true,
+            "bSort": true,
+            "language": {
+            "lengthMenu": "Hiển thị _MENU_ Dòng"  } 
+        });
+
+    } );
+       $("#btnExport").click(function(){
+        $("#mytable").table2excel({
+          // exclude CSS class
+          exclude:".noExl",
+          name:"Worksheet Name",
+          filename:"SomeFile",//do not include extension
+          fileext:".xls" // file extension
+        });
+      });
+  </script>
+  <!-- end chart -->  
   
 @endsection
