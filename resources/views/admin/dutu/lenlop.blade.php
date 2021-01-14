@@ -1,4 +1,3 @@
-
 @extends('admin.layout.layout')
 @section('content')
 <style type="text/css">
@@ -36,25 +35,21 @@ tr:nth-child(even) {
               <div class="card-body table-responsive p-0">
 
                 <table id="table-post" class="table table-bordered table-hover">
-
                   <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Tên thánh</th>
-                    <th>Tên thành viên(s)</th>
-                    <th>Ngày sinh</th>
-                    <th>Trường học</th>
-                    <th>Ngành học</th>
-                    <th>Giáo xứ</th>
-                    <th>Năm dự tu</th>
-                    <th>Nhóm</th>
-                    
-                  </tr>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên thánh</th>
+                      <th>Tên thành viên(s)</th>
+                      <th>Ngày sinh</th>
+                      <th>Trường học</th>
+                      <th>Ngành học</th>
+                      <th>Giáo xứ</th>
+                      <th>Năm dự tu</th>
+                      <th>Nhóm</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    <tr>
                           @foreach ($lstlenlop as $i)
-                          
                           <tr>
                             <input type="hidden" id="iddutu" name="iddutu" value="{{$i->id}}">
                             <td id="stt">{{$index++}}</td>
@@ -68,7 +63,6 @@ tr:nth-child(even) {
                             <td id="nhom">{{$i->namezone->name}}</td>
                           </tr>
                         @endforeach
-                    </tr>
                   </tbody>
                 </table>
               </div>

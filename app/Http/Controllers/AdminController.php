@@ -15,6 +15,7 @@ use Auth;
 use App\User;
 use App\Exports\UsersExport;
 use App\Exports\DutuExportView;
+use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 class AdminController extends Controller
 {
@@ -135,7 +136,7 @@ class AdminController extends Controller
     }
 
 
-    public function lstxetduyet()
+    public function lstxetduyet() //Load ds xét duyệt
     {
         if(Auth::user()->roleid != 1)
         {
@@ -154,19 +155,39 @@ class AdminController extends Controller
         }
         else
         {
-            $data = json_decode($request->data, true);
-            foreach ($data as $dt)
+            if($request->value == 'true')
+                $status = 1;
+            else
             {
-                try {
-                    Dutu::where($dt['id']->update(['idstatus' => 1]));
-                } catch (Exception $e) {
-                    
-                }
+                $status = 2;
+            }
+            try {
+                Dutu::where($request->id)->update(['idstatus' => $status]);
+                return "Thanh cong";
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
         }
     }
 
-    public function lstlenlop()
+    public function xetduyetall(Request $request) //xét duyệt all dự tu vào sinh hoạt
+    {
+        if(Auth::user()->roleid != 1)
+        {
+            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        }
+        else
+        {
+            try {
+                Dutu::where('idstatus',2)->update(['idstatus' => 1]);
+                return "Thanh cong";
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        }
+    }
+
+    public function lstlenlop() //load danh sách
     {
         if(Auth::user()->roleid != 1)
         {
@@ -179,23 +200,28 @@ class AdminController extends Controller
 
 
 
-    public function lenlop(Request $request)
+    public function lenlop(Request $request) //len lop 1 dự tu
     {
+        
         if(Auth::user()->roleid != 1)
         {
             abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
         }
         else
         {
-            return $request->id;
-            $data = json_decode($request->data, true);
-            foreach ($data as $dt) {
-                try {
-                    $idyear = Dutu::findOrFail($dt['id'])->idyear;
-                    Dutu::where($dt['id']->update(['idyear' => $idyear + 1]));
-                } catch (Exception $e) {
-                    
-                }
+            $idyear = Dutu::findOrFail($request->id)->idyear;
+
+            if($request->value == 'true')
+                $year = $idyear + 1;
+            else
+            {
+                $year = $idyear - 1;
+            }
+            try {
+                Dutu::where('id',$request->id)->update(['idyear' => $year]);
+                return 'Thanh cong';
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
         }            
     }
@@ -208,16 +234,10 @@ class AdminController extends Controller
         }
         else
         {
-            return $request->id;
-            $data = json_decode($request->data, true);
-            foreach ($data as $dt) {
-                try {
-                    $idyear = Dutu::findOrFail($dt['id'])->idyear;
-                    Dutu::where($dt['id']->update(['idyear' => $idyear + 1]));
-                } catch (Exception $e) {
-                    
-                }
-            }
+           $lstdutu = Dutu::where('idyear','<>',4)->get();
+           foreach ($lstdutu as $dutu) {
+                $dutu->idyear += 1;
+           }
         }            
     }
 
@@ -233,7 +253,7 @@ class AdminController extends Controller
         return view('admin.dutu.nhomtruong',compact('lstnhomtruong','index','lstzone'));
     }
 
-    public function nhomtruong(Request $request)
+    public function nhomtruong(Request $request) //Set nhom trưởng cho 1 dự tu
     {
         if(Auth::user()->roleid != 1)
         {
@@ -241,14 +261,17 @@ class AdminController extends Controller
         }
         else
         {
-            $data = json_decode($request->data, true);
-            foreach ($data as $dt) {
-                try {
-                    // $idyear = Dutu::findOrFail($dt['id'])->idyear;
-                    User::where($dt['id']->update(['roleid' => 2]));
-                } catch (Exception $e) {
-                    
-                }
+            if($request->value == 'true')
+                $role = 2;
+            else
+            {
+                $role = 3;
+            }
+            try {
+                User::where('id',$request->id)->update(['roleid' => $role]);
+                return "Thanh cong";
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
         }            
     }
@@ -265,8 +288,20 @@ class AdminController extends Controller
 
     public function import()
     {
-        
+        return view('admin.import');
     }
+
+    public function submitimport()
+    {
+        try {
+            $import = Excel::import(new UsersImport, request()->file('user_file'));
+            return 'Thanh công rồi mẹ ơi!!!';
+        } catch (Exception $e) {
+            return "Lỗi ".$e->getMessage();
+        }
+    }
+
+
     public function canhbao()
     {
         if(Auth::user()->roleid != 1)
@@ -285,21 +320,23 @@ class AdminController extends Controller
                 if($attend->status == 0)
                     $vang++;
             }
-            if($vang/$dutu->getattend->count() >= 1/3)
-            {
-                $tongdiemdanh = $dutu->getattend->count();
-                // dd(gettype($dutu));
-                $dutu = collect($dutu);
-                try {
-                    $dutu->put('vang',$vang);
-                    $dutu->put('tongdiemdanh',$tongdiemdanh);
-                    $dutu->put('diemtb',$diemtb);
-                } catch (Exception $e) {
-                    dd($e->getMessage());
+            if ($dutu->getattend->count() != 0) {
+                if($vang/$dutu->getattend->count() >= 1/3)
+                {
+                    $tongdiemdanh = $dutu->getattend->count();
+                    // dd(gettype($dutu));
+                    $dutu = collect($dutu);
+                    try {
+                        $dutu->put('vang',$vang);
+                        $dutu->put('tongdiemdanh',$tongdiemdanh);
+                        $dutu->put('diemtb',$diemtb);
+                    } catch (Exception $e) {
+                        dd($e->getMessage());
+                    }
+                    $lstdutu2->push($dutu);
                 }
-                $lstdutu2->push($dutu);
-
             }
+            
         }
         // dd($lstdutu2);
         $lstdutu2 = (object) $lstdutu2;
