@@ -11,7 +11,7 @@
       <div class="container-fluid">
        <div class="row">
           <div class="col-lg-12">
-            <h3 class="card-title" style="color: #0d83c5cc;margin-top: 15px; margin-bottom: 15px;" id="addnhom_title">Danh sách bài viết</h3>
+            <h3 class="card-title" style="color: #0d83c5cc;margin-top: 15px; margin-bottom: 15px;" id="addnhom_title">Danh sách thể loại</h3>
               <div class="card-header">
             
               </div>
@@ -24,7 +24,7 @@
                       <th>Tên thể loại</th>
 					  <th>Số bài viết</th>
 					  <th>Hành động</th>
-                      <th>Trangj thái</th>
+                      <th>Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -32,9 +32,10 @@
                     <tr>
                       <td>{{$cat->name}}</td>
                       <td>{{$cat->getpost->count()}}</td>
-                      <td><a href="{{route('delete.category',$cat->id)}}" class="fa fa-trash-alt" style="color:green; padding-right: 10%" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa" >Delete</a>
-							<a href="{{route('show.category',$cat->id)}}" class="fa fa-eye" style="color:green; padding-right: 10%">View</a>
+                      <td>
+							<a href="{{route('show.category',$cat->id)}}" class="fa fa-eye" style="color:green; padding-right: 10%"></a>
 							<a href="{{route('getupdate.category',$cat->id)}}"><i class="fas fa-edit" style="color:red"></i></a>
+							<a href="{{route('delete.category',$cat->id)}}" class="fa fa-trash-alt" style="color:green; padding-right: 10%" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa" ></a>
 					  </td>
                       <td>
                         <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">

@@ -9,6 +9,7 @@ use Redirect;
 use Auth;
 use App\Category;
 use App\Post;
+use App\Notifications;
 
 
 
@@ -80,9 +81,14 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
+
         $cat = Category::findOrFail($id);
         $lstpost = Post::where('idcategory',$id)->where('status',1)->paginate(10);
-        return view('category.view',compact('cat','lstpost'));
+        $lstcat = Category::all()->where('status',1);
+        $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
+        $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
+        $lstpopularpost = Post::all()->where('status',1)->random(5);
+        return view('category.view',compact('cat','lstpost','lstnoti','lstpopularpost','lstcat','postslide'));
     }
 
     /**
