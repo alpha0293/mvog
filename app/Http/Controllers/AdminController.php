@@ -14,6 +14,7 @@ use Auth;
 use App\User;
 use App\Exports\UsersExport;
 use App\Exports\DutuExportView;
+use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 class AdminController extends Controller
 {
@@ -179,15 +180,6 @@ class AdminController extends Controller
             } catch (Exception $e) {
                 return $e->getMessage();
             }
-            // $data = json_decode($request->data, true);
-            // foreach ($data as $dt)
-            // {
-            //     try {
-            //         Dutu::where($dt['id']->update(['idstatus' => 1]));
-            //     } catch (Exception $e) {
-                    
-            //     }
-            // }
         }
     }
 
@@ -277,15 +269,6 @@ class AdminController extends Controller
             } catch (Exception $e) {
                 return $e->getMessage();
             }
-            // $data = json_decode($request->data, true);
-            // foreach ($data as $dt) {
-            //     try {
-            //         // $idyear = Dutu::findOrFail($dt['id'])->idyear;
-            //         User::where($dt['id']->update(['roleid' => 2]));
-            //     } catch (Exception $e) {
-                    
-            //     }
-            // }
         }            
     }
 
@@ -301,8 +284,20 @@ class AdminController extends Controller
 
     public function import()
     {
-        
+        return view('admin.import');
     }
+
+    public function submitimport()
+    {
+        try {
+            $import = Excel::import(new UsersImport, request()->file('user_file'));
+            return 'Thanh công rồi mẹ ơi!!!';
+        } catch (Exception $e) {
+            return "Lỗi ".$e->getMessage();
+        }
+    }
+
+
     public function canhbao()
     {
         if(Auth::user()->roleid != 1)
