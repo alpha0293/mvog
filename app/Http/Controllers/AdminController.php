@@ -249,7 +249,7 @@ class AdminController extends Controller
         }
         $lstzone = Zone::all();
         $index = 1;
-        $lstnhomtruong = Dutu::all()->where('idstatus',1);
+        $lstnhomtruong = Dutu::with('getuser')->where('idstatus',1)->get();
         return view('admin.dutu.nhomtruong',compact('lstnhomtruong','index','lstzone'));
     }
 
