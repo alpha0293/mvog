@@ -107,4 +107,9 @@ class Dutu extends Model
     {
         return $this->hasMany('App\Diemthi','iddutu','id');
     }
+
+    public function getuser()
+    {
+        return $this->hasOne('App\User','id');
+    }
 }
