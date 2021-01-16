@@ -89,7 +89,7 @@
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>
-                        <input name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
+                        <input namdutu="{{$dutu->idyear}}" name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
                       </td>
                       <td>
                         <input name="note_{{$dutu->id}}" type="text" class="form-control">
@@ -119,18 +119,23 @@
           statusList = jQuery('input[type=checkbox]')
           data = []
           for(i=0;i<statusList.length;i++) {
-          std = {
-            'iddutu': jQuery(statusList[i]).attr('name'),
-            'status': jQuery(statusList[i]).prop('checked'),
-            'note': jQuery('[name=note_'+jQuery(statusList[i]).attr('name')+']').val()
-                }
-                data.push(std)
+              if (jQuery(statusList[i]).attr('namdutu')===jQuery('[name=ac_year]').val() || jQuery('[name=ac_year]').val()==="ALL") {
+                std = {
+                'iddutu': jQuery(statusList[i]).attr('name'),
+                'status': jQuery(statusList[i]).prop('checked'),
+                'note': jQuery('[name=note_'+jQuery(statusList[i]).attr('name')+']').val()
+                    }
+                    data.push(std)
               }
+              
+            }
+            
           
               $.post('{{ route('save.attend') }}',
                 {'_token': "{{ csrf_token() }}",
                 'month': jQuery('[name=month]').val(),
-                'year': jQuery('[name=year]').val() ,
+                'year': jQuery('[name=year]').val(),
+                'namdutu': jQuery('[name=ac_year]').val(),
                 'data': JSON.stringify(data)} 
                 ,function(data){
                   toastr.success('Thành công!!!','THÔNG BÁO');
@@ -140,30 +145,68 @@
             });
     </script>
     <script type="text/javascript">
+      var previous;
+      $('#ac_year').click( function(){
+         previous = this.value;
+      });
       $('#ac_year').change( function(){
           var sl, filter, table, tr, td, i, slValue;
           sl = $('#ac_year');
           filter = sl.val();
           table = $("#tableID");
           tr = $("tr");
-          if (filter === 'ALL') {
-               $ ('tr').show ();
+           var chk = jQuery('input[type=checkbox]');
+           for(j=0;j<chk.length;j++) {
+            
+              if (jQuery(chk[j]).prop('checked') == true ) { //if 1
+                 // console.log(jQuery(chk[j]).attr('namdutu'));
+                 if (confirm('Bạn chưa xác nhận điểm danh, bạn muốn chuyển qua điểm danh năm khác?')) { // if 2
+                     for(k=0;k<chk.length;k++){
+                      jQuery(chk[k]).prop("checked", false);
+                     }
+                     if (filter === 'ALL' ) {
+                         $ ('tr').show ();
+                     }
+                     else{
+                      for (i = 1; i < tr.length; i++) {
+                            td = tr[i].children[3];
+                            if (td) {
+                              slValue = td.textContent || td.innerText;
+                              if (slValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                              } else {
+                                tr[i].style.display = "none";
+                              }
+                            }       
+                          }
+                     }
+                     } 
+                else { //else if 2
+                  // break;
+                  filter = previous;
+                  this.value = previous;
+                  }
+              }
+              else{ // else if 1
+                if (filter === 'ALL') {
+                         $ ('tr').show ();
+                     }
+                     else{
+                      for (i = 1; i < tr.length; i++) {
+                            td = tr[i].children[3];
+                            if (td) {
+                              slValue = td.textContent || td.innerText;
+                              if (slValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                              } else {
+                                tr[i].style.display = "none";
+                              }
+                            }       
+                          }
+                     }
+              }
            }
-           else{
-            for (i = 1; i < tr.length; i++) {
-                  td = tr[i].children[3];
-                  if (td) {
-                    slValue = td.textContent || td.innerText;
-                    if (slValue.toUpperCase().indexOf(filter) > -1) {
-                      tr[i].style.display = "";
-                    } else {
-                      tr[i].style.display = "none";
-                    }
-                  }       
-                }
-           }
-                
-            });
+         });
 
     </script>
       <script language = "text/Javascript"> 

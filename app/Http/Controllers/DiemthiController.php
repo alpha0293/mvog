@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Diemthi;
 use App\Dutu;
-
+use App\Zone;
+use App\Year;
 class DiemthiController extends Controller
 {
     /**
@@ -37,7 +38,9 @@ class DiemthiController extends Controller
         // $lstdutu = Dutu::all();
         $lstdutu = Dutu::with('nameyear')->get();
         $index = 1;
-        return view('diemthi.create',compact('lstdutu','index'));
+        $lstzone = Zone::all();
+        $lstyear = Year::all();
+        return view('diemthi.create',compact('lstdutu','index','lstzone','lstyear'));
     }
 
     /**
@@ -48,6 +51,7 @@ class DiemthiController extends Controller
      */
     public function store(Request $request)
     {
+
         if(Auth::user()->roleid != 1)
         {
             abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
@@ -65,6 +69,7 @@ class DiemthiController extends Controller
                 else
                 {
                     if($lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])){ //update diem thi
+                        return "Update";
                         try {
                             Diemthi::where('iddutu',$dt['iddutu'])->where('idnam',$dt['idnam'])->update(['diem' => $dt['diem']]);
                         } catch (Exception $e) {
@@ -72,6 +77,7 @@ class DiemthiController extends Controller
                         }
                     }
                     else{
+                        return "create";
                         try {
                             Diemthi::create([
                                 'iddutu' => $dt['iddutu'],

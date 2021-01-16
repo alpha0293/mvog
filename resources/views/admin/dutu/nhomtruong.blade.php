@@ -68,7 +68,12 @@
                           <td id="nam">{{$i->nameyear->name}}</td>
                           <td hidden="true">{{$i->namezone->id}}</td>
                           <td id="nhom">{{$i->namezone->name}}</td>
-                          <td>ok</td>
+                          <td>
+                              <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" class="custom-control-input" id="{{$i->id}}" @if($i->getuser->roleid==2) checked="checked" @endif onclick="ontruongnhom({{$i->id}},this.checked);">
+                                <label class="custom-control-label" for="{{$i->id}}"></label>
+                            </div>
+                          </td>
                         </tr>
                       @endforeach
                   </tbody>
@@ -119,6 +124,23 @@
             });
 
     </script>
+     <script type="text/javascript">
+      
+       function ontruongnhom(id, value) {
+        console.log(value);
+        $.post('{{ route('ontruongnhom') }}',
+                {'_token': "{{ csrf_token() }}",
+                'id': id,
+                'value': value } 
+                ,function(data){
+                  console.log(data);
+               //    toastr.success('Thành công!!!','THÔNG BÁO');
+               // console.log(JSON.stringify(data));
+              });
+      }
+
+        
+     </script>
   @endsection
 
   

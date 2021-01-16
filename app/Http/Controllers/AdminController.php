@@ -149,6 +149,7 @@ class AdminController extends Controller
 
     public function xetduyet(Request $request) //xét duyệt dự tu vào sinh hoạt
     {
+        // return $request->all();
         if(Auth::user()->roleid != 1)
         {
             abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
@@ -162,7 +163,7 @@ class AdminController extends Controller
                 $status = 2;
             }
             try {
-                Dutu::where($request->id)->update(['idstatus' => $status]);
+                Dutu::where('id',$request->id)->update(['idstatus' => $status]);
                 return "Thanh cong";
             } catch (Exception $e) {
                 return $e->getMessage();
