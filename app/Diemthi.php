@@ -22,7 +22,7 @@ class Diemthi extends Model
         return Validator::make($data, [
         	'iddutu' => ['required','int'],
             'idnam' => ['required', 'int', 'max:255'],
-			'diem' => ['required|numeric|between:0,99.99'],
+			'diem' => ['required','numeric','between:0,10'],
         ]);
     }
 
