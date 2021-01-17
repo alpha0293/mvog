@@ -72,7 +72,7 @@ class DiemthiController extends Controller
                 else
                 {
                     // return $lstdiemthi;
-                    $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam']);
+                    $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])->where('nam',$dt['nam']);
                     // return count($checktrung);
                     if(count($checktrung) == 0){ //create
                        try {
