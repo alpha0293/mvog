@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Auth;
-
+use App\Role;
 class RegisterController extends Controller
 {
     /*
@@ -77,6 +77,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if(Role::all()->count() == 0)
+        {
+            $role=array(
+                [
+                'id'=>'1',
+                'name'=>'Admin'
+                ],
+                [
+                'id'=>'2',
+                'name'=>'Trưởng Nhóm'
+                ],
+                [
+                'id'=>'3',
+                'name'=>'Dự Tu'
+                ]
+                );
+            foreach ($role as $ro) {
+                # code...
+                Role::create($ro);
+            }
+        }
 		if (User::all()->count()==0)
 			$ro=1;
 		else
