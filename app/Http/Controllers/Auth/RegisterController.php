@@ -9,7 +9,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Auth;
-
+use App\Role;
+use App\Status;
+use App\Year;
 class RegisterController extends Controller
 {
     /*
@@ -77,6 +79,72 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if(Role::all()->count() == 0)
+        {
+            $role=array(
+                [
+                'id'=>'1',
+                'name'=>'Admin'
+                ],
+                [
+                'id'=>'2',
+                'name'=>'Trưởng Nhóm'
+                ],
+                [
+                'id'=>'3',
+                'name'=>'Dự Tu'
+                ]
+                );
+            foreach ($role as $ro) {
+                # code...
+                Role::create($ro);
+            }
+        }
+        if(Status::all()->count() == 0)
+        {
+            $status=array(
+                [
+                'id'=>'1',
+                'name'=>'Đang Sinh Hoạt'
+                ],
+                [
+                'id'=>'2',
+                'name'=>'Chờ xét duyệt'
+                ]
+                );
+            foreach ($status as $sta) {
+                # code...
+                Status::create($sta);
+            }
+        }
+        if(Year::all()->count() == 0)
+        {
+            $years=array(
+                [
+                'id'=>'1',
+                'name'=>'Năm Nhất'
+                ],
+                [
+                'id'=>'2',
+                'name'=>'Năm Hai'
+                ],
+                [
+                'id'=>'3',
+                'name'=>'Năm Ba'
+                ],
+                [
+                'id'=>'4',
+                'name'=>'Dự Tu tự do'
+                ]
+                );
+            foreach ($years as $year) {
+                # code...
+                Year::create($ro);
+            }
+        }
+
+
+
 		if (User::all()->count()==0)
 			$ro=1;
 		else

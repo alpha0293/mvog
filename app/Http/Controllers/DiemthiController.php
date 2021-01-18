@@ -36,7 +36,7 @@ class DiemthiController extends Controller
         }
         //
         // $lstdutu = Dutu::all();
-        $lstdutu = Dutu::with('nameyear')->get();
+        $lstdutu = Dutu::where('idstatus',1)->with('nameyear')->get();
         $index = 1;
         $lstzone = Zone::all();
         $lstyear = Year::all();
@@ -61,37 +61,43 @@ class DiemthiController extends Controller
             $data = json_decode($request->data, true);
             $roleid = Auth::user()->roleid;
             $lstdiemthi = Diemthi::all();
+
             foreach ($data as $dt) {
+                // return $dt;
                 if(Diemthi::validator($dt)->fails())
                 {
-                    return -1; //validate không thành công
+                    return response()->json(['error' => Diemthi::validator($dt)], 422);
+                    // return -1; //validate không thành công
                 }
                 else
                 {
-                    if($lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])){ //update diem thi
-                        return "Update";
-                        try {
-                            Diemthi::where('iddutu',$dt['iddutu'])->where('idnam',$dt['idnam'])->update(['diem' => $dt['diem']]);
-                        } catch (Exception $e) {
-                            return 0;
-                        }
-                    }
-                    else{
-                        return "create";
-                        try {
+                    // return $lstdiemthi;
+                    $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])->where('nam',$dt['nam']);
+                    // return count($checktrung);
+                    if(count($checktrung) == 0){ //create
+                       try {
                             Diemthi::create([
                                 'iddutu' => $dt['iddutu'],
                                 'idnam' => $dt['idnam'],
                                 'diem' => $dt['diem'],
                                 'nam' => $dt['nam'],
                             ]);
-                            return 1;
+                            // return 1;
                         } catch (Exception $e) {
                             return 0;
-                        }
+                        }           
+                    }
+                    else{
+                        try {
+                            Diemthi::where('iddutu',$dt['iddutu'])->where('idnam',$dt['idnam'])->update(['diem' => $dt['diem']]);
+                            // return 'update';
+                        } catch (Exception $e) {
+                            return 0;
+                        }            
                     }
                 }
             }
+            return 'Thanh cong';
         }
     }
 

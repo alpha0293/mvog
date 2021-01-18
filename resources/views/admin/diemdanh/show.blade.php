@@ -34,31 +34,31 @@
   <section id="contentSection">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-     <div class="header-attend">
-      <h3><b>Điểm danh nhóm {{$lstdutu[0]->namezone->name}}</b></h3>
-      <h4 style="padding:15px;">Trưởng nhóm: {{Auth::user()->name}}</h4>
-      <select aria-label="Tháng" name="month" id="month" title="Tháng" class="sl_at">
-        <option value="0">Tháng</option>
-        @for($i=1; $i<=12; $i++)
-            <option @if($i==date("m")) selected @endif value="@if($i<10)0{{$i}}@else{{$i}}@endif">Tháng {{$i}}</option>
-        @endfor
-      </select>
-      <!-- select năm -->
-      <select aria-label="Năm" name="year" id="year" title="Năm" class="sl_at">
-        <option value="0">Năm học</option>
-                      @for($i=2016; $i<=date("Y"); $i++)
-                      @if(date("m")<9)
-                      <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
-                      @else
-                      <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
-                      @endif
-                      @endfor
-        <!-- <option value="0">Năm</option>
-        @for($i=2019; $i<=date("Y"); $i++)
-        <option @if($i==date("Y")) selected @endif value="{{$i}}">{{$i}}</option>
-        @endfor -->
-      </select>
-    </div>
+     	<div class="header-attend">
+	      <h3><b>Bản ghi điểm danh nhóm {{$lstdutu[0]->namezone->name}}</b></h3>
+	      <h4 style="padding:15px;">Trưởng nhóm: {{Auth::user()->name}}</h4>
+	      <select aria-label="Tháng" name="month" id="month" title="Tháng" class="sl_at">
+	        <option value="0">Tháng</option>
+	        @for($i=1; $i<=12; $i++)
+	            <option @if($i==date("m")) selected @endif value="@if($i<10)0{{$i}}@else{{$i}}@endif">Tháng {{$i}}</option>
+	        @endfor
+	      </select>
+	      <!-- select năm -->
+	      <select aria-label="Năm" name="year" id="year" title="Năm" class="sl_at">
+	        <option value="0">Năm học</option>
+	                      @for($i=2016; $i<=date("Y"); $i++)
+	                      @if(date("m")<9)
+	                      <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
+	                      @else
+	                      <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
+	                      @endif
+	                      @endfor
+	        <!-- <option value="0">Năm</option>
+	        @for($i=2019; $i<=date("Y"); $i++)
+	        <option @if($i==date("Y")) selected @endif value="{{$i}}">{{$i}}</option>
+	        @endfor -->
+	      </select>
+	    </div>
     <div class="card">
               <div class="card-header">
                 <select style="float: left;  margin-bottom: 7px; border-radius: 9px;" aria-label="Năm SH" name="ac_year" id="ac_year" title="Năm SH" class="custom-select sl_at">
@@ -89,13 +89,13 @@
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>
-                        <input namdutu="{{$dutu->idyear}}" name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
+                        <input @if(($dutu->getattend->count() != 0) && $dutu->getattend[0]->status == 1) checked="checked" @endif namdutu="{{$dutu->idyear}}" name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
                       </td>
                       <td>
-                        <input name="note_{{$dutu->id}}" type="text" class="form-control">
+                        <input name="note_{{$dutu->id}}" type="text" class="form-control" @if($dutu->getattend->count() != 0) value="{{$dutu->getattend[0]->note}}" @endif>
                       </td>
                     </tr>
-                    @endforeach          
+                 @endforeach          
                   </tbody>
                 </table>
               </div>

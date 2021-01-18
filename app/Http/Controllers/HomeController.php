@@ -29,11 +29,23 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(Post::all()->count() == 0)
+            return view('user.pagenull');
         $lstcat = Category::all()->where('status',1)->load('getpost');
         $lstcat2 = collect([]);
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
-        $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
-        $lstpopularpost = Post::all()->where('status',1)->random(5);
+        if(Post::all()->count() > 5)
+        {
+            $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
+            $lstpopularpost = Post::all()->where('status',1)->random(5);
+        }
+        else
+        {
+            $postslide = Post::all()->where('status',1);
+            $lstpopularpost = $postslide;
+        }
+        
+        
         foreach($lstcat as $cat){
             if($cat->getpost->count()){
                 $lstcat2->push($cat);

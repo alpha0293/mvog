@@ -266,7 +266,9 @@
                 ,function(data){
                   toastr.success('Thành công!!!','THÔNG BÁO');
                console.log(data);
-              });
+              }).fail(function(data) {
+                console.log(data.responseText);
+                });
   });
       
         

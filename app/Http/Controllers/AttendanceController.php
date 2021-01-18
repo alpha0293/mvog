@@ -66,7 +66,11 @@ class AttendanceController extends Controller
             {
                 if ($idzone != null) {
                     //dd('idzone !=');
-                    $lstdutu = Zone::findOrFail($idzone)->dutu->all();
+                    $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
+                    if ($lstdutu->count() == 0)
+                    {
+                        abort (404);
+                    }
                     return view('user.attend',compact('lstdutu','index'));
                     //return view('user.attend')->with('lstdutu',$lstdutu,'index',$index);
                     # code...
@@ -81,6 +85,10 @@ class AttendanceController extends Controller
             else
             {
                 $lstdutu = Dutu::all()->where('idstatus','1');
+                if ($lstdutu->count() == 0)
+                {
+                        abort (404);
+                }
                 return view('user.attend',compact('lstdutu','index'));
                 //return view('user.attend')->with('lstdutu',$lstdutu,'index',$index);
             }
@@ -182,10 +190,43 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($month,$year)
     {
         //
-        dd('show AttendanceController');
+        if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
+        {
+            abort(403,"Bạn không có quyền truy cập vào trang này!!!");
+        }
+        $index = 1;
+        if(Auth::user()->roleid == 2)
+        {
+            $idzone = Dutu::findOrFail(Auth::user()->id)->idzone;
+            $lstdutu = Dutu::where('idstatus',1)->where('idzone',$idzone)->with(['getattend' => function($query) use ( $month,$year ){
+                $query->where('month',$month)->where('year',$year);
+            }])->get(); //Constraining Eager Loads
+            if($lstdutu->first()->getattend->count() == 0)
+            {
+                abort (404);
+            }
+        }
+        else
+        {
+            $lstdutu = Dutu::where('idstatus',1)->with(['getattend' => function($query) use ( $month,$year ){
+                $query->where('month',$month)->where('year',$year);
+            }])->get(); //Constraining Eager Loads
+            if ($lstdutu->count() == 0)
+            {
+                abort (404);
+            }
+        }
+        
+        if($lstdutu->first()->getattend->count() == 0)
+        {
+            // abort (404);
+        }
+        // dd($lstdutu);
+        return view ('admin.diemdanh.show',compact('lstdutu','index'));
+        
     }
 
     /**
