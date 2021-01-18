@@ -149,19 +149,19 @@ input[type=checkbox]
     background-color: #ffffff00;
   }
   .bsbig_fig figcaption {
-    font-family: Anton;
+    font-family: 'Philosopher', sans-serif;
   }
   a{
-    font-family: Anton;
+    font-family: 'Philosopher', sans-serif;
   }
   .spost_nav .media-body > a{
-    font-family: Anton;
+    font-family: 'Philosopher', sans-serif;
   }
 .table-bordered>thead>tr>th{
       text-align: center;
 }
 span{
-  font-family: 'Anton';
+ font-family: 'Signika', sans-serif;
 }
 .affix {
      top:1px;

@@ -34,7 +34,7 @@ Route::post('dutu/store','DutuController@store')->name('save.dutu');
 //Route::get('dutu/edit/{id}','DutuController@edit')->name('getupdate.dutu');
 
 //route for attdance
-Route::get('attend','AttendanceController@index')->middleware('auth');
+Route::get('attend','AttendanceController@index')->name('diemdanh')->middleware('auth');
 Route::get('/attend/create','AttendanceController@create')->name('create.attend')->middleware('auth');
 Route::get('/attend/{id}','AttendanceController@show')->name('show.attend')->middleware('auth');
 Route::get('attend/delete/{id}','AttendanceController@destroy')->name('delete.attend');
@@ -44,7 +44,7 @@ Route::get('attend/edit/{id}','AttendanceController@edit')->name('getupdate.atte
 
 
 //Route for Post
-Route::get('post','PostController@index')->middleware('auth');
+Route::get('post','PostController@index')->name('post')->middleware('auth');
 Route::get('post/create','PostController@create')->name('create.post')->middleware('auth');
 Route::get('post/{id}','PostController@show')->name('show.post');
 Route::get('post/delete/{id}','PostController@destroy')->name('delete.post')->middleware('auth');
@@ -53,7 +53,7 @@ Route::post('post/store','PostController@store')->name('save.post')->middleware(
 Route::get('post/edit/{id}','PostController@edit')->name('getupdate.post')->middleware('auth');
 
 //Route for Category
-Route::get('category','CategoryController@index');
+Route::get('category','CategoryController@index')->name('category');
 Route::get('category/create','CategoryController@create')->name('create.category')->middleware('auth');
 Route::get('category/{id}','CategoryController@show')->name('show.category');
 Route::get('category/delete/{id}','CategoryController@destroy')->name('delete.category')->middleware('auth');
@@ -83,7 +83,7 @@ Route::post('paper/store','PaperController@store')->name('save.paper')->middlewa
 Route::get('paper/edit/{id}','PaperController@edit')->name('getupdate.paper')->middleware('auth');
 
 //Route for DiemThi
-Route::get('diemthi','DiemthiController@index');
+Route::get('diemthi','DiemthiController@index')->name('diemthi')->middleware('auth');
 Route::get('diemthi/create','DiemthiController@create')->name('create.diemthi')->middleware('auth');
 Route::get('diemthi/{id}','DiemthiController@show')->name('show.diemthi');
 Route::get('diemthi/delete/{id}','DiemthiController@destroy')->name('delete.diemthi')->middleware('auth');
@@ -110,8 +110,8 @@ Route::post('notifi/store','NotificationsController@store')->name('save.notifi')
 Route::get('notifi/edit/{id}','NotificationsController@edit')->name('getupdate.notifi')->middleware('auth');
 
 Route::get('lenlop','AdminController@lstlenlop')->middleware('auth');
-Route::get('xetduyet','AdminController@lstxetduyet')->middleware('auth');
-Route::get('nhomtruong','AdminController@lstnhomtruong')->middleware('auth');
+Route::get('xetduyet','AdminController@lstxetduyet')->name('xetduyet')->middleware('auth');
+Route::get('nhomtruong','AdminController@lstnhomtruong')->name('nhomtruong')->middleware('auth');
 Route::get('export/', 'AdminController@export')->name('export');
 Route::get('export/view', 'AdminController@exportview');
 Route::get('canhbao','AdminController@canhbao')->name('canhbao')->middleware('auth');

@@ -38,7 +38,7 @@
 
 					 </div>
 					 <div class="form-group col-md-3">
-                        <select class="form-control" aria-label="Vùng sinh hoạt" name="zone" id="sl_zone" title="Vùng sinh hoạt" class="sl_at" onchange="locdata()">
+                        <select class="form-control" aria-label="Vùng sinh hoạt" name="zone" id="sl_zone" title="Vùng sinh hoạt" class="sl_at" onclick="getnumval()" onchange="locdata()">
                             <option value="0">Chọn vùng sinh hoạt</option>
                             @foreach($lstzone as $zone)
                               <option value="{{$zone->id}}">{{$zone->name}}</option>
@@ -88,7 +88,7 @@
 					            <td hidden="true">{{$dutu->nameyear->id}}</td>
 					            <td>{{$dutu->namezone->name}}</td>
 					            <td id="namdutu">{{$dutu->nameyear->name}}</td>
-					            <td ><input name="{{$dutu->id}}" namdutu="{{$dutu->nameyear->id}}" class="form-control" type="number" ></td>
+					            <td ><input onchange="newval(this.value, this.id)" onclick="oldval(this.value, this.id)" name="{{$dutu->id}}" namdutu="{{$dutu->nameyear->id}}" id="{{$dutu->id}}" class="form-control" type="number" ></td>
 					        </tr>
 				        @endforeach
 				     </tbody>
@@ -112,13 +112,75 @@
       </div>
    </section>
  <script type="text/javascript">
+ 	  var valold = [];
+ 	  var valnew = [];
+ 	  
+ 	  // $("").ready(function(){
+ 	  // 	 var num1 = jQuery('input[type=number]');
+    //      for(z=0;z < num1.length;z++) {
+    //      	numval.push(jQuery(num1[z]).val());
+    //      }
+ 	  // })
+ 	  function oldval(val, idd){
+ 	  	var obj1 = [];
+ 	  	var ct=0;
+ 	  	if(val != ""){
+ 	  		if(valold.length===0){
+       		  obj1.id = idd;
+ 	  		  obj1.va = val;
+ 	  		  valold.push(obj1);
+       		}
+		    else{
+		      for (var i = 0; i < valold.length; i++) {
+				if(valold[i].id == idd){
+				   ct+=1;
+				   break;
+				}
+				      	
+			  }
+			  if (ct===0) {
+				 obj1.id = idd;
+	 	  		 obj1.va = val;
+	 	  		 valold.push(obj1);
+			   }
+		    }
+ 	  		console.log(valold);	
+ 	  	}	
+ 	  }
+ 	  function newval(val, idd){
+ 	  	var obj2 = [];
+ 		var trung =0;
+ 	  		if(valnew.length===0){
+       		  obj2.id = idd;
+ 	  		  obj2.va = val;
+ 	  		  valnew.push(obj2);
+       		}
+		    else{
+		      for (var i = 0; i < valnew.length; i++) {
+				if(valnew[i].id === idd){
+				   valnew[i].id = idd;
+				   valnew[i].va = val;
+				   trung+=1;
+				   break;
+				}				      	
+			  }
+			  if(trung===0){
+			  	obj2.id = idd;
+		 	  	obj2.va = val;
+		 	  	valnew.push(obj2);
+			  }
+		    }
+ 	  	console.log(valnew);
+ 	  }
+
       function locdata(){
           var slz, sly, table, tr, td, i, slValue;
           slz = $('#sl_zone').val();
-          sly = $('#sl_yearsh').val();
+          sly = $('#sl_yearsh').val()
           // console.log(filter);
           table = $("#tableID");
           tr = $("tr");
+         
           if (slz === '0' && sly === '0') {
                $ ('tr').show ();
            }

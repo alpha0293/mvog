@@ -1,5 +1,5 @@
 <!--  Togle thêm  -->
-  <nav class="navbar main-header navbar-expand-xl navbar-dark bg-dark ">
+  <nav style="z-index: auto;" class="navbar main-header navbar-expand-xl navbar-dark bg-dark ">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentXL" aria-controls="navbarSupportedContentXL" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
