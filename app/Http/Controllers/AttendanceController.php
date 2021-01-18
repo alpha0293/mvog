@@ -67,6 +67,10 @@ class AttendanceController extends Controller
                 if ($idzone != null) {
                     //dd('idzone !=');
                     $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
+                    if ($lstdutu->count() == 0)
+                    {
+                        abort (404);
+                    }
                     return view('user.attend',compact('lstdutu','index'));
                     //return view('user.attend')->with('lstdutu',$lstdutu,'index',$index);
                     # code...
@@ -81,6 +85,10 @@ class AttendanceController extends Controller
             else
             {
                 $lstdutu = Dutu::all()->where('idstatus','1');
+                if ($lstdutu->count() == 0)
+                {
+                        abort (404);
+                }
                 return view('user.attend',compact('lstdutu','index'));
                 //return view('user.attend')->with('lstdutu',$lstdutu,'index',$index);
             }
@@ -206,6 +214,10 @@ class AttendanceController extends Controller
             $lstdutu = Dutu::where('idstatus',1)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
             }])->get(); //Constraining Eager Loads
+            if ($lstdutu->count() == 0)
+            {
+                abort (404);
+            }
         }
         
         if($lstdutu->first()->getattend->count() == 0)

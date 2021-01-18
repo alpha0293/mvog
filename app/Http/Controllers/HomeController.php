@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         if(Post::all()->count() == 0)
-            abort (404);
+            return view('user.pagenull');
         $lstcat = Category::all()->where('status',1)->load('getpost');
         $lstcat2 = collect([]);
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
