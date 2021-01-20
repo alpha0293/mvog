@@ -112,4 +112,9 @@ class Dutu extends Model
     {
         return $this->hasOne('App\User','id');
     }
+
+    public function getpaper()
+    {
+        return $this->belongsToMany('App\Paper','paper_dutus','iddutu','idpaper');
+    }
 }
