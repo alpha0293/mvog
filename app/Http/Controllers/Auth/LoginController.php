@@ -51,7 +51,7 @@ class LoginController extends Controller
                     return 'dutu/create';
                 }
                 else{
-                    return '/home';
+                    return '/';
                 }
 			}
 			

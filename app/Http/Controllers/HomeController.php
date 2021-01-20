@@ -9,7 +9,7 @@ use App\Category;
 use App\User;
 use App\Role;
 use App\Notifications;
-
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -29,6 +29,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::check() && Auth::user()->email_verified_at == null)
+        {
+            return redirect()->route('verification.notice');
+        }
         if(Post::all()->count() == 0)
             return view('user.pagenull');
         $lstcat = Category::all()->where('status',1)->load('getpost');
