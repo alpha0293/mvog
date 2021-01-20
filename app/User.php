@@ -36,4 +36,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getdutu()
+    {
+        return $this->hasOne('App\Dutu','id');
+    }
 }
