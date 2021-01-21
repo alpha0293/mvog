@@ -17,6 +17,7 @@ use Redirect;
 
 use File;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Validator;
 
 class DutuController extends Controller
 {
@@ -237,6 +238,10 @@ class DutuController extends Controller
 			}
 			else
 			{
+				$validatedData = $request->validate([
+			        'profileimg' => 'image',
+			    ]);
+
 				$imagename = time().'.'.request()->profileimg->getClientOriginalExtension();
 	            $request['profileimg'] = $imagename;
 	          	try {
