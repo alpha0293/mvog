@@ -20,7 +20,11 @@ class DiemthiController extends Controller
     {
         //
         $lstdiemthi = Diemthi::all();
-        return view('diemthi.list',compact('lstdiemthi'));
+        $lstdutu = Dutu::with(['getdiem' => function($query){
+            $query->where('nam','2020-2021');
+        }])->where('idstatus',1)->get();
+        // dd($lstdutu->first());
+        return view('diemthi.list',compact('lstdutu'));
     }
 
     /**

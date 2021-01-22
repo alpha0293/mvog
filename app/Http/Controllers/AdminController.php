@@ -142,7 +142,14 @@ class AdminController extends Controller
         {
             abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
         }
-        $lstxetduyet = Dutu::all()->where('idstatus',2);
+        // $lstxetduyet = Dutu::all()->where('idstatus',2);
+        $lstxetduyet = Dutu::with(['getuser' => function($query){
+            $query->where('email_verified_at','<>',null);
+        }])->where('idstatus',2)->get();
+        // $lstxetduyet = User::with(['getdutu' => function($query){
+        //     $query->where('idstatus',2);
+        // }])->where('email_verified_at','<>',null)->where('roleid','<>',1)->get();
+        dd($lstxetduyet->first()->getuser);
         $index = 1;
         return view('admin.dutu.xetduyet',compact('lstxetduyet','index'));
     }

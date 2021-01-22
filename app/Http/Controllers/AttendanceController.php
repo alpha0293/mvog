@@ -40,6 +40,10 @@ class AttendanceController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
+        {
+            abort(403,"Bạn không có quyền truy cập vào trang này!!!");
+        }
         $index = 1;
         $roleid = Auth::user()->roleid; //lấy quyền của user vừa login
         $id = Auth::id(); //Lấy ID user vừa login
@@ -66,7 +70,8 @@ class AttendanceController extends Controller
             {
                 if ($idzone != null) {
                     //dd('idzone !=');
-                    $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
+                    // $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
+                    $lstdutu = Dutu::all()->where('idstatus',1)->where('idzone',$idzone);
                     if ($lstdutu->count() == 0)
                     {
                         abort (404);
