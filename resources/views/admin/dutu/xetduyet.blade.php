@@ -12,7 +12,7 @@
         <div class="col-md-12" id="danhsach_nhom">
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title" id="addnhom_title">Danh sách Chọn nhóm trưởng</h3>
+                <h3 class="card-title" id="addnhom_title">Danh sách cần xét duyệt</h3>
                 @if(session('message'))
                 <h4>{{session('message')}}</h4>                  
                 @endif

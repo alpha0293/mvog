@@ -88,7 +88,7 @@ tr:nth-child(even) {
        </div>
      </section>
      <!-- Bootstrap Switch -->
-       <script src="{{asset('admin_asset/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
+   
 
      <script type="text/javascript">
       

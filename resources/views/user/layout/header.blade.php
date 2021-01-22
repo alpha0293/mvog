@@ -33,7 +33,7 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12" >
         <div class="header_bottom" style="margin-bottom: 6px;">
-          <div class="logo_area logo"><a href="index.html" ><img src="{{asset('user_asset/images/logo.jpg')}}" alt=""></a></div>
+          <div class="logo_area logo"><a href="index.html" ><img src="{{asset('user_asset/images/logo.jpg')}}" alt="MVOG - Hà Tĩnh"></a></div>
           <div class="add_banner logo" style="float: left; height: 68px; display: inline"><a href="#"><img src="{{asset('user_asset/images/banner_1.jpg')}}" alt=""></a></div>
         </div>
       </div>

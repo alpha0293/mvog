@@ -26,13 +26,13 @@
         <div class="left_content">
           <div class="single_page">
             <ol class="breadcrumb">
-              <li><a href="../index.html">Home</a></li>
-              <li><a href="#">Technology</a></li>
-              <li class="active">Mobile</li>
+              <li><a href="{{route('home')}}">Trang chủ</a></li>
+              <li><a href="#">{{$post->namecategory->name}}</a></li>
+            
             </ol>
             <h1>{{$post->title}}</h1>
 
-            <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i class="fa fa-calendar"></i>6:49 AM</span> <a href="#"><i class="fa fa-tags"></i>Technology</a> </div>
+            <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Admin</a>  </div>
            
             <div class="single_page_content">
             @if($post->thumbimg =! null)

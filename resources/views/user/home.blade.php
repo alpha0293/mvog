@@ -14,7 +14,7 @@
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                  <figure class="bsbig_fig wow fadeInDown"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
                     <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
                     <p>{{substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,200)}}...</p>
                   </figure>
@@ -47,7 +47,7 @@
                 <h2><span>{{$cat->name}}</span></h2>
                 <ul class="business_catgnav wow fadeInDown">
                   <li>
-                    <figure class="bsbig_fig"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                    <figure class="bsbig_fig wow fadeInDown"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
                       <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
                       <p>{{substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,200)}}...</p>
                     </figure>
@@ -72,7 +72,7 @@
                 <h2><span>{{$cat->name}}</span></h2>
                 <ul class="business_catgnav">
                   <li>
-                    <figure class="bsbig_fig wow fadeInDown"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                    <figure class="bsbig_fig wow fadeInDown"> <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
                       <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> </figcaption>
                       <p>{{substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,200)}}...</p>
                     </figure>

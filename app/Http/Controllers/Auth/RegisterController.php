@@ -139,7 +139,7 @@ class RegisterController extends Controller
                 );
             foreach ($years as $year) {
                 # code...
-                Year::create($ro);
+                Year::create($year);
             }
         }
 

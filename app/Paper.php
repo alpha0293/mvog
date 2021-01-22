@@ -21,4 +21,9 @@ class Paper extends Model
             'name' => ['required', 'string', 'max:255'],
         ]);
     }	
+
+    public function getpaper()
+    {
+        return $this->hasMany('App\PaperDutu','idpaper','id');
+    }
 }

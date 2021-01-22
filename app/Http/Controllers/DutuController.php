@@ -11,6 +11,7 @@ use App\User;
 use App\Zone;
 use App\Year;
 use App\Role;
+use App\Paper;
 
 use Auth;
 use Redirect;
@@ -136,13 +137,14 @@ class DutuController extends Controller
 		$dutu=Dutu::get()->where('id',$id)->first();
 		$zone = Zone::all();
 		$year = Year::all();
+		$lstpaper = Paper::all();
 
 		if(is_null($dutu))
 		{
 			return 'Không có thông tin dự tu này trong cơ sở dữ liệu';
 		}
 
-		return view('user.info',compact('dutu','user','zone','year'));
+		return view('user.info',compact('dutu','user','zone','year','lstpaper'));
 
 		
     }
