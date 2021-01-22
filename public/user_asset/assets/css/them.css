@@ -122,7 +122,7 @@ input[type=checkbox]
   border-radius: 25%;
 }
 .thongtin{
-  font-weight: bold;
+    font-weight: bold;
     border: none;
     text-align-last: end;
     max-width: 170px;

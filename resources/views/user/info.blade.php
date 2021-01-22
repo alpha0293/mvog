@@ -5,6 +5,23 @@
    @include('user.layout.head')
     <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
    @include('user.layout.script')
+   <style type="text/css">
+     .notep{
+      min-width: 63px; 
+      width: 100%;
+      white-space: normal;
+      word-wrap: break-word;
+     }
+     .at_td{
+      min-width: 10px; 
+     }
+     .float-left{
+      float: left;
+     }
+     .float-right{
+      float: right;
+     }
+   </style>
 </head>
 
 <body>
@@ -69,85 +86,96 @@
                       <input name="name" type="text" class="form-control profile-username thongtinten" value="{{$dutu->name}}" disabled placeholder="Chưa có">
                       </div>
                     </div>
+                    <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
                     <div class="row">
-                      <div style="padding:0;" class="col-xs-6 col-md-6">
-                      <ul style="padding-right: 5%; padding-left: 2%; border-left: outset #1586ffb5;" class="list-group list-group-unbordered mb-3">
-                      <li class="list-group-item">
-                        <a class="float-left">Giáo xứ</a> <b class="float-right"><input name="parish" type="text" class="form-control thongtin" disabled value="{{$dutu->parish}}" placeholder="Chưa có"> </b> 
-                      </li>
-                      <li class="list-group-item">
-                        <a class="float-left">Nhóm</a> <b class="float-right">
-                          <select id="idzone" type="text" class="form-control thongtin @error('idzone') is-invalid @enderror" name="idzone" value="{{$dutu->namezone->name}}" autocomplete="idzone" autofocus   style="width: 100%;" required>
+                      <div class="card-body table-responsive p-0">
+                      <table class="table table-hover text-nowrap table-bordered">
+                        <tbody>
+                         <tr>
+                          <td style="width:50%">
+                            <a class="float-left" >Giáo xứ</a> <b class="float-right"><input name="parish" type="text" class="form-control thongtin" disabled value="{{$dutu->parish}}" placeholder="Chưa có"> </b> 
+                          </td>
+                          <td style="width:50%">
+                            <a class="float-left">Nhóm</a> <b class="float-right">
+                              <select id="idzone" type="text" class="form-control thongtin @error('idzone') is-invalid @enderror" name="idzone" value="{{$dutu->namezone->name}}" autocomplete="idzone" autofocus   style="width: 100%;" required>
                               @foreach($zone as $z)
                               <option value="{{$z->id}}" @if($dutu->idzone == $z->id) selected @endif >{{$z->name}}</option>
                               @endforeach
                                   
-                        </select>
-                        </b> 
-                      </li>
-                      <li class="list-group-item">
-                        <a class="float-left">Năm dự tu</a> <b class="float-right">
-                          <select id="idyear" disabled type="text" class="form-control thongtin @error('idyear') is-invalid @enderror" name="idyear" value="{{$dutu->nameyear->name}}" autocomplete="idyear" autofocus   style="width: 100%;" required>
-                            @foreach($year as $y)
-                            <option value="{{$y->id}}" @if($dutu->idyear == $y->id) selected @endif>{{$y->name}}</option>
-                          @endforeach
-                         </select>
-                        </b> 
-                      </li>
-                      <li class="list-group-item">
-                        <a class="float-left">Ngày sinh</a> <b class="float-right"><input name="dob" type="text" onmouseover="(this.type='date')" onmouseout="(this.type='text')" id="example-date-input dob" class="form-control thongtin" disabled value="{{$dutu->dob}}" placeholder="Chưa có"></b> 
-                      </li>
-                    </ul>
-                    </div>
-                    <div style="padding:0" class="col-xs-6 col-md-6">
-                      <ul style="padding-right: 5%; padding-left: 2%; border-left: outset #1586ffb5;" class="list-group list-group-unbordered mb-3">
-                      <li class="list-group-item">
-                        <a class="float-left">Email</a> <b class="float-right"><input style="max-width: 195px;" name="email" type="text" class="form-control thongtin" disabled value="{{$user->email}}" placeholder="Chưa có"></b> 
-                      </li>
-                      <li class="list-group-item">
-                        <a class="float-left">Trường học</a> <b class="float-right"><input name="school" type="text" class="form-control thongtin" disabled value="Bôn Ba" placeholder="Chưa có"></b> 
-                      </li>
-                      <li class="list-group-item">
-                        <a class="float-left">Ngành học</a> <b class="float-right"><input name="majors" type="text" class="form-control thongtin" disabled value="{{$dutu->majors}}" placeholder="Chưa có"></b> 
-                      </li>
-                      <li class="list-group-item">
-                        <a class="float-left">Trạng thái</a> <b class="float-right"><div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                       @if($dutu->idstatus==1)
-                        <input type="checkbox" name="idstatus" checked="checked" disabled class="custom-control-input thongtin" id="customSwitch3">
-                        <label style="border: none;" class="form-control thongtin custom-control-label" id="statusname" for="customSwitch3">{{$dutu->namestatus->name}}</label>
-                       @else 
-                       <input type="checkbox" name="idstatus" disabled class="custom-control-input thongtin" id="customSwitch3">
-                        <label  style="border: none;" class="form-control thongtin custom-control-label" id="statusname" for="customSwitch3">{{$dutu->namestatus->name}}</label>
-                        @endif
-                    </div></b> 
-
-
-                      </li>
-                      
-                    </ul>
-                    </div>
-                    </div>
-                    <button type="submit" value="submit" style="float: right; margin-left: 2%" name="btnsave" id="btnsave" class="btn btn-primary">Lưu</button>
+                              </select>
+                             </b> 
+                          </td>
+                         </tr>
+                         <tr>
+                          <td style="width:50%">
+                            <a class="float-left">Email</a> <b class="float-right"><input style="max-width: 195px;" name="email" type="text" class="form-control thongtin" disabled value="{{$dutu->getuser->email}}" placeholder="Chưa có"></b> 
+                          </td>
+                          <td style="width:50%">
+                            <a class="float-left">Ngày sinh</a> <b class="float-right"><input name="dob" type="text" onmouseover="(this.type='date')" onmouseout="(this.type='text')" id="example-date-input dob" class="form-control thongtin" disabled value="{{$dutu->dob}}" placeholder="Chưa có"></b> 
+                          </td>
+                         </tr>
+                         <tr>
+                          <td style="width:50%">
+                            <a class="float-left">Trường học</a> <b class="float-right"><input name="school" type="text" class="form-control thongtin" disabled value="Bôn Ba" placeholder="Chưa có"></b> 
+                          </td>
+                          <td style="width:50%">
+                            <a class="float-left">Ngành học</a> <b class="float-right"><input name="majors" type="text" class="form-control thongtin" disabled value="{{$dutu->majors}}" placeholder="Chưa có"></b> 
+                          </td>
+                         </tr>
+                         <tr>
+                          <td style="width:50%">
+                           <a class="float-left">Trạng thái</a> <b class="float-right">
+                            <div style="" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" class="custom-control-input" id="{{$dutu->id}}" >
+                                <label class="custom-control-label" for="{{$dutu->id}}"></label>
+                            </div>
+                           </b> 
+                           
+                          </td>
+                          <td style="width:50%">
+                            <a class="float-left">Năm dự tu</a> <b class="float-right">
+                            <select id="idyear" disabled type="text" class="form-control thongtin @error('idyear') is-invalid @enderror" name="idyear" value="{{$dutu->nameyear->name}}" autocomplete="idyear" autofocus   style="width: 100%;" required>
+                              @foreach($year as $y)
+                              <option value="{{$y->id}}" @if($dutu->idyear == $y->id) selected @endif>{{$y->name}}</option>
+                            @endforeach
+                            </select> </b> 
+                          </td>
+                         </tr>
+                    </tbody></table>
+                 </div>
+                 <button type="submit" value="submit" style="float: right; margin-left: 2%" name="btnsave" id="btnsave" class="btn btn-primary">Lưu</button>
                     </form>
                     <button style="float: right" id="btnedit" class="btn btn-primary">Chỉnh sửa</button>
+                        </div>
+
+                      </div>
+                    </div>
+                    
                   </div>
                   <!-- /.card-body -->
                 </div>
-            
+<!--   điểm danh -->
+                <?php 
+                  $nh ;
+                  $thang = date("m",strtotime(now()));
+                  $nam = date("Y",strtotime(now()));
+                  if ($thang<9) {
+                    $nh = ($nam-1).'-'.$nam;
+                  } else {
+                    $nh = $nam.'-'.($nam+1);
+                  }
+                ?>
 
           <div class="col-sm-12">
             <div class="row">
               <div class="card" style="min-width: 100%">
               <div class="card-header">
-                <h3 class="card-title">Thông tin điểm danh</h3>
-
+                <h3 class="card-title">Thông tin điểm danh năm học {{$nh}}</h3>
+                
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
+                  <div class="input-group input-group-sm" style="width: 100%;display: flex;">
+                      <p>Tỷ lệ vắng: </p>
+                    <p style="    padding-left: 25px;color: #ff0202;font-weight: 900;" id="tyle_vang"></p>
                   </div>
                 </div>
               </div>
@@ -156,34 +184,16 @@
                 <table style="text-align: center;" class="table table-hover text-nowrap table-bordered">
                   <thead>
                     <tr>
-                      <th>T1</th>
-                      <th>T2</th>
-                      <th>T3</th>
-                      <th>T4</th>
-                      <th>T5</th>
-                      <th>T6</th>
-                      <th>T7</th>
-                      <th>T8</th>
-                      <th>T10</th>
-                      <th>T11</th>
-                      <th>T12</th>
-                      <th>T13</th>
+                       @for($i=9;$i<=20; $i++)
+                        <th>T @if($i>12) {{$i-12}} @else {{$i}} @endif</th>
+                      @endfor
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
-                      <td><input type='checkbox' disabled id='checkboxSuccess3'> <p style="min-width: 63px; width: 100%;white-space: normal;word-break: break-word;">ngủ quên fdsa sadf sdaf sdf sdf sadf sadf sadf sadf ádf</p></td>
+                    <tr id="at_tr">
+                      @for($k=1;$k<=12;$k++)
+                            <td class="at_td"></td>
+                                  @endfor
                     </tr>
                   </tbody>
                 </table>
@@ -192,6 +202,58 @@
             </div>
             </div>
           </div>
+<!-- kết thúc điểm danh -->
+<!-- điểm -->
+<div class="col-sm-12">
+            <div class="row">
+              <div class="card" style="min-width: 100%">
+              <div class="card-header">
+                <h3 class="card-title">Thông tin điểm thi</h3>
+                
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 100%;display: flex;">
+                      <p>Điểm trung bình: </p>
+                    <p style="    padding-left: 25px;color: #ff0202;font-weight: 900;" id="diemtb"> {{$dutu->getdiem->avg('diem')}}</p>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table style="text-align: center;" class="table table-hover text-nowrap table-bordered">
+                  <thead>
+                   
+                  </thead>
+                  <tbody>
+                    <tr >
+                      <td >Điểm năm 1</td>   
+                      <td>@if($dutu->getdiem->where('idnam',1)->first()) 
+                        {{$dutu->getdiem->where('idnam',1)->first()->diem }}
+                        @else Chưa có điểm @endif
+                      </td>       
+                    </tr>
+                    <tr >
+                      <td >Điểm năm 2</td>   
+                      <td>@if($dutu->getdiem->where('idnam',2)->first()) 
+                        {{$dutu->getdiem->where('idnam',2)->first()->diem}}
+                        @else Chưa có điểm @endif
+                      </td>       
+                    </tr>
+                    <tr >
+                      <td >Điểm năm 3</td>   
+                      <td>
+                        @if($dutu->getdiem->where('idnam',3)->first()) 
+                        {{$dutu->getdiem->where('idnam',3)->first()->diem }}
+                        @else Chưa có điểm @endif
+                      </td>       
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            </div>
+          </div>
+<!-- kết thúc điểm -->
           <!-- /.col -->
           <div class="col-sm-12">
             <div class="row">
@@ -200,11 +262,11 @@
                 <h3 class="card-title">Thông tin giấy tờ</h3>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
+                    <input type="hidden" value="{{$ind=0}}">
+                      @if(Auth::user()->roleid == 1) 
+                      <button  id="ppedit" class="btn btn-primary" onclick="edithien()">Chỉnh sửa</button>
+                      <button style="margin-left: 2%" type="submit" value="submit"  name="ppsave" id="ppsave" disabled class="btn btn-primary">Lưu</button>
+                      @endif
                   </div>
                 </div>
               </div>
@@ -212,30 +274,27 @@
               <div class="card-body table-responsive p-0">
                     <table class="table">
                       <tbody>
+                        @foreach($lstpaper as $paper)
                         <tr>
-                        <th style="width:50%">Đơn dự tu:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td>
-                        <th style="width:50%">Chứng thư rửa tội:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td> 
+                        <th style="width:50%">{{$paper->name}}</th>
+                        <td>
+                          <input class="chk_pp" style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'
+                          @if($paper->getpaper->where('iddutu',$dutu->id)->first())
+                          @if($paper->getpaper->where('iddutu',$dutu->id)->first()->status == 1) checked {{$ind+=1}} @endif @endif 
+                           >
+                        </td>
+
+                        <!-- <th style="width:50%">Chứng thư rửa tội:</th>
+                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td>  -->
                       </tr>
-                      <tr>
-                        <th style="width:50%">Đơn dự tu:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td>
-                        <th style="width:50%">Chứng thư rửa tội:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td> 
+                        @endforeach
+                      @if($lstpaper->count()>$ind)
+                      <tr style="background-color: red;color: floralwhite;border-style: solid;">
+                        <th style="width:50%">Còn thiếu: </th>
+                        <td>{{($lstpaper->count())-$ind}} loại giấy tờ CHƯA NỘP</td>
                       </tr>
-                      <tr>
-                        <th style="width:50%">Đơn dự tu:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td>
-                        <th style="width:50%">Chứng thư rửa tội:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td> 
-                      </tr>
-                      <tr>
-                        <th style="width:50%">Đơn dự tu:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td>
-                        <th style="width:50%">Chứng thư rửa tội:</th>
-                        <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td> 
-                      </tr>
+                      @endif
+
                     </tbody></table>
               </div>
               <!-- /.card-body -->
@@ -289,7 +348,65 @@ $('#btnedit').click(function(){
 })
 </script>
 <script type="text/javascript">
+  // ẩn hiện chỉnh sửa giấy tờ
+  function edithien(){
+    $(".chk_pp").removeAttr("disabled");
+    $("#ppsave").removeAttr("disabled");
+  }
+</script>
+<script type="text/javascript">
      $(document).ready(function () {
+      // gán data cho điểm danh
+      var uncheck = "<input type='checkbox' disabled id='checkboxSuccess3'>";
+      var hacheck = "<input type='checkbox' checked disabled id='checkboxSuccess3'>";
+      var vang = 0, comat=0;
+      var tero = $("#at_tr");      
+      const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12];
+      <?php 
+        $n;
+        $thang = date("m",strtotime(now()));
+        $nam = date("Y",strtotime(now()));
+        if ($thang<9) {
+          $n = ($nam-1).'-'.$nam;
+        } else {
+          $n = $nam.'-'.($nam+1);
+        }
+      ?> ;
+      var data = <?php echo $dutu->getattend->where('year',$n) ?>;
+      Object.values(data).forEach(function(j){
+        var note1 = "<p class='notep';>"+j.note+"</p>";
+
+            numbers.forEach(function(k) {
+               if (j.month==k) {
+                if (j.month >= 9) {
+                  k=k-9;
+                }
+                if(j.month < 9){
+                  k=k+12-9;
+                }
+                if (j.status==1) {
+                    comat+=1;
+                    tero.find("td").eq(k).append(hacheck);
+                    tero.find("td").eq(k).append(note1);
+                   }
+                if (j.status==0) {
+                    vang+=1;
+                    tero.find("td").eq(k).append(uncheck);
+                    tero.find("td").eq(k).append(note1);
+                   }
+               }  
+            })
+        });
+      var phantram;
+      if(Object.keys(data).length===0){
+        phantram = "Chưa có số liệu điểm danh";
+      }
+      else{
+        phantram = ((vang*100)/Object.keys(data).length).toFixed(2)+"%";
+      }
+      var tyle_vang = vang+"/"+Object.keys(data).length ;
+       $("#tyle_vang").text(tyle_vang+ " ("+phantram+ " )");
+  // kết thúc gán data cho điểm danh  
       // set date for textbox date ò birth
       // end setdate
       // view img
@@ -351,6 +468,7 @@ $('#btnedit').click(function(){
                 $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             });
        }
+
         
      })
     </script>
