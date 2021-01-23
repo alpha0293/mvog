@@ -193,7 +193,6 @@ class DutuController extends Controller
 
 		//
 		// return $request->all();
-		// return $request->profileimg;
 		if($id!=Auth::id() && Auth::user()->roleid != 1)
 		{
 			return Redirect::back()->with('message','Bạn không có quyền Sửa thông tin!!!');
@@ -202,7 +201,7 @@ class DutuController extends Controller
 		$dutu=Dutu::get()->where('id',$id)->first();
 
 
-		if(Auth::user()->roleid==1)
+		if(Auth::user()->roleid == 1)
 		{
 			if($request->idstatus=="on")
 			{
@@ -214,16 +213,19 @@ class DutuController extends Controller
 			}
 			
 		}
-		else
+		if(Auth::user()->roleid == 2)
 		{
-			$request->idstatus = $dutu->idstatus;;		
-		}	
-		// if($request->profileimg=="")
-		// {
-		// 	// return "NULL";
-		// 	$request['profileimg'] = $dutu->profileimg;
-		// }
-
+			$request['idstatus'] = $dutu->idstatus;
+			$request['idyear'] = $dutu->idyear;
+			$request['idzone'] = $dutu->idzone;
+		}
+		if(Auth::user()->roleid == 3)
+		{
+			$request['idstatus'] = $dutu->idstatus;
+			$request['idyear'] = $dutu->idyear;
+			// $request['idzone'] = $dutu->idzone;
+		}
+		// return $request->all();
 		$vali = Dutu::validator($request->all());
 		// return $vali;
 		 if($vali->fails())
