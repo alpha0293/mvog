@@ -117,7 +117,7 @@
                             <td style="width:50%">
                              <a class="float-left">Trạng thái</a> 
                                   @if(Auth::user()->roleid == 1) 
-                                    <input @if($dutu->idstatus == 1) checked @endif style="float: right; width: 24px;" class="form-control thongtin" type='checkbox' disabled id='checkboxSuccess3'>
+                                    <input name="idstatus" @if($dutu->idstatus == 1) checked @endif style="float: right; width: 24px;" class="form-control thongtin" type='checkbox' disabled id='checkboxSuccess3'>
                                   @else
                                     @if($dutu->idstatus==1) <p style="float: right;color: blue;">Đang sinh hoạt</p>  @else <p style="float: right;color: red;">Chờ duyệt</p>  @endif
                                   @endif
@@ -457,6 +457,7 @@
 
             });
         });
+    // hết FORM CHỈNH SỬA THÔNG TIN SUBMIT
        function printErrorMsg(msg){
                $(".print-error-msg").find("ul").html('');
             $(".print-error-msg").css('display','block');
