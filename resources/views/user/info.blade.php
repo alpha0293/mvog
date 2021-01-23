@@ -25,137 +25,137 @@
 </head>
 
 <body>
-
-
    @include('user.layout.loader')
     <!-- ***** Preloader End ***** -->
- 
 <div class="container">
    @include('user.layout.header')
    @include('user.layout.menu')
    @include('user.layout.chuchay')
-  <section id="sliderSection">
-    
-  </section>
+    <section id="sliderSection">
+    </section> <!-- kết thúc sliderSection -->
   <section id="contentSection">
     <div class="row">
-       <section class="col-lg-9 col-md-9 col-sm-9">
+    <section class="col-lg-9 col-md-9 col-sm-9">
     <div class="left_content">
       <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-3">
-            <h1>Profile</h1>
-          </div>
-          <div class="col-sm-9" style="display:none">
-            <ol class="breadcrumb float-sm-right">
-               <div class="alert alert-danger print-error-msg" style="display:none"></div>
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-3">
+              <h1>Profile</h1>
+            </div>
+            <div class="col-sm-9" style="display:none">
+              <ol class="breadcrumb float-sm-right">
+                <div class="alert alert-danger print-error-msg" style="display:none"></div>
                 <div class="success alert alert-success"></div>
-            </ol>
-          </div>
-        </div>  
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-   
-        <div style="min-height: 100%;" class="card card-primary card-outline">
-         
-                  <div class="card-body box-profile">
-                    <div class="text-center" >
-                      <form id="frmupdate">
-                        {{ csrf_field() }}
-                        <div class="text-center" style="margin-left: 26px;">
-                       @if (File::exists(public_path("file/profileimg/".$dutu->profileimg)))
-                          <img id="preview" class="profile-user-img img-fluid img-circle" src="{{ asset('file/profileimg/' . $dutu->profileimg) }}" alt="User profile picture" style="margin-right: -100px;" />
-                          @else 
-                          <img id="preview" class="profile-user-img img-fluid img-circle" src="http://127.0.0.1/mvog/public/file/profileimg/noavatar.png" alt="User profile picture" style="margin-right: -100px;" />
-                      @endif
-                      <label id="c_image" class="btn fa fa-camera" for="my-file-selector"> 
-                      <input name="profileimg" id="my-file-selector" type="file" style="display:none" 
-                      >
-                      </label>
-                      <span class='label label-info' id="upload-file-info" style="display: none;" ></span>
-                          
-                    </div>
-                    
-                    <div class="row text-center" style="margin-bottom: 15px;">
-                      <div class="col-sm-6 text-center" style="width: 100%">
-                        <input name="holyname" type="text" class="form-control profile-username thongtinten" value="{{$dutu->holyname}}" disabled placeholder="Chưa có"> 
+              </ol>
+            </div>
+          </div>  
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div style="min-height: 100%;" class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center" >
+                <form id="frmupdate">
+                          {{ csrf_field() }}
+                  <div class="text-center" style="margin-left: 26px;">
+                         @if (File::exists(public_path("file/profileimg/".$dutu->profileimg)))
+                            <img id="preview" class="profile-user-img img-fluid img-circle" src="{{ asset('file/profileimg/' . $dutu->profileimg) }}" alt="User profile picture" style="margin-right: -100px;" />
+                            @else 
+                            <img id="preview" class="profile-user-img img-fluid img-circle" src="http://127.0.0.1/mvog/public/file/profileimg/noavatar.png" alt="User profile picture" style="margin-right: -100px;" />
+                        @endif
+                    <label id="c_image" class="btn fa fa-camera" for="my-file-selector"> 
+                    <input name="profileimg" id="my-file-selector" type="file" style="display:none">
+                    </label>
+                    <span class='label label-info' id="upload-file-info" style="display: none;" ></span>
+                  </div>
+                  <div class="row text-center" style="margin-bottom: 15px;">
+                    <div class="col-sm-6 text-center" style="width: 100%">
+                      <input name="holyname" type="text" class="form-control profile-username thongtinten" value="{{$dutu->holyname}}" disabled placeholder="Chưa có"> 
                       <input name="name" type="text" class="form-control profile-username thongtinten" value="{{$dutu->name}}" disabled placeholder="Chưa có">
-                      </div>
                     </div>
-                    <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+                  </div>
+                  <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
                     <div class="row">
                       <div class="card-body table-responsive p-0">
-                      <table class="table table-hover text-nowrap table-bordered">
-                        <tbody>
-                         <tr>
-                          <td style="width:50%">
-                            <a class="float-left" >Giáo xứ</a> <b class="float-right"><input name="parish" type="text" class="form-control thongtin" disabled value="{{$dutu->parish}}" placeholder="Chưa có"> </b> 
-                          </td>
-                          <td style="width:50%">
-                            <a class="float-left">Nhóm</a> <b class="float-right">
-                              <select id="idzone" type="text" class="form-control thongtin @error('idzone') is-invalid @enderror" name="idzone" value="{{$dutu->namezone->name}}" autocomplete="idzone" autofocus   style="width: 100%;" required>
-                              @foreach($zone as $z)
-                              <option value="{{$z->id}}" @if($dutu->idzone == $z->id) selected @endif >{{$z->name}}</option>
-                              @endforeach
-                                  
-                              </select>
-                             </b> 
-                          </td>
-                         </tr>
-                         <tr>
-                          <td style="width:50%">
-                            <a class="float-left">Email</a> <b class="float-right"><input style="max-width: 195px;" name="email" type="text" class="form-control thongtin" disabled value="{{$dutu->getuser->email}}" placeholder="Chưa có"></b> 
-                          </td>
-                          <td style="width:50%">
-                            <a class="float-left">Ngày sinh</a> <b class="float-right"><input name="dob" type="text" onmouseover="(this.type='date')" onmouseout="(this.type='text')" id="example-date-input dob" class="form-control thongtin" disabled value="{{$dutu->dob}}" placeholder="Chưa có"></b> 
-                          </td>
-                         </tr>
-                         <tr>
-                          <td style="width:50%">
-                            <a class="float-left">Trường học</a> <b class="float-right"><input name="school" type="text" class="form-control thongtin" disabled value="Bôn Ba" placeholder="Chưa có"></b> 
-                          </td>
-                          <td style="width:50%">
-                            <a class="float-left">Ngành học</a> <b class="float-right"><input name="majors" type="text" class="form-control thongtin" disabled value="{{$dutu->majors}}" placeholder="Chưa có"></b> 
-                          </td>
-                         </tr>
-                         <tr>
-                          <td style="width:50%">
-                           <a class="float-left">Trạng thái</a> <b class="float-right">
-                            <div style="" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                <input type="checkbox" class="custom-control-input" id="{{$dutu->id}}" >
-                                <label class="custom-control-label" for="{{$dutu->id}}"></label>
-                            </div>
-                           </b> 
-                           
-                          </td>
-                          <td style="width:50%">
-                            <a class="float-left">Năm dự tu</a> <b class="float-right">
-                            <select id="idyear" disabled type="text" class="form-control thongtin @error('idyear') is-invalid @enderror" name="idyear" value="{{$dutu->nameyear->name}}" autocomplete="idyear" autofocus   style="width: 100%;" required>
-                              @foreach($year as $y)
-                              <option value="{{$y->id}}" @if($dutu->idyear == $y->id) selected @endif>{{$y->name}}</option>
-                            @endforeach
-                            </select> </b> 
-                          </td>
-                         </tr>
-                    </tbody></table>
-                 </div>
-                 <button type="submit" value="submit" style="float: right; margin-left: 2%" name="btnsave" id="btnsave" class="btn btn-primary">Lưu</button>
-                    </form>
-                    <button style="float: right" id="btnedit" class="btn btn-primary">Chỉnh sửa</button>
-                        </div>
-
+                        <table class="table table-hover text-nowrap table-bordered">
+                          <tbody>
+                           <tr>
+                            <td style="width:50%">
+                              <a class="float-left" >Giáo xứ</a> <b class="float-right"><input name="parish" type="text" class="form-control thongtin" disabled value="{{$dutu->parish}}" placeholder="Chưa có"> </b> 
+                            </td>
+                            <td style="width:50%">
+                              <a class="float-left">Nhóm</a> <b class="float-right">
+                                <select id="idzone" type="text" class="form-control thongtin @error('idzone') is-invalid @enderror" name="idzone" value="{{$dutu->namezone->name}}" autocomplete="idzone" autofocus   style="width: 100%;" disabled required>
+                                @foreach($zone as $z)
+                                <option value="{{$z->id}}" @if($dutu->idzone == $z->id) selected @endif >{{$z->name}}</option>
+                                @endforeach
+                                    
+                                </select>
+                               </b> 
+                            </td>
+                           </tr>
+                           <tr>
+                            <td style="width:50%">
+                              <a class="float-left">Email</a> <b class="float-right"><input style="max-width: 195px;" name="email" type="text" class="form-control thongtin" disabled value="{{$dutu->getuser->email}}" placeholder="Chưa có"></b> 
+                            </td>
+                            <td style="width:50%">
+                              <a class="float-left">Ngày sinh</a> <b class="float-right"><input name="dob" type="text" onmouseover="(this.type='date')" onmouseout="(this.type='text')" id="example-date-input dob" class="form-control thongtin" disabled value="{{$dutu->dob}}" placeholder="Chưa có"></b> 
+                            </td>
+                           </tr>
+                           <tr>
+                            <td style="width:50%">
+                              <a class="float-left">Trường học</a> <b class="float-right"><input name="school" type="text" class="form-control thongtin" disabled value="Bôn Ba" placeholder="Chưa có"></b> 
+                            </td>
+                            <td style="width:50%">
+                              <a class="float-left">Ngành học</a> <b class="float-right"><input name="majors" type="text" class="form-control thongtin" disabled value="{{$dutu->majors}}" placeholder="Chưa có"></b> 
+                            </td>
+                           </tr>
+                           <tr>
+                            <td style="width:50%">
+                             <a class="float-left">Trạng thái</a> 
+                                  @if(Auth::user()->roleid == 1) 
+                                    <input @if($dutu->idstatus == 1) checked @endif style="float: right; width: 24px;" class="form-control thongtin" type='checkbox' disabled id='checkboxSuccess3'>
+                                  @else
+                                    @if($dutu->idstatus==1) <p style="float: right;color: blue;">Đang sinh hoạt</p>  @else <p style="float: right;color: red;">Chờ duyệt</p>  @endif
+                                  @endif
+                            </td>
+                            <td style="width:50%">
+                              <a class="float-left">Năm dự tu</a> 
+                              @if(Auth::user()->roleid == 1)
+                                <select  id="idyear" disabled type="text" class="form-control thongtin @error('idyear') is-invalid @enderror" name="idyear" value="{{$dutu->nameyear->name}}" autocomplete="idyear" autofocus style="width: 100%; float: right;" required>
+                                  @foreach($year as $y)
+                                    <option value="{{$y->id}}" @if($dutu->idyear == $y->id) selected @endif>{{$y->name}}</option>
+                                  @endforeach
+                                </select>
+                              @else
+                                <p style="float: right;">{{$dutu->nameyear->name}}</p>
+                              @endif
+                            </td>
+                           </tr>
+                           <tr>
+                             <td>
+                               <a class="float-left">Số điện thoại</a> <b class="float-right"><input name="phonenumber" type="text" class="form-control thongtin" disabled  placeholder="Chưa có"></b> 
+                             </td>
+                             <td></td>
+                           </tr>
+                        </tbody></table>
                       </div>
-                    </div>
-                    
-                  </div>
-                  <!-- /.card-body -->
-                </div>
+                      <button type="submit" value="submit" style="float: right; margin-left: 2%" name="btnsave" id="btnsave" class="btn btn-primary">Lưu</button>
+                      <a style="float: right" id="btnedit" class="btn btn-primary">Chỉnh sửa</a>
+                    </div> <!-- đóng div row -->
+                  </div> <!-- đóng div col-12 -->
+                </form>
+              </div>
+            </div> <!-- đóng div card-body box-profile -->
+          </div>
+        </div>
+      </section>
+ 
 <!--   điểm danh -->
-                <?php 
+               <?php 
                   $nh ;
                   $thang = date("m",strtotime(now()));
                   $nam = date("Y",strtotime(now()));
@@ -165,148 +165,142 @@
                     $nh = $nam.'-'.($nam+1);
                   }
                 ?>
-
-          <div class="col-sm-12">
-            <div class="row">
-              <div class="card" style="min-width: 100%">
-              <div class="card-header">
-                <h3 class="card-title">Thông tin điểm danh năm học {{$nh}}</h3>
-                
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 100%;display: flex;">
-                      <p>Tỷ lệ vắng: </p>
-                    <p style="    padding-left: 25px;color: #ff0202;font-weight: 900;" id="tyle_vang"></p>
-                  </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="card" style="min-width: 100%">
+            <div class="card-header">
+              <h3 class="card-title">Thông tin điểm danh năm học {{$nh}}</h3>
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 100%;display: flex;">
+                  <p>Tỷ lệ vắng: </p>
+                  <p style="    padding-left: 25px;color: #ff0202;font-weight: 900;" id="tyle_vang"></p>
                 </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table style="text-align: center;" class="table table-hover text-nowrap table-bordered">
-                  <thead>
-                    <tr>
-                       @for($i=9;$i<=20; $i++)
-                        <th>T @if($i>12) {{$i-12}} @else {{$i}} @endif</th>
-                      @endfor
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr id="at_tr">
-                      @for($k=1;$k<=12;$k++)
-                            <td class="at_td"></td>
-                                  @endfor
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            </div>
-          </div>
+            </div> <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table style="text-align: center;" class="table table-hover text-nowrap table-bordered">
+                <thead>
+                  <tr>
+                    @for($i=9;$i<=20; $i++)
+                    <th>T @if($i>12) {{$i-12}} @else {{$i}} @endif</th>
+                    @endfor
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="at_tr">
+                    @for($k=1;$k<=12;$k++)
+                    <td class="at_td"></td>
+                    @endfor
+                  </tr>
+                </tbody>
+              </table>
+            </div> <!-- /.card-body -->
+          </div> <!-- card -->
+        </div> <!-- row -->
+      </div>
 <!-- kết thúc điểm danh -->
 <!-- điểm -->
-<div class="col-sm-12">
-            <div class="row">
-              <div class="card" style="min-width: 100%">
-              <div class="card-header">
-                <h3 class="card-title">Thông tin điểm thi</h3>
-                
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 100%;display: flex;">
-                      <p>Điểm trung bình: </p>
-                    <p style="    padding-left: 25px;color: #ff0202;font-weight: 900;" id="diemtb"> {{$dutu->getdiem->avg('diem')}}</p>
-                  </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="card" style="min-width: 100%">
+            <div class="card-header">
+              <h3 class="card-title">Thông tin điểm thi</h3>
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 100%;display: flex;">
+                  <p>Điểm trung bình: </p>
+                  <p style="    padding-left: 25px;color: #ff0202;font-weight: 900;" id="diemtb"> {{$dutu->getdiem->avg('diem')}}</p>
                 </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table style="text-align: center;" class="table table-hover text-nowrap table-bordered">
-                  <thead>
-                   
-                  </thead>
-                  <tbody>
-                    <tr >
-                      <td >Điểm năm 1</td>   
-                      <td>@if($dutu->getdiem->where('idnam',1)->first()) 
-                        {{$dutu->getdiem->where('idnam',1)->first()->diem }}
-                        @else Chưa có điểm @endif
-                      </td>       
-                    </tr>
-                    <tr >
-                      <td >Điểm năm 2</td>   
-                      <td>@if($dutu->getdiem->where('idnam',2)->first()) 
-                        {{$dutu->getdiem->where('idnam',2)->first()->diem}}
-                        @else Chưa có điểm @endif
-                      </td>       
-                    </tr>
-                    <tr >
-                      <td >Điểm năm 3</td>   
-                      <td>
-                        @if($dutu->getdiem->where('idnam',3)->first()) 
+            </div> <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table style="text-align: center;" class="table table-hover text-nowrap table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td >Điểm năm 1
+                    </td>   
+                    <td>@if($dutu->getdiem->where('idnam',1)->first()) 
+                      {{$dutu->getdiem->where('idnam',1)->first()->diem }}
+                      @else Chưa có điểm @endif
+                    </td>       
+                  </tr>
+                  <tr >
+                    <td >Điểm năm 2
+                    </td>   
+                    <td>@if($dutu->getdiem->where('idnam',2)->first()) 
+                          {{$dutu->getdiem->where('idnam',2)->first()->diem}}
+                          @else Chưa có điểm @endif
+                    </td>       
+                  </tr>
+                  <tr >
+                    <td >Điểm năm 3
+                    </td>   
+                    <td>
+                      @if($dutu->getdiem->where('idnam',3)->first()) 
                         {{$dutu->getdiem->where('idnam',3)->first()->diem }}
                         @else Chưa có điểm @endif
-                      </td>       
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            </div>
+                    </td>       
+                  </tr>
+                </tbody>
+              </table>
+            </div> <!-- /.card-body -->
           </div>
+        </div>
+      </div>
 <!-- kết thúc điểm -->
-          <!-- /.col -->
-          <div class="col-sm-12">
-            <div class="row">
-              <div class="card" style="min-width: 100%">
-              <div class="card-header">
-                <h3 class="card-title">Thông tin giấy tờ</h3>
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="hidden" value="{{$ind=0}}">
-                      @if(Auth::user()->roleid == 1) 
-                      <button  id="ppedit" class="btn btn-primary" onclick="edithien()">Chỉnh sửa</button>
-                      <button style="margin-left: 2%" type="submit" value="submit"  name="ppsave" id="ppsave" disabled class="btn btn-primary">Lưu</button>
-                      @endif
-                  </div>
-                </div>
+          <!-- / giấy tờ -->
+      <div class="col-sm-12">
+      <div class="row">
+        <div class="card" style="min-width: 100%">
+          <div class="card-header">
+            <h3 class="card-title">Thông tin giấy tờ</h3>
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="hidden" value="{{$ind=0}}">
+                @if(Auth::user()->roleid == 1) 
+                <button  id="ppedit" class="btn btn-primary" onclick="edithien()">Chỉnh sửa</button>
+                <button style="margin-left: 2%" type="submit" value="submit"  name="ppsave" id="ppsave" disabled class="btn btn-primary">Lưu
+                </button>
+                @endif
               </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                    <table class="table">
-                      <tbody>
-                        @foreach($lstpaper as $paper)
-                        <tr>
-                        <th style="width:50%">{{$paper->name}}</th>
-                        <td>
-                          <input class="chk_pp" style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'
-                          @if($paper->getpaper->where('iddutu',$dutu->id)->first())
-                          @if($paper->getpaper->where('iddutu',$dutu->id)->first()->status == 1) checked {{$ind+=1}} @endif @endif 
-                           >
-                        </td>
-
+            </div>
+          </div> <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table">
+              <tbody>
+                @foreach($lstpaper as $paper)
+                <tr>
+                  <th style="width:30%">{{$paper->name}}</th>
+                  <td>
+                    <input class="chk_pp" style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'
+                    @if($paper->getpaper->where('iddutu',$dutu->id)->first())
+                    @if($paper->getpaper->where('iddutu',$dutu->id)->first()->status == 1) checked {{$ind+=1}} @endif @endif>
+                  </td>
                         <!-- <th style="width:50%">Chứng thư rửa tội:</th>
                         <td><input style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'></td>  -->
-                      </tr>
-                        @endforeach
-                      @if($lstpaper->count()>$ind)
-                      <tr style="background-color: red;color: floralwhite;border-style: solid;">
-                        <th style="width:50%">Còn thiếu: </th>
-                        <td>{{($lstpaper->count())-$ind}} loại giấy tờ CHƯA NỘP</td>
-                      </tr>
-                      @endif
+                </tr>
+                @endforeach
+                @if($lstpaper->count()>$ind)
+                <tr style="background-color: red;color: floralwhite;border-style: solid;">
+                  <th style="width:50%">Còn thiếu: </th>
+                  <td>{{($lstpaper->count())-$ind}} loại giấy tờ CHƯA NỘP</td>
+                </tr>
+                @endif
 
-                    </tbody></table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            </div>
-          </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    </div>
+              </tbody>
+            </table>
+          </div> <!-- /.card-body -->
+        </div>
+      </div>
+      </div>
+        <!-- /kết thúc giấy tờ -->
+   </div><!-- /.left container -->
   </section>
-  <section class="col-lg-3 col-md-3 col-sm-3">
+  <!-- thieu div container day -->
+ <!--  hết phần bên trái -->
+ <!--  Phần bên phải -->
+      <section class="col-lg-3 col-md-3 col-sm-3">
         <aside class="right_content">
           <div class="latest_post">
           <h2><span>Thông báo</span></h2>
@@ -327,24 +321,27 @@
         </div>
         </aside>
       </section>
-
-  <script type="text/javascript">
+    </div>
+  </section>
+  @include('user.layout.footer')
+</div>
+<script type="text/javascript">
 //checkbox su kien status name
-$("#customSwitch3").click( function(){
-   if( $(this).is(':checked') ){
-    $('#statusname').text("Đang Sinh Hoạt");
-   }
-   else{
-    $('#statusname').text("Đang Chờ Duyệt");
-   }
-});
+    $("#customSwitch3").click( function(){
+       if( $(this).is(':checked') ){
+        $('#statusname').text("Đang Sinh Hoạt");
+       }
+       else{
+        $('#statusname').text("Đang Chờ Duyệt");
+       }
+    });
 
-$('#btnedit').click(function(){
-  $('.thongtin').removeAttr("disabled");
-  $('.thongtinten').removeAttr("disabled");
-  $('#c_image').css("visibility","visible")
-  $('.thongtin').css("border","solid #007bff 1px");
-  $('.thongtinten').css("border","solid #007bff 1px");
+    $('#btnedit').click(function(){
+      $('.thongtin').removeAttr("disabled");
+      $('.thongtinten').removeAttr("disabled");
+      $('#c_image').css("visibility","visible")
+      $('.thongtin').css("border","solid #007bff 1px");
+      $('.thongtinten').css("border","solid #007bff 1px");
 })
 </script>
 <script type="text/javascript">
@@ -356,7 +353,7 @@ $('#btnedit').click(function(){
 </script>
 <script type="text/javascript">
      $(document).ready(function () {
-      // gán data cho điểm danh
+      // PHẦN ĐIỂM DANH: gán data cho điểm danh
       var uncheck = "<input type='checkbox' disabled id='checkboxSuccess3'>";
       var hacheck = "<input type='checkbox' checked disabled id='checkboxSuccess3'>";
       var vang = 0, comat=0;
@@ -406,9 +403,8 @@ $('#btnedit').click(function(){
       }
       var tyle_vang = vang+"/"+Object.keys(data).length ;
        $("#tyle_vang").text(tyle_vang+ " ("+phantram+ " )");
-  // kết thúc gán data cho điểm danh  
-      // set date for textbox date ò birth
-      // end setdate
+  // KẾT THÚC PHẦN ĐIỂM DANH  
+    
       // view img
       $('input[type="file"]').change(function(e) {
           var fileName = e.target.files[0].name;
@@ -424,9 +420,9 @@ $('#btnedit').click(function(){
       });
 
 
-      // ajax chuyen du lieu
-      var frm = $('#frmupdate');
- // submit form
+    // ajax chuyen du lieu
+    // FORM CHỈNH SỬA THÔNG TIN SUBMIT
+    var frm = $('#frmupdate');
     frm.submit(function (e) {
          $.ajaxSetup({
       headers: {
@@ -471,12 +467,7 @@ $('#btnedit').click(function(){
 
         
      })
-    </script>
-       
-    </div>
-  </section>
-  @include('user.layout.footer')
-</div>
+ </script>
 
  <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
