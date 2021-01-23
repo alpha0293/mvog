@@ -209,7 +209,7 @@ class AttendanceController extends Controller
             $lstdutu = Dutu::where('idstatus',1)->where('idzone',$idzone)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
             }])->get(); //Constraining Eager Loads
-            if($lstdutu->first()->getattend->count() == 0)
+            if($lstdutu->count() == 0)
             {
                 abort (404);
             }
