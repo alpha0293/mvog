@@ -257,7 +257,8 @@ class DutuController extends Controller
 	          		return "Lỗi move ảnh";
 	          	}
 			}
-			try {
+			try
+			{
 				Dutu::where('id',$id)->update(
 					['holyname'=>$request->holyname,
 					'profileimg'=> $imagename,
@@ -270,9 +271,8 @@ class DutuController extends Controller
 					'idyear'=>$request->idyear,
 					'idstatus'=>$request->idstatus,
 					]);
-					return "Thành công nhân";
-					return redirect()->route('home')->with('message','Cập nhật thông tin thành công!!!');
-
+				User::where('id',$id)->update(['email'=>$request->email]);
+				return "Thành Công";
 			} catch (\Exception $e) {
 				return 'error';
 				dd($e->getMessage());
