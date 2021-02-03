@@ -92,12 +92,18 @@ class DutuController extends Controller
 			}
 			else
 			{
+				$arrName = explode(" ",$request->name);
+				$firstName = array_shift($arrName);
+				$lastName = array_pop($arrName);
+				$middleName = implode(" ", $arrName);
 				try{
 					Dutu::create(
 					['id' => Auth::id(),
 					'holyname'=>$request->holyname,
-					'name'=>$request->name,
+					'name'=>$lastName,
+					'fullname'=>$firstName.' '.$middleName,
 					'dob'=>$request->dob,
+					'phonenumber'=>'0987654321',
 					'parish'=>$request->parish,
 					'school'=>$request->school,
 					'majors'=>$request->majors,
@@ -259,11 +265,17 @@ class DutuController extends Controller
 			}
 			try
 			{
+				$arrName = explode(" ",$request->name);
+				$firstName = array_shift($arrName);
+				$lastName = array_pop($arrName);
+				$middleName = implode(" ", $arrName);
 				Dutu::where('id',$id)->update(
 					['holyname'=>$request->holyname,
 					'profileimg'=> $imagename,
-					'name'=>$request->name,
+					'name'=>$lastName,
+					'fullname'=>$firstName.' '.$middleName,
 					'dob'=>$request->dob,
+					'phonenumber'=>'0987654321',
 					'parish'=>$request->parish,
 					'school'=>$request->school,
 					'majors'=>$request->majors,
@@ -274,7 +286,7 @@ class DutuController extends Controller
 				User::where('id',$id)->update(['email'=>$request->email]);
 				return "Thành Công";
 			} catch (\Exception $e) {
-				return 'error';
+				return $e->getMessage();
 				dd($e->getMessage());
 				return Redirect::back();
 			}
