@@ -287,8 +287,6 @@ class DutuController extends Controller
 				return "Thành Công";
 			} catch (\Exception $e) {
 				return $e->getMessage();
-				dd($e->getMessage());
-				return Redirect::back();
 			}
 
 
