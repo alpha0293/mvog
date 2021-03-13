@@ -92,12 +92,18 @@ class DutuController extends Controller
 			}
 			else
 			{
+				$arrName = explode(" ",$request->name);
+				$firstName = array_shift($arrName);
+				$lastName = array_pop($arrName);
+				$middleName = implode(" ", $arrName);
 				try{
 					Dutu::create(
 					['id' => Auth::id(),
 					'holyname'=>$request->holyname,
-					'name'=>$request->name,
+					'name'=>$lastName,
+					'fullname'=>$firstName.' '.$middleName,
 					'dob'=>$request->dob,
+					'phonenumber'=>'0987654321',
 					'parish'=>$request->parish,
 					'school'=>$request->school,
 					'majors'=>$request->majors,
@@ -193,7 +199,6 @@ class DutuController extends Controller
 
 		//
 		// return $request->all();
-		// return $request->profileimg;
 		if($id!=Auth::id() && Auth::user()->roleid != 1)
 		{
 			return Redirect::back()->with('message','Bạn không có quyền Sửa thông tin!!!');
@@ -202,7 +207,7 @@ class DutuController extends Controller
 		$dutu=Dutu::get()->where('id',$id)->first();
 
 
-		if(Auth::user()->roleid==1)
+		if(Auth::user()->roleid == 1)
 		{
 			if($request->idstatus=="on")
 			{
@@ -214,16 +219,19 @@ class DutuController extends Controller
 			}
 			
 		}
-		else
+		if(Auth::user()->roleid == 2)
 		{
-			$request->idstatus = $dutu->idstatus;;		
-		}	
-		// if($request->profileimg=="")
-		// {
-		// 	// return "NULL";
-		// 	$request['profileimg'] = $dutu->profileimg;
-		// }
-
+			$request['idstatus'] = $dutu->idstatus;
+			$request['idyear'] = $dutu->idyear;
+			$request['idzone'] = $dutu->idzone;
+		}
+		if(Auth::user()->roleid == 3)
+		{
+			$request['idstatus'] = $dutu->idstatus;
+			$request['idyear'] = $dutu->idyear;
+			// $request['idzone'] = $dutu->idzone;
+		}
+		// return $request->all();
 		$vali = Dutu::validator($request->all());
 		// return $vali;
 		 if($vali->fails())
@@ -255,12 +263,19 @@ class DutuController extends Controller
 	          		return "Lỗi move ảnh";
 	          	}
 			}
-			try {
+			try
+			{
+				$arrName = explode(" ",$request->name);
+				$firstName = array_shift($arrName);
+				$lastName = array_pop($arrName);
+				$middleName = implode(" ", $arrName);
 				Dutu::where('id',$id)->update(
 					['holyname'=>$request->holyname,
 					'profileimg'=> $imagename,
-					'name'=>$request->name,
+					'name'=>$lastName,
+					'fullname'=>$firstName.' '.$middleName,
 					'dob'=>$request->dob,
+					'phonenumber'=>'0987654321',
 					'parish'=>$request->parish,
 					'school'=>$request->school,
 					'majors'=>$request->majors,
@@ -268,13 +283,10 @@ class DutuController extends Controller
 					'idyear'=>$request->idyear,
 					'idstatus'=>$request->idstatus,
 					]);
-					return "Thành công nhân";
-					return redirect()->route('home')->with('message','Cập nhật thông tin thành công!!!');
-
+				User::where('id',$id)->update(['email'=>$request->email]);
+				return "Thành Công";
 			} catch (\Exception $e) {
-				return 'error';
-				dd($e->getMessage());
-				return Redirect::back();
+				return $e->getMessage();
 			}
 
 

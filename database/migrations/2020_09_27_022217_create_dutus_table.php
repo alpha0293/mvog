@@ -17,11 +17,13 @@ class CreateDutusTable extends Migration
             $table->id();
             $table->string('profileimg')->nullable();
 			$table->string('holyname');
+            $table->string('fullname');
 			$table->string('name');
 			$table->date('dob');
 			$table->string('parish');
 			$table->string('school');
 			$table->string('majors');
+            $table->string('phonenumber');
 			$table->unsignedBigInteger('idzone');
 			$table->unsignedBigInteger('idyear');
 			$table->unsignedBigInteger('idstatus');

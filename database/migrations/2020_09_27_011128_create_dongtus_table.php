@@ -16,7 +16,8 @@ class CreateDongtusTable extends Migration
         Schema::create('dongtus', function (Blueprint $table) {
             $table->id();
 			$table->string('name');
-			$table->string('information');
+			$table->longText('information');
+            $table->string('url');
             $table->timestamps();
         });
     }
