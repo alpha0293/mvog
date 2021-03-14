@@ -18,6 +18,7 @@ use App\Exports\DutuExportView;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\UserChangePassword;
+use Redirect;
 
 class AdminController extends Controller
 {
@@ -363,7 +364,7 @@ class AdminController extends Controller
     public function changePassword(UserChangePassword $request)
     {
         auth()->user()->update(['password' => bcrypt($request->new_password)]);
-        return response()->json(['message' => trans('validation.change_password')]);
+        return Redirect::back()->with('message','Đổi mật khẩu thành công!!!');
     }
 
 }

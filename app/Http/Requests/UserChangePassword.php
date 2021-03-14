@@ -32,10 +32,4 @@ class UserChangePassword extends FormRequest
         're_new_password' => ['bail','required','same:new_password']
         ];
     }
-
-    //function handle errors when validate
-    // public function failedValidation(Validator $validator)
-    // {
-    //     $errors = $validator->errors(); // Here is your array of errors
-    // }
 }
