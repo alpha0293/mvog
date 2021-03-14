@@ -131,3 +131,7 @@ Route::post('ontruongnhom','AdminController@nhomtruong')->name('ontruongnhom')->
 Route::post('onxetduyet','AdminController@xetduyet')->name('onxetduyet')->middleware('auth');
 Route::post('lenlop','AdminController@lenlop')->name('lenlop')->middleware('auth');
 Route::post('lenlopall','AdminController@lenlopall')->name('lenlopall')->middleware('auth');
+
+Route::get('config', function () {
+    return view('admin.config-manager.config');
+});
