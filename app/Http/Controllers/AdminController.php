@@ -17,6 +17,9 @@ use App\Exports\UsersExport;
 use App\Exports\DutuExportView;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\UserChangePassword;
+use Redirect;
+
 class AdminController extends Controller
 {
     /**
@@ -352,4 +355,16 @@ class AdminController extends Controller
         return view('admin.dutu.canhbao',compact('lstdutu2','index'));
         }   
     }
+
+    public function getChangePassword()
+    {
+        return view('auth.passwords.change');
+    }
+
+    public function changePassword(UserChangePassword $request)
+    {
+        auth()->user()->update(['password' => bcrypt($request->new_password)]);
+        return Redirect::back()->with('message','Đổi mật khẩu thành công!!!');
+    }
+
 }

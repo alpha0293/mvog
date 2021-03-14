@@ -132,6 +132,6 @@ Route::post('onxetduyet','AdminController@xetduyet')->name('onxetduyet')->middle
 Route::post('lenlop','AdminController@lenlop')->name('lenlop')->middleware('auth');
 Route::post('lenlopall','AdminController@lenlopall')->name('lenlopall')->middleware('auth');
 
-Route::get('config', function () {
-    return view('admin.config-manager.config');
-});
+Route::post('/password/change', 'AdminController@changePassword')->name('change.password')->middleware('auth');
+Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
+
