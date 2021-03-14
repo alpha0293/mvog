@@ -131,3 +131,6 @@ Route::post('ontruongnhom','AdminController@nhomtruong')->name('ontruongnhom')->
 Route::post('onxetduyet','AdminController@xetduyet')->name('onxetduyet')->middleware('auth');
 Route::post('lenlop','AdminController@lenlop')->name('lenlop')->middleware('auth');
 Route::post('lenlopall','AdminController@lenlopall')->name('lenlopall')->middleware('auth');
+
+Route::post('/password/change', 'AdminController@changePassword')->name('change.password')->middleware('auth');
+Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
