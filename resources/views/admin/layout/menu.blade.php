@@ -168,7 +168,7 @@
           
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
+              <i class="nav-icon far fa-file-alt"></i>
               <p>
                 Quản lí mẫu giấy tờ
                 <i class="fas fa-angle-left right"></i>
@@ -192,7 +192,7 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
+              <i class="nav-icon fas fa-school"></i>
               <p>
                 Quản lí tuyển sinh
                 <i class="fas fa-angle-left right"></i>
@@ -203,6 +203,24 @@
                 <a href="pages/mailbox/mailbox.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thông tin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog fa-spin"></i>
+              <p>
+                Quản lí hệ thống
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Config</p>
                 </a>
               </li>
             </ul>

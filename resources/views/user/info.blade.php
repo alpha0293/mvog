@@ -74,7 +74,7 @@
                   <div class="row text-center" style="margin-bottom: 15px;">
                     <div class="col-sm-6 text-center" style="width: 100%">
                       <input name="holyname" type="text" class="form-control profile-username thongtinten" value="{{$dutu->holyname}}" disabled placeholder="Chưa có"> 
-                      <input name="name" type="text" class="form-control profile-username thongtinten" value="{{$dutu->name}}" disabled placeholder="Chưa có">
+                      <input name="name" type="text" class="form-control profile-username thongtinten" value="{{$dutu->fullname}} {{$dutu->name}}" disabled placeholder="Chưa có">
                     </div>
                   </div>
                   <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">

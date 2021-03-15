@@ -11,10 +11,10 @@
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf </form>
               <li class="nav-item dropdown" style="float: right;">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                  {{ Auth::user()->name }}
+                  {{ Auth::user()->name }} 
                 </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Thông tin cá nhân</a>
+                  <a class="dropdown-item" href="{{route('show.dutu',Auth::user()->id)}}">Thông tin cá nhân</a>
                   <a class="dropdown-item" href="#">Đổi mật khẩu</a>
                 </div>
             </li>

@@ -1,27 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>MVOG | Giaó Phận Hà Tĩnh</title>
-</head>
-<body>
-	@include('user.layout.head')
-	@include('user.layout.header')
-	<style>
-	  body { text-align: center; padding: 150px; }
-	  h1 { font-size: 50px; }
-	  body { font: 20px Helvetica, sans-serif; color: #333; }
-	  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-	  a { color: #dc8100; text-decoration: none; }
-	  a:hover { color: #333; text-decoration: none; }
-	</style>
 
-<article>
-    <h1>We&rsquo;ll be back soon!</h1>
-    <div>
-        <p>Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. If you need to you can always, otherwise we&rsquo;ll be back online shortly!</p>
-        <p>&mdash; The Team</p>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+   @include('user.layout.head')
+    <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
+    
+</head>
+
+<body>
+
+
+   @include('user.layout.loader')
+    <!-- ***** Preloader End ***** -->
+ 
+<div class="container">
+   @include('user.layout.header')
+   @include('user.layout.menu')
+  <section id="sliderSection">
+    <div class="row">
+      
     </div>
-</article>
-	@include('user.layout.footer')
+  </section>
+  <section id="contentSection">
+    <div class="row">
+       <section class="col-lg-8 col-md-8 col-sm-8">
+       		<article>
+			    <h1>Chúng tôi sẽ trở lại sớm!</h1>
+			    <div>
+			        <p>Xin lỗi vì sự bất tiện này. Chúng tôi đang thực hiện một số bảo trì.
+			        	Chúng tôi sẽ sớm trở lại. Nguyện Thiên Chúa ban muôn phúc lành trên quý vị!
+			     	</p>
+			        <p>--- Ban MVOG Giáo phận Hà Tĩnh</p>
+			    </div>
+			</article>
+       </section>
+    </div>
+  </section>
+  @include('user.layout.footer')
+</div>
+ @include('user.layout.script')
+ <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+      
+    </script>
 </body>
 </html>
+
