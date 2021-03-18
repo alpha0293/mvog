@@ -134,3 +134,5 @@ Route::post('lenlopall','AdminController@lenlopall')->name('lenlopall')->middlew
 
 Route::post('/password/change', 'AdminController@changePassword')->name('change.password')->middleware('auth');
 Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
+
+Route::resource('configs', 'ConfigController');
