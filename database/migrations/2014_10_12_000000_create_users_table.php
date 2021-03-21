@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 			$table->unsignedBigInteger('roleid');
             $table->timestamps();
-			$table->foreign('roleid')->references('id')->on('roles');
+			// $table->foreign('roleid')->references('id')->on('roles');
 			//$table->foreign('user_id')->references('id')->on('users');
         });
     }

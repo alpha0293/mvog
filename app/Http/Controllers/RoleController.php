@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Role;
+use App\Permission;
 
 class RoleController extends Controller
 {
@@ -16,6 +17,8 @@ class RoleController extends Controller
     public function index()
     {
         //
+        $roles = Role::all();
+        return view('role.index',compact('roles'));
     }
 
     /**
@@ -26,6 +29,8 @@ class RoleController extends Controller
     public function create()
     {
         //
+        $permissions = Permission::all();
+        return view('role.create')->withPermissions($permissions);
 		
     }
 
@@ -38,9 +43,17 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
-		Role::create(
-		['name'=>$request->name,
-		]);	
+		$role = new Role();
+        $role->display_name = $request->display_name;
+        $role->name = $request->name;
+        $role->description = $request->description;
+        $role->save();
+
+        if($request->permissions){
+            $role->syncPermissions($request->permissions);
+        }
+
+        return redirect()->route('role.show', $role->id)->with('status_success', 'Thêm nhóm quyền '.$role->display_name.' thành công!');
     }
 
     /**
@@ -52,7 +65,9 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-		$role=Role::get()->where('id',$id);
+		$role = Role::where('id',$id)->with('permissions')->firstOrFail();
+        $permissions = Permission::all();
+        return view('role.show')->withRole($role)->withPermissions($permissions);
     }
 
     /**
@@ -64,7 +79,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
-		$role=Role::where('id',$id)->first();
+		$role = Role::where('id',$id)->with('permissions')->firstOrFail();
+        $permissions = Permission::all();
+        return view('role.edit')->withRole($role)->withPermissions($permissions);
     }
 
     /**
@@ -77,9 +94,16 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         //
-		Role::where('id',$id)->update(
-		['name'=>$request->name,
-		]);
+		$role = Role::findOrFail($id);
+        $role->display_name = $request->display_name;
+        $role->description = $request->description;
+        $role->save();
+
+        if($request->permissions){
+            $role->syncPermissions($request->permissions);
+        }
+
+        return redirect()->route('role.show', $id)->with('status_success', 'Chỉnh sửa nhóm quyền '.$role->display_name.' thành công!');
     }
 
     /**

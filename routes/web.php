@@ -22,7 +22,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin','AdminController@index')->name('admin')->middleware('verified');
+// Route::get('/admin','AdminController@index')->name('admin')->middleware('verified');
 
 Route::get('dutu','DutuController@index');
 Route::get('dutu/create','DutuController@create')->name('create.dutu')->middleware('auth');
@@ -136,3 +136,119 @@ Route::post('/password/change', 'AdminController@changePassword')->name('change.
 Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
 
 Route::resource('configs', 'ConfigController');
+
+//route for admin
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@index']);
+    Route::get('/manage', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@index']);
+});
+
+//Route Roles
+Route::prefix('roles')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:roles-read'], 'uses'=>'RoleController@index','as'=>'role.index']);
+    Route::get('/create', ['middleware' => ['permission:roles-create'], 'uses'=>'RoleController@create','as'=>'role.create']);
+    Route::post('/store', ['middleware' => ['permission:roles-create'], 'uses'=>'RoleController@store','as'=>'role.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:roles-update'], 'uses'=>'RoleController@show','as'=>'role.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:roles-update'], 'uses'=>'RoleController@edit','as'=>'role.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:roles-delete'], 'uses'=>'RoleController@update','as'=>'role.update']);
+});
+
+//Route Dutu
+Route::prefix('dutus')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:dutus-read'], 'uses'=>'DutuController@index','as'=>'dutu.index']);
+    Route::get('/create', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@create','as'=>'dutu.create']);
+    Route::post('/store', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@store','as'=>'dutu.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@show','as'=>'dutu.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@edit','as'=>'dutu.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:dutus-delete'], 'uses'=>'DutuController@update','as'=>'dutu.update']);
+});
+
+//Route Điểm Danh
+Route::prefix('attdances')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:attendancesattendances-read'], 'uses'=>'AttendanceController@index','as'=>'attdance.index']);
+    Route::get('/create', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@create','as'=>'attdance.create']);
+    Route::post('/store', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@store','as'=>'attdance.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@show','as'=>'attdance.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@edit','as'=>'attdance.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:attendances-delete'], 'uses'=>'AttendanceController@update','as'=>'attdance.update']);
+});
+
+//Route Bài viết
+Route::prefix('posts')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'posts.index']);
+    Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'post.create']);
+    Route::post('/store', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@store','as'=>'post.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@show','as'=>'post.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@edit','as'=>'post.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:posts-delete'], 'uses'=>'PostController@update','as'=>'post.update']);
+});
+
+//Route Category
+Route::prefix('categories')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:categoriescategories-read'], 'uses'=>'CategoryController@index','as'=>'categorie.index']);
+    Route::get('/create', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@create','as'=>'categorie.create']);
+    Route::post('/store', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@store','as'=>'categorie.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@show','as'=>'categorie.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@edit','as'=>'categorie.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:categories-delete'], 'uses'=>'CategoryController@update','as'=>'categorie.update']);
+});
+
+//Route Dòng tu
+Route::prefix('dongtus')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:dongtus-read'], 'uses'=>'DongtuController@index','as'=>'dongtu.index']);
+    Route::get('/create', ['middleware' => ['permission:dongtus-create'], 'uses'=>'DongtuController@create','as'=>'dongtu.create']);
+    Route::post('/store', ['middleware' => ['permission:dongtus-create'], 'uses'=>'DongtuController@store','as'=>'dongtu.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@show','as'=>'dongtu.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@edit','as'=>'dongtu.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:dongtus-delete'], 'uses'=>'DongtuController@update','as'=>'dongtu.update']);
+});
+
+//Route Giấy tờ
+Route::prefix('papers')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:paper-read'], 'uses'=>'PaperController@index','as'=>'paper.index']);
+    Route::get('/create', ['middleware' => ['permission:paper-create'], 'uses'=>'PaperController@create','as'=>'paper.create']);
+    Route::post('/store', ['middleware' => ['permission:paper-create'], 'uses'=>'PaperController@store','as'=>'paper.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:paper-update'], 'uses'=>'PaperController@show','as'=>'paper.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:paper-update'], 'uses'=>'PaperController@edit','as'=>'paper.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:paper-delete'], 'uses'=>'PaperController@update','as'=>'paper.update']);
+});
+
+//Route Điểm thi
+Route::prefix('diemthis')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:diemthis-read'], 'uses'=>'DiemthiController@index','as'=>'diemthi.index']);
+    Route::get('/create', ['middleware' => ['permission:diemthis-create'], 'uses'=>'DiemthiController@create','as'=>'diemthi.create']);
+    Route::post('/store', ['middleware' => ['permission:diemthis-create'], 'uses'=>'DiemthiController@store','as'=>'diemthi.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:diemthis-update'], 'uses'=>'DiemthiController@show','as'=>'diemthi.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:diemthis-update'], 'uses'=>'DiemthiController@edit','as'=>'diemthi.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:diemthis-delete'], 'uses'=>'DiemthiController@update','as'=>'diemthi.update']);
+});
+
+//Route Khu vực sinh hoạt
+Route::prefix('zones')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:zones-read'], 'uses'=>'ZoneController@index','as'=>'zone.index']);
+    Route::get('/create', ['middleware' => ['permission:zones-create'], 'uses'=>'ZoneController@create','as'=>'zone.create']);
+    Route::post('/store', ['middleware' => ['permission:zones-create'], 'uses'=>'ZoneController@store','as'=>'zone.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:zones-update'], 'uses'=>'ZoneController@show','as'=>'zone.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:zones-update'], 'uses'=>'ZoneController@edit','as'=>'zone.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:zones-delete'], 'uses'=>'ZoneController@update','as'=>'zone.update']);
+});
+
+//Route Thông báo
+Route::prefix('notifies')->middleware('auth')->group(function () {
+    Route::get('/', ['middleware' => ['permission:notifications-read'], 'uses'=>'NotificationsController@index','as'=>'notify.index']);
+    Route::get('/create', ['middleware' => ['permission:notifications-create'], 'uses'=>'NotificationsController@create','as'=>'notify.create']);
+    Route::post('/store', ['middleware' => ['permission:notifications-create'], 'uses'=>'NotificationsController@store','as'=>'notify.store']);
+    Route::get('/show/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@show','as'=>'notify.show']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@edit','as'=>'notify.edit']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:notifications-delete'], 'uses'=>'NotificationsController@update','as'=>'notify.update']);
+});
+
+// User Routes...
+Route::prefix('users')->middleware(['auth'])->group(function () {
+    Route::get('/', ['middleware' => ['permission:users-read'], 'uses'=>'UserController@index','as'=>'user.index']);
+    Route::get('/add', ['middleware' => ['permission:users-create'], 'uses'=>'UserController@create','as'=>'user.add.get']);
+    Route::post('/add', ['middleware' => ['permission:users-create'], 'uses'=>'UserController@store','as'=>'user.add.post']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:users-update'], 'uses' =>'UserController@edit','as'=>'user.edit.get']);
+    Route::post('/edit', ['middleware' => ['permission:users-update'], 'uses'=>'UserController@update','as'=>'user.edit.post']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:users-delete'], 'uses'=>'UserController@destroy','as'=>'user.delete.get']);
+});

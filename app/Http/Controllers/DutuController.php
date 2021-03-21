@@ -30,7 +30,6 @@ class DutuController extends Controller
     public function index()
     {
     	$dutu = Dutu::first();
-    	dd($dutu->getattend2('2018')->first());
 		return ('Đây là trang view dự tu');
         //
     }
