@@ -1,5 +1,5 @@
 <section id="navArea">
-    <nav class="navbar navbar-inverse"  data-spy="affix" data-offset-top="197" role="navigation"> 
+    <nav class="navbar navbar-inverse" id="color-bar" data-spy="affix" data-offset-top="197" role="navigation"> 
       <div class="navbar-header">
          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>

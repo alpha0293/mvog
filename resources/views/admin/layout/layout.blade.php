@@ -16,13 +16,34 @@
   @include('admin.layout.footer')
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
+  <aside class="control-sidebar control-sidebar-light">
   </aside>
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+@if (session('success'))
+    <div class="col-sm-12">
+      <script type="text/javascript">
+        toastr.success('Thành công!!!','THÔNG BÁO');
+      </script>
+    </div>
+@endif
+@if (Session::has('errors'))
+    <div class="col-sm-12">
+      <?php $er = '' ?>
+        @foreach ($errors->all() as $error)
+          {{$er .= $error.' \n'}}
+        @endforeach
+      <script type="text/javascript">
+        toastr.error('{{$er}}','THÔNG BÁO');
+      </script>
+    </div>
+@endif
+<!-- @if(session()->get('errors'))
+    <script type="text/javascript">
+      toastr.error("{{ session()->get('errors') }}");
+    </script>
+@endif -->
 
 </body>
 </html>
