@@ -21,7 +21,7 @@ class AttendanceController extends Controller
     public function index()
     {
         $index = 1;
-        if (Auth::user()->roleid!=1) {
+        if (Auth::user()->hasRole('superadministrator|administrator')) {
             //return về một route khi người dùng không là admin
             return redirect()->route('home');
         }
@@ -40,16 +40,16 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
-        {
-            abort(403,"Bạn không có quyền truy cập vào trang này!!!");
-        }
+        // if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
+        // {
+        //     abort(403,"Bạn không có quyền truy cập vào trang này!!!");
+        // }
         $index = 1;
-        $roleid = Auth::user()->roleid; //lấy quyền của user vừa login
+        // $roleid = Auth::user()->roleid; //lấy quyền của user vừa login
         $id = Auth::id(); //Lấy ID user vừa login
         $idzone = null;
 
-        if($roleid == 1)
+        if(Auth::user()->hasRole('superadministrator|administrator'))
         {
             $dutu = Dutu::all()->where('idstatus','1');
         }
@@ -64,9 +64,9 @@ class AttendanceController extends Controller
         
         //$lstdutu;
         //dd($idzone);
-        if($roleid == 1 || $roleid == 2)
+        if(Auth::user()->hasRole('superadministrator|administrator|nhomtruong'))
         {
-            if($roleid == 2)
+            if(Auth::user()->hasRole('nhomtruong'))
             {
                 if ($idzone != null) {
                     //dd('idzone !=');
@@ -113,14 +113,14 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         $data = json_decode($request->data, true);
-        $roleid = Auth::user()->roleid;
+        // $roleid = Auth::user()->roleid;
         
         //return $user;
-        if($roleid == 1 || $roleid == 2 )
+        if(Auth::user()->hasRole('superadministrator|administrator|nhomtruong') )
         {
             foreach ($data as $dt) 
             {
-                if($roleid == 2)
+                if(Auth::user()->hasRole('nhomtruong'))
                 {
                     $user = Dutu::findOrFail(Auth::id()); //Lấy Trưởng nhóm vừa đăng nhập
                     $y1 = $user->idzone;
@@ -198,12 +198,12 @@ class AttendanceController extends Controller
     public function show($month,$year)
     {
         //
-        if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
-        {
-            abort(403,"Bạn không có quyền truy cập vào trang này!!!");
-        }
+        // if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
+        // {
+        //     abort(403,"Bạn không có quyền truy cập vào trang này!!!");
+        // }
         $index = 1;
-        if(Auth::user()->roleid == 2)
+        if(Auth::user()->hasRole('nhomtruong'))
         {
             $idzone = Dutu::findOrFail(Auth::user()->id)->idzone;
             $lstdutu = Dutu::where('idstatus',1)->where('idzone',$idzone)->with(['getattend' => function($query) use ( $month,$year ){
@@ -268,10 +268,10 @@ class AttendanceController extends Controller
     public function destroy($id)
     {
         //
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        // if(Auth::user()->roleid!=1)
+        // {
+        //     return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
+        // }
         Attendance::where('id',$id)->delete();
         return Redirect::back();
     }
