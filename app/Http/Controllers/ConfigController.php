@@ -42,43 +42,36 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::user()->roleid != 1)
+        if(Config::validator($request->all())->fails())
         {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
+            // return Config::validator($request->all())->errors();
+            return Redirect::back()->withErrors(Config::validator($request->all()));
         }
+            
         else
         {
-            if(Config::validator($request->all())->fails())
+            $config = Config::all()->first();
+            // return $config;
+            if($config) //update cấu hình ở đây
             {
-                // return Config::validator($request->all())->errors();
-                return Redirect::back()->withErrors(Config::validator($request->all()));
-            }
-                
-            else
-            {
-                $config = Config::all()->first();
-                // return $config;
-                if($config) //update cấu hình ở đây
-                {
-                    try {
-                        Config::all()->first()->update(
-                            $request->all()
-                        );
-                        return Redirect::back()->with('message','Update thành công!');
-                    } catch (Exception $e) {
-                        return Redirect::back()->withErrors('Update không thành công!');
-                    }
+                try {
+                    Config::all()->first()->update(
+                        $request->all()
+                    );
+                    return Redirect::back()->with('message','Update thành công!');
+                } catch (Exception $e) {
+                    return Redirect::back()->withErrors('Update không thành công!');
                 }
-                else //chưa có cấu hình thì insert
-                {
-                    try {
-                        Config::create(
-                            $request->all()
-                        );
-                        return Redirect::back()->with('message','Thêm mới cấu hình thành công!');
-                    } catch (Exception $e) {
-                        return Redirect::back()->withErrors('Thêm không thành công!');
-                    }
+            }
+            else //chưa có cấu hình thì insert
+            {
+                try {
+                    Config::create(
+                        $request->all()
+                    );
+                    return Redirect::back()->with('message','Thêm mới cấu hình thành công!');
+                } catch (Exception $e) {
+                    return Redirect::back()->withErrors('Thêm không thành công!');
                 }
             }
         }
