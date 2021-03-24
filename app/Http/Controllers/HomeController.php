@@ -35,10 +35,12 @@ class HomeController extends Controller
         }
         if(Post::all()->count() == 0)
             return view('user.pagenull');
-        $lstcat = Category::all()->where('status',1)->load('getpost');
+        $lstcat = Category::all()->where('status',1)->load(['getpost' => function($query){
+                $query->where('status',1);
+            }]);
         $lstcat2 = collect([]);
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
-        if(Post::all()->count() > 5)
+        if(Post::all()->where('status',1)->count() > 5)
         {
             $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
             $lstpopularpost = Post::all()->where('status',1)->random(5);

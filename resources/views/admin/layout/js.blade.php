@@ -49,6 +49,22 @@
     <script src="{{asset('toastr/toastr.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('admin_asset/dist/js/demo.js')}}"></script>
+    <!-- toastr option -->
+    <script type="text/javascript">
+         toastr.options = {
+                      "closeButton": true,
+                      "progressBar": true,
+                      "onclick": null,
+                      "showDuration": "3000",
+                      "hideDuration": "1000",
+                      "timeOut": "5000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                }
+    </script>
 
    
 

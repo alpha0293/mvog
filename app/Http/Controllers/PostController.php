@@ -101,8 +101,16 @@ class PostController extends Controller
             
             # code...
         }
-        $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
-        $lstpopularpost = Post::all()->where('status',1)->random(5); //post ngẫu nhiên
+        if(Post::all()->where('status',1)->count() > 5)
+        {
+            $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
+            $lstpopularpost = Post::all()->where('status',1)->random(5);
+        }
+        else
+        {
+            $postslide = Post::all()->where('status',1);
+            $lstpopularpost = $postslide;
+        }
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
         $lstcat = Category::all()->where('status',1);
         $lstrelatedpost = Post::all()->where('status',1)->where('idcategory',$post->idcategory)->sortByDesc('created_at')->take(3);

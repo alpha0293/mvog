@@ -150,6 +150,9 @@ input[type=checkbox]
   }
   .bsbig_fig figcaption {
     font-family: 'Philosopher', sans-serif;
+    font-weight: bold;
+    line-height: normal;
+    word-spacing: -3px;
   }
   a{
     font-family: 'Philosopher', sans-serif;
