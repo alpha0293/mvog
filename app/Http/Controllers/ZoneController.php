@@ -43,27 +43,20 @@ class ZoneController extends Controller
     public function store(Request $request)
     {
         //
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if(Zone::validator($request->all())->fails())
+            return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
         else
         {
-            if(Zone::validator($request->all())->fails())
-                return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
-            else
-            {
-                try {
-                    Zone::create(
-                        [
-                            'name'=>$request->name,
-                        ]);
-                    return 'Thành công!!!';
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                }
+            try {
+                Zone::create(
+                    [
+                        'name'=>$request->name,
+                    ]);
+                return 'Thành công!!!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
-        }
+            }
     }
 
     /**
@@ -87,11 +80,6 @@ class ZoneController extends Controller
      */
     public function edit($id)
     {
-        //
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
 		$zone = Zone::findOrfail($id);
         return view('zone.edit',compact('zone'));
     }
@@ -106,25 +94,18 @@ class ZoneController extends Controller
     public function update(Request $request, $id)
     {
         //
-		if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if(Zone::validator($request->all())->fails())
+            return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
         else
         {
-            if(Zone::validator($request->all())->fails())
-                return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
-            else
-            {
-                try {
-                    Zone::where('id',$id)->update(
-                        [
-                            'name'=>$request->name,
-                        ]);
-                    return 'Thành công!!!';
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                }
+            try {
+                Zone::where('id',$id)->update(
+                    [
+                        'name'=>$request->name,
+                    ]);
+                return 'Thành công!!!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
         }
     }
@@ -137,11 +118,6 @@ class ZoneController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
 		Zone::where('id',$id)->delete();    
         return Redirect::back();
     }
