@@ -44,29 +44,22 @@ class DongtuController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        if(Auth::user()->roleid == 1)
-        {
-            if (Dongtu::validator($request->all())->fails()) {
-                # code...
-                return Redirect::back()->withErrors(Dongtu::validator($request->all()));
-            }
-            else
-            {
-                try {
-                    Dongtu::create(
-                        [
-                            'name' => $request->name,
-                            'information' => $request->information,
-                        ]);
-                    return Redirect::back()->with('message','Tạo thành công dòng tu!!!');
-                } catch (\Exception $e) {
-                    return Redirect::back()->with('message','Tạo không thành công!!!');
-                }
-            }
+        if (Dongtu::validator($request->all())->fails()) {
+            # code...
+            return Redirect::back()->withErrors(Dongtu::validator($request->all()));
         }
         else
         {
-            return Redirect::back()->with('message','Bạn không có quyền thêm mới một dòng tu!!!');
+            try {
+                Dongtu::create(
+                    [
+                        'name' => $request->name,
+                        'information' => $request->information,
+                    ]);
+                return Redirect::back()->with('message','Tạo thành công dòng tu!!!');
+            } catch (\Exception $e) {
+                return Redirect::back()->with('message','Tạo không thành công!!!');
+            }
         }
         //
 		
@@ -108,31 +101,23 @@ class DongtuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Auth::user()->roleid == 1)
-        {
-            if (Dongtu::validator($request->all())->fails()) {
-                # code...
-                return Redirect::back()->withErrors(Dongtu::validator($request->all()));
-            }
-            else
-            {
-                try {
-                    Dongtu::where('id',$id)->update(
-                        [
-                            'name' => $request->name,
-                            'information' => $request->information,
-                        ]);
-                    return Redirect::back()->with('message','Cập nhật thành công dòng tu!!!');
-                } catch (\Exception $e) {
-                    return Redirect::back()->with('message','Cập nhật không thành công!!!');
-                }
-            }
+        if (Dongtu::validator($request->all())->fails()) {
+            # code...
+            return Redirect::back()->withErrors(Dongtu::validator($request->all()));
         }
         else
         {
-            return Redirect::back()->with('message','Bạn không có quyền thêm mới một dòng tu!!!');
+            try {
+                Dongtu::where('id',$id)->update(
+                    [
+                        'name' => $request->name,
+                        'information' => $request->information,
+                    ]);
+                return Redirect::back()->with('message','Cập nhật thành công dòng tu!!!');
+            } catch (\Exception $e) {
+                return Redirect::back()->with('message','Cập nhật không thành công!!!');
+            }
         }
-        //
     }
 
     /**
@@ -143,18 +128,11 @@ class DongtuController extends Controller
      */
     public function destroy($id)
     {
-        //
-        // dd('á');
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
         try {
             Dongtu::where('id',$id)->delete();
             return Redirect::back();
         } catch (\Exception $e) {
             return $e->getMessage();
-        }
-		
+        }	
     }
 }
