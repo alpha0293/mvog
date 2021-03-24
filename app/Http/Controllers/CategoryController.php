@@ -48,27 +48,20 @@ class CategoryController extends Controller
     {
         //
         $request['status'] = 1;
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if(Category::validator($request->all())->fails())
+            return Redirect::back()->withErrors(Category::validator($request->all()));
         else
         {
-            if(Category::validator($request->all())->fails())
-                return Redirect::back()->withErrors(Category::validator($request->all()));
-            else
-            {
-                try {
-                    Category::create(
-                        [
-                            'name' => $request->name,
-                            'status' => $request->status,
-                        ]);
-                    // return Paper::create(['name'=>$request->name,])->id;
-                    return redirect()->back()->with('success', 'Your message has been sent successfully!');
-                } catch (\Exception $e) {
-                    return Redirect::back()->withErrors("Thêm không thành công!");
-                }
+            try {
+                Category::create(
+                    [
+                        'name' => $request->name,
+                        'status' => $request->status,
+                    ]);
+                // return Paper::create(['name'=>$request->name,])->id;
+                return redirect()->back()->with('success', 'Your message has been sent successfully!');
+            } catch (\Exception $e) {
+                return Redirect::back()->withErrors("Thêm không thành công!");
             }
         }
     }
@@ -101,10 +94,6 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
         $cat = Category::findOrFail($id);
         return view('category.edit',compact('cat'));
     }
@@ -119,27 +108,20 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if(Category::validator($request->all())->fails())
+            return Redirect::back()->withErrors(Category::validator($request->all()));
         else
         {
-            if(Category::validator($request->all())->fails())
-                return Redirect::back()->withErrors(Category::validator($request->all()));
-            else
-            {
-                try {
-                    Category::where('id',$id)->update(
-                        [
-                            'name' => $request->name,
-                            'status' => $request->status,
-                        ]);
-                    // return Paper::create(['name'=>$request->name,])->id;
-                    return 'Thành công!!!';
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                }
+            try {
+                Category::where('id',$id)->update(
+                    [
+                        'name' => $request->name,
+                        'status' => $request->status,
+                    ]);
+                // return Paper::create(['name'=>$request->name,])->id;
+                return 'Thành công!!!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
         }
     }
@@ -153,10 +135,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
         try {
             Category::where('id',$id)->delete();
             return Redirect::back()->with('message','Xoá thành công');
@@ -168,23 +146,15 @@ class CategoryController extends Controller
     {
         //
         // return $request->all();
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if($request->value == 'true')
+            $status = 1;
         else
-        {
-            if($request->value == 'true')
-                $status = 1;
-            else
-                $status = 0;
-            try {
-                Category::where('id',$request->catid)->update(['status'=> $status]);
-                return 'thanh cong!!';
-            } catch (\Exception $e) {
-                return $e->getMessage();
-            }
+            $status = 0;
+        try {
+            Category::where('id',$request->catid)->update(['status'=> $status]);
+            return 'thanh cong!!';
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
-        
     }
 }
