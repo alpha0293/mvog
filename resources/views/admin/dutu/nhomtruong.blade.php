@@ -70,7 +70,7 @@
                           <td id="nhom">{{$i->namezone->name}}</td>
                           <td>
                               <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                <input type="checkbox" class="custom-control-input" id="{{$i->id}}" @if($i->getuser->roleid==2) checked="checked" @endif onclick="ontruongnhom({{$i->id}},this.checked);">
+                                <input type="checkbox" class="custom-control-input" id="{{$i->id}}" @if($i->getuser->hasRole('nhomtruong')) checked="checked" @endif onclick="ontruongnhom({{$i->id}},this.checked);">
                                 <label class="custom-control-label" for="{{$i->id}}"></label>
                             </div>
                           </td>

@@ -35,7 +35,7 @@ class AdminController extends Controller
         $zone1 = Zone::all();
         $year = Year::all();
         $lstchoduyet = Dutu::all()->where('idstatus','<>',1);
-        $truongnhom = User::all()->where('roleid',2);
+        $truongnhom = User::whereRoleIs('nhomtruong');
         try {
             //dd(($izone->first->getattend->getattend)->sortBy('month'));
         } catch (\Exception $e) {
@@ -167,7 +167,7 @@ class AdminController extends Controller
     public function xetduyetall(Request $request) //xét duyệt all dự tu vào sinh hoạt
     {
         try {
-            Dutu::where('idstatus',2)->update(['idstatus' => 1]);
+            Dutu::where('idstatus',2)->where('check',0)->update(['idstatus' => 1]);
             return "Thanh cong";
         } catch (Exception $e) {
             return $e->getMessage();
@@ -217,18 +217,28 @@ class AdminController extends Controller
 
     public function nhomtruong(Request $request) //Set nhom trưởng cho 1 dự tu
     {
+        $user = User::findOrFail($request->id);
         if($request->value == 'true')
-            $role = 2;
+        {
+            try {
+            $user->attachRole('nhomtruong');
+            $user->detachRole('dutu');
+            return "Thanh cong";
+            } catch (Exception $e) {
+                return $e->getMessage();
+            } 
+        }
         else
         {
-            $role = 3;
-        }
-        try {
-            User::where('id',$request->id)->update(['roleid' => $role]);
+            try {
+            $user->detachRole('nhomtruong');
+            $user->attachRole('dutu');
             return "Thanh cong";
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }           
+            } catch (Exception $e) {
+                return $e->getMessage();
+            } 
+        }
+
     }
 
     public function export() //export EXCELL
