@@ -29,7 +29,8 @@ class DutuController extends Controller
      */
     public function index()
     {
-    	$dutu = Dutu::first();
+    	$dutu = Dutu::all();
+    	return $dutu;
 		return ('Đây là trang view dự tu');
         //
     }
@@ -115,9 +116,9 @@ class DutuController extends Controller
     public function show($id)
     {
 
-		if($id!=Auth::id() && Auth::user()->hasRole('dutu'))
+		if($id != Auth::id() && Auth::user()->hasRole('dutu'))
 		{
-			return Redirect::back()->with('message','Bạn không có quyền xem thông tin của người dùng khác!!!');
+			abort (403);
 		}
 		$user = Auth::user();
 		$dutu = Dutu::findOrFail($id);
@@ -125,8 +126,6 @@ class DutuController extends Controller
 		$year = Year::all();
 		$lstpaper = Paper::all();
 		return view('user.info',compact('dutu','user','zone','year','lstpaper'));
-
-		
     }
 
     /**
@@ -137,19 +136,13 @@ class DutuController extends Controller
      */
     public function edit($id)
     {
-
-		if($id!=Auth::id() && Auth::user()->roleid != 1)
+		if($id != Auth::id() && !Auth::user()->hasRole('superadministrator|administrator'))
 
 		{
-			return Redirect::back()->with('message','Bạn không có quyền Sửa thông tin!!!');
+			abort (403);
 		}
-		$role = Auth::user()->roleid;
 		$year = Year::all();
 		$zone = Zone::all();
-		if($role==1)
-		{
-			return Redirect::back();
-		}
 		$user = Auth::user();
 		$dutu = Dutu::findOrFail($id);
 		return view('auth.update_info',compact('dutu','user','zone','year'));
@@ -167,9 +160,9 @@ class DutuController extends Controller
 
 		//
 		// return $request->all();
-		if($id!=Auth::id() && Auth::user()->hasRole('dutu|nhomtruong'))
+		if($id != Auth::id() && Auth::user()->hasRole('dutu|nhomtruong'))
 		{
-			return Redirect::back()->with('message','Bạn không có quyền Sửa thông tin!!!');
+			abort (403);
 		}
 		$user = Auth::user();
 		$dutu = Dutu::findOrFail($id);
@@ -199,7 +192,7 @@ class DutuController extends Controller
 		$vali = Dutu::validator($request->all());
 		 if($vali->fails())
 		 {
-		 	return "vali";
+		 	return $vali->errors();
 		 }
 		 else
 		{
@@ -237,7 +230,7 @@ class DutuController extends Controller
 					'name'=>$lastName,
 					'fullname'=>$firstName.' '.$middleName,
 					'dob'=>$request->dob,
-					'phonenumber'=>'0987654321',
+					'phonenumber'=>$request->phonenumber,
 					'parish'=>$request->parish,
 					'school'=>$request->school,
 					'majors'=>$request->majors,

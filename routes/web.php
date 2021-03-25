@@ -169,7 +169,7 @@ Route::prefix('roles')->middleware('auth')->group(function () {
 
 //Route Dutu
 Route::prefix('dutus')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:dutus-read'], 'uses'=>'DutuController@index','as'=>'dutu.index']);
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'DutuController@index','as'=>'dutu.index']);
     Route::get('/create', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@create','as'=>'dutu.create']);
     Route::post('/store', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@store','as'=>'dutu.store']);
     Route::get('/show/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@show','as'=>'dutu.show']);

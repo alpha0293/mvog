@@ -29,10 +29,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-		if (Auth::user()->roleid!=1) {
-			//return về một route khi người dùng không là admin
-			return redirect()->route('home');
-        }
         $iddt=Dutu::get()->where('idstatus','1');
 		//get all dutu from zone...
 		$izone=Dutu::get();
@@ -141,10 +137,6 @@ class AdminController extends Controller
 
     public function lstxetduyet() //Load ds xét duyệt
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
         // $lstxetduyet = Dutu::all()->where('idstatus',2);
         $lstxetduyet = Dutu::with(['getuser' => function($query){
             $query->where('email_verified_at','<>',null);
@@ -152,7 +144,7 @@ class AdminController extends Controller
         // $lstxetduyet = User::with(['getdutu' => function($query){
         //     $query->where('idstatus',2);
         // }])->where('email_verified_at','<>',null)->where('roleid','<>',1)->get();
-        dd($lstxetduyet->first()->getuser);
+        // dd($lstxetduyet->first()->getuser);
         $index = 1;
         return view('admin.dutu.xetduyet',compact('lstxetduyet','index'));
     }
@@ -160,41 +152,27 @@ class AdminController extends Controller
     public function xetduyet(Request $request) //xét duyệt dự tu vào sinh hoạt
     {
         // return $request->all();
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
+        if($request->value == 'true')
+            $status = 1;
         else
         {
-            if($request->value == 'true')
-                $status = 1;
-            else
-            {
-                $status = 2;
-            }
-            try {
-                Dutu::where('id',$request->id)->update(['idstatus' => $status]);
-                return "Thanh cong";
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
+            $status = 2;
+        }
+        try {
+            Dutu::where('id',$request->id)->update(['idstatus' => $status]);
+            return "Thanh cong";
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
     public function xetduyetall(Request $request) //xét duyệt all dự tu vào sinh hoạt
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
-        else
-        {
-            try {
-                Dutu::where('idstatus',2)->update(['idstatus' => 1]);
-                return "Thanh cong";
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
+        try {
+            Dutu::where('idstatus',2)->update(['idstatus' => 1]);
+            return "Thanh cong";
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
