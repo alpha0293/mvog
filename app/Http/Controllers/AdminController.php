@@ -137,14 +137,12 @@ class AdminController extends Controller
 
     public function lstxetduyet() //Load ds xét duyệt
     {
-        // $lstxetduyet = Dutu::all()->where('idstatus',2);
-        $lstxetduyet = Dutu::with(['getuser' => function($query){
-            $query->where('email_verified_at','<>',null);
-        }])->where('idstatus',2)->get();
-        // $lstxetduyet = User::with(['getdutu' => function($query){
-        //     $query->where('idstatus',2);
-        // }])->where('email_verified_at','<>',null)->where('roleid','<>',1)->get();
-        // dd($lstxetduyet->first()->getuser);
+        $lstxetduyet = Dutu::with('getuser')->where('idstatus',2)->where('check',0)->get();
+        for ($i=0; $i < $lstxetduyet->count(); $i++) {
+            if (!$lstxetduyet[$i]->getuser->email_verified_at) {
+                $lstxetduyet->pull($i);
+             } 
+        }
         $index = 1;
         return view('admin.dutu.xetduyet',compact('lstxetduyet','index'));
     }
