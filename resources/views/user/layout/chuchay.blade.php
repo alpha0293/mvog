@@ -1,7 +1,7 @@
 <section id="newsSection">
     <div class="row">
       <div style="padding-top: 3px;" class="col-lg-12 col-md-12">
-        <div class="latest_newsarea" > <span style="height: 100%">Lời Chúa trong ngày</span>
+        <div class="latest_newsarea" id="color-bar" > <span style="height: 100%">Lời Chúa trong ngày</span>
           <marquee style="margin-top: 3px;color: #fdf7f7" class="news_sticker">Thiên Chúa là Tình Yêu!! (Ga 4, 16)</marquee>
           <!-- <div class="social_area">
             <ul class="social_nav">

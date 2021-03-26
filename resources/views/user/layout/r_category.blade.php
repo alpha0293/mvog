@@ -1,12 +1,21 @@
 <section class="col-lg-4 col-md-4 col-sm-4">
         <aside class="right_content">
           <div class="single_sidebar">
-            <h2><span>Bài viết ngẫu nhiên</span></h2>
+            <h2 id="color-bar"><span>Bài viết ngẫu nhiên</span></h2>
             <ul class="spost_nav">
               @foreach($lstpopularpost as $post)
               <li>
-                <div class="media wow fadeInDown"> <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                  <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title">{{strlen($post->title) > 80 ? substr($post->title,0,80) : $post->title}}...</a> </div>
+                <div class="media wow fadeInDown">
+                  <button class="fa fa-ellipsis-v setMenu"
+                    onclick="setPopular({{$post->id}});"></button> 
+                      <ul class="showSet" id="popular{{$post->id}}">
+                        <li><a style="color:blue; float: none;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
+                        <li><a style="color:red; float: none;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                    </ul> 
+                  <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
+                  <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title">{{strlen($post->title) > 80 ? Str::substr($post->title,0,70) : $post->title}}...</a> 
+                    <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6>
+                  </div>
                 </div>
               </li>
               @endforeach

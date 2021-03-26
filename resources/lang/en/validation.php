@@ -12,9 +12,9 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-    'check_password' => 'Your current password does not match the password you provided.',
-    'compare_password' => 'The new password cannot be the same as your current password. Please choose a different password.',
-    'change_password' => 'Password change successfully.',
+    'check_password' => 'Mật khẩu không đúng.',
+    'compare_password' => 'Mật khẩu mới có vẻ giống mật khẩu cũ, vui lòng chọn mật khẩu khác.',
+    'change_password' => 'Đổi mật khẩu thành công.',
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',

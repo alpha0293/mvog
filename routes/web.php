@@ -140,7 +140,22 @@ Route::resource('configs', 'ConfigController');
 //route for admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@index']);
-    Route::get('/manage', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@index']);
+    Route::get('lenlop',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lstlenlop','as'=>'lenlop.get']);
+    Route::get('xetduyet',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lstxetduyet','as'=>'xetduyet']);
+    Route::get('nhomtruong',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lstnhomtruong','as'=>'nhomtruong']);
+    Route::get('export/', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@export','as'=>'export']);
+    Route::get('export/view', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@exportview']);
+    Route::get('canhbao',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@canhbao','as'=>'canhbao']);
+    Route::get('import',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@import','as'=>'import']);
+    Route::post('import/user', ['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@submitimport']);
+    Route::get('gety',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@gety','as'=>'gety']);
+    Route::post('offpost',['middleware' => ['permission:admins-manage'], 'uses' => 'PostController@offpost','as'=>'offpost']);
+    Route::post('offcat',['middleware' => ['permission:admins-manage'], 'uses' => 'CategoryController@offcat','as'=>'offcat']);
+    Route::post('ontruongnhom',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@nhomtruong','as'=>'ontruongnhom']);
+    Route::post('onxetduyet',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@xetduyet','as'=>'onxetduyet']);
+    Route::post('lenlop',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lenlop','as'=>'lenlop']);
+    Route::post('lenlopall',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lenlopall','as'=>'lenlopall']);
+    Route::get('tuchoi',['middleware' => ['permission:admins-manage'],'uses' => 'AdminController@lsttuchoi','as' => 'tuchoi']);
 });
 
 //Route Roles
@@ -155,7 +170,7 @@ Route::prefix('roles')->middleware('auth')->group(function () {
 
 //Route Dutu
 Route::prefix('dutus')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:dutus-read'], 'uses'=>'DutuController@index','as'=>'dutu.index']);
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'DutuController@index','as'=>'dutu.index']);
     Route::get('/create', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@create','as'=>'dutu.create']);
     Route::post('/store', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@store','as'=>'dutu.store']);
     Route::get('/show/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@show','as'=>'dutu.show']);

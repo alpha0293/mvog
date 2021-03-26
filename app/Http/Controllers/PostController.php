@@ -22,10 +22,6 @@ class PostController extends Controller
     public function index()
     {
         //
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
         $lstpost = Post::orderBy('id','DESC')->paginate(10);
         return view('post.list',compact('lstpost'));
     }
@@ -37,10 +33,6 @@ class PostController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
         $lstcategory = Category::all();
         return view('post.create',compact('lstcategory'));
         //
@@ -54,12 +46,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // return $request->all();
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
         if (Post::validator($request->all())->fails()) {
                 # code...
                 return Post::validator($request->all());
@@ -90,7 +76,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         if ($post->status == 0)
         {
-            if (Auth::check() && Auth::user()->roleid == 1)
+            if (Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
             {
                 # code...
             }
@@ -101,8 +87,16 @@ class PostController extends Controller
             
             # code...
         }
-        $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
-        $lstpopularpost = Post::all()->where('status',1)->random(5); //post ngẫu nhiên
+        if(Post::all()->where('status',1)->count() > 5)
+        {
+            $postslide = Post::all()->where('status',1)->sortByDesc('created_at')->take(5);
+            $lstpopularpost = Post::all()->where('status',1)->random(5);
+        }
+        else
+        {
+            $postslide = Post::all()->where('status',1);
+            $lstpopularpost = $postslide;
+        }
         $lstnoti = Notifications::all()->where('status',1)->sortByDesc('created_at');
         $lstcat = Category::all()->where('status',1);
         $lstrelatedpost = Post::all()->where('status',1)->where('idcategory',$post->idcategory)->sortByDesc('created_at')->take(3);
@@ -117,11 +111,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
 		$post = Post::findOrFail($id);
         $lstcategory = Category::all();
         // dd($post);
@@ -137,12 +126,6 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        // return $request->all();
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
         if (Post::validator($request->all())->fails()) {
                 # code...
                 return Post::validator($request->all());
@@ -175,42 +158,26 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
-        else
-        {
-            try {
-                Post::where('id',$id)->delete();
-                return Redirect::back()->with('message','Xoá bài viết thành công!!!');
-            } catch (\Exception $e) {
-                return Redirect::back()->with('message','Không xoá được bài viết!!!');
-            }
+
+        try {
+            Post::where('id',$id)->delete();
+            return Redirect::back()->with('message','Xoá bài viết thành công!!!');
+        } catch (\Exception $e) {
+            return Redirect::back()->with('message','Không xoá được bài viết!!!');
         }
 		
     }
     public function offpost(Request $request)
     {
-        //
-        // return $request->value == true ? 1 : 0;
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if($request->value == 'true')
+            $status = 1;
         else
-        {
-            if($request->value == 'true')
-                $status = 1;
-            else
-                $status = 0;
-            try {
-                Post::where('id',$request->postid)->update(['status'=> $status]);
-                return 'thanh cong!!';
-            } catch (\Exception $e) {
-                return $e->getMessage();
-            }
+            $status = 0;
+        try {
+            Post::where('id',$request->postid)->update(['status'=> $status]);
+            return 'thanh cong!!';
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
-        
     }
 }

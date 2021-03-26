@@ -42,30 +42,20 @@ class PaperController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if(Paper::validator($request->all())->fails())
+            return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
         else
         {
-            if(Paper::validator($request->all())->fails())
-                return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
-            else
-            {
-                try {
-                    Paper::create(
-                        ['name'=>$request->name,
-                        ]);
-                    // return Paper::create(['name'=>$request->name,])->id;
-                    return 'Thành công!!!';
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                }
+            try {
+                Paper::create(
+                    ['name'=>$request->name,
+                    ]);
+                // return Paper::create(['name'=>$request->name,])->id;
+                return 'Thành công!!!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
-        }
-		
+        }		
     }
 
     /**
@@ -90,10 +80,6 @@ class PaperController extends Controller
     public function edit($id)
     {
         //
-        if(Auth::user()->roleid != 1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
 		$paper = Paper::findOrFail($id);
         return view('paper.edit',compact('paper'));
 		//return trang edit paper
@@ -108,36 +94,21 @@ class PaperController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
+        if(Paper::validator($request->all())->fails())
+            return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
         else
         {
-            if(Paper::validator($request->all())->fails())
-                return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
-            else
-            {
-                try {
-                    Paper::where('id',$id)->update(
-                        [
-                            'name'=>$request->name,
-                            'url'=>$request->url,
-                        ]);
-                    return 'Thanh Cong!';
-                } catch (\Exception $e) {
-                    return $e->getMessage();
-                }
+            try {
+                Paper::where('id',$id)->update(
+                    [
+                        'name'=>$request->name,
+                        'url'=>$request->url,
+                    ]);
+                return 'Thanh Cong!';
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
         }
-
-
-
-
-
-
-        //
-		
     }
 
     /**
@@ -148,11 +119,6 @@ class PaperController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if(Auth::user()->roleid!=1)
-        {
-            return Redirect::back()->with('message','Bạn không có quyền thực hiện hành động này!!!');
-        }
 		try {
             Paper::where('id',$id)->delete();
             return Redirect::back()->with('message','Xoá thành công');

@@ -14,8 +14,23 @@ class UserController extends Controller
 {
 
     public function index(){
+        $index = 0;
         $users = User::with('roles')->get();
-
+        // return ($users);
+        foreach ($users as $user) {
+            if($user->roles){
+                foreach ($user->roles as $role) {
+                    if($role->name == 'dutu'){
+                        $users->pull($index);
+                    }
+                }
+            }
+            $index++;
+            # code...
+        }
+        // $users = $users::where(['roles'=>function($query){
+        //     $query->where('roles.name','<>','dutu');
+        // }]);
         return view('user.browser', ['users' => $users]);
     }
 

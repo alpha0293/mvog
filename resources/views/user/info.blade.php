@@ -116,7 +116,7 @@
                            <tr>
                             <td style="width:50%">
                              <a class="float-left">Trạng thái</a> 
-                                  @if(Auth::user()->roleid == 1) 
+                                  @if(Auth::user()->hasRole('superadministrator|administrator')) 
                                     <input name="idstatus" @if($dutu->idstatus == 1) checked @endif style="float: right; width: 24px;" class="form-control thongtin" type='checkbox' disabled id='checkboxSuccess3'>
                                   @else
                                     @if($dutu->idstatus==1) <p style="float: right;color: blue;">Đang sinh hoạt</p>  @else <p style="float: right;color: red;">Chờ duyệt</p>  @endif
@@ -124,7 +124,7 @@
                             </td>
                             <td style="width:50%">
                               <a class="float-left">Năm dự tu</a> 
-                              @if(Auth::user()->roleid == 1)
+                              @if(Auth::user()->hasRole('superadministrator|administrator'))
                                 <select  id="idyear" disabled type="text" class="form-control thongtin @error('idyear') is-invalid @enderror" name="idyear" value="{{$dutu->nameyear->name}}" autocomplete="idyear" autofocus style="width: 100%; float: right;" required>
                                   @foreach($year as $y)
                                     <option value="{{$y->id}}" @if($dutu->idyear == $y->id) selected @endif>{{$y->name}}</option>
@@ -137,7 +137,7 @@
                            </tr>
                            <tr>
                              <td>
-                               <a class="float-left">Số điện thoại</a> <b class="float-right"><input name="phonenumber" type="text" class="form-control thongtin" disabled  placeholder="Chưa có"></b> 
+                               <a class="float-left">Số điện thoại</a> <b class="float-right"><input name="phonenumber" type="text" class="form-control thongtin" disabled  placeholder="Chưa có" value="{{$dutu->phonenumber}}"></b> 
                              </td>
                              <td></td>
                            </tr>

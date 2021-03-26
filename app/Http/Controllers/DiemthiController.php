@@ -34,10 +34,10 @@ class DiemthiController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
+        // if(Auth::user()->roleid != 1)
+        // {
+        //     abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        // }
         //
         // $lstdutu = Dutu::all();
         $lstdutu = Dutu::where('idstatus',1)->with('nameyear')->get();
@@ -56,16 +56,15 @@ class DiemthiController extends Controller
     public function store(Request $request)
     {
 
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
-        else
-        {
+        // if(Auth::user()->roleid != 1)
+        // {
+        //     abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        // }
+        // else
+        // {
             $data = json_decode($request->data, true);
             $roleid = Auth::user()->roleid;
             $lstdiemthi = Diemthi::all();
-
             foreach ($data as $dt) {
                 // return $dt;
                 if(Diemthi::validator($dt)->fails())
@@ -102,7 +101,7 @@ class DiemthiController extends Controller
                 }
             }
             return 'Thanh cong';
-        }
+        // }
     }
 
     /**

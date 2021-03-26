@@ -29,17 +29,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-		if (Auth::user()->roleid!=1) {
-			//return về một route khi người dùng không là admin
-			return redirect()->route('home');
-        }
         $iddt=Dutu::get()->where('idstatus','1');
 		//get all dutu from zone...
 		$izone=Dutu::get();
         $zone1 = Zone::all();
         $year = Year::all();
         $lstchoduyet = Dutu::all()->where('idstatus','<>',1);
-        $truongnhom = User::all()->where('roleid',2);
+        $truongnhom = User::whereRoleIs('nhomtruong');
         try {
             //dd(($izone->first->getattend->getattend)->sortBy('month'));
         } catch (\Exception $e) {
@@ -141,18 +137,12 @@ class AdminController extends Controller
 
     public function lstxetduyet() //Load ds xét duyệt
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+        $lstxetduyet = Dutu::with('getuser')->where('idstatus',2)->where('check',0)->get();
+        for ($i=0; $i < $lstxetduyet->count(); $i++) {
+            if (!$lstxetduyet[$i]->getuser->email_verified_at) {
+                $lstxetduyet->pull($i);
+             } 
         }
-        // $lstxetduyet = Dutu::all()->where('idstatus',2);
-        $lstxetduyet = Dutu::with(['getuser' => function($query){
-            $query->where('email_verified_at','<>',null);
-        }])->where('idstatus',2)->get();
-        // $lstxetduyet = User::with(['getdutu' => function($query){
-        //     $query->where('idstatus',2);
-        // }])->where('email_verified_at','<>',null)->where('roleid','<>',1)->get();
-        dd($lstxetduyet->first()->getuser);
         $index = 1;
         return view('admin.dutu.xetduyet',compact('lstxetduyet','index'));
     }
@@ -160,50 +150,32 @@ class AdminController extends Controller
     public function xetduyet(Request $request) //xét duyệt dự tu vào sinh hoạt
     {
         // return $request->all();
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
+        if($request->value == 'true')
+            $status = 1;
         else
         {
-            if($request->value == 'true')
-                $status = 1;
-            else
-            {
-                $status = 2;
-            }
-            try {
-                Dutu::where('id',$request->id)->update(['idstatus' => $status]);
-                return "Thanh cong";
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
+            $status = 2;
+        }
+        try {
+            Dutu::where('id',$request->id)->update(['idstatus' => $status]);
+            return "Thanh cong";
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
     public function xetduyetall(Request $request) //xét duyệt all dự tu vào sinh hoạt
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
-        else
-        {
-            try {
-                Dutu::where('idstatus',2)->update(['idstatus' => 1]);
-                return "Thanh cong";
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
+        try {
+            Dutu::where('idstatus',2)->where('check',0)->update(['idstatus' => 1]);
+            return "Thanh cong";
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
     public function lstlenlop() //load danh sách
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
         $index = 1;
         $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4);
         return view('admin.dutu.lenlop',compact('lstlenlop','index'));
@@ -213,51 +185,30 @@ class AdminController extends Controller
 
     public function lenlop(Request $request) //len lop 1 dự tu
     {
-        
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
+        $idyear = Dutu::findOrFail($request->id)->idyear;
+        if($request->value == 'true')
+            $year = $idyear + 1;
         else
         {
-            $idyear = Dutu::findOrFail($request->id)->idyear;
-
-            if($request->value == 'true')
-                $year = $idyear + 1;
-            else
-            {
-                $year = $idyear - 1;
-            }
-            try {
-                Dutu::where('id',$request->id)->update(['idyear' => $year]);
-                return 'Thanh cong';
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }            
+            $year = $idyear - 1;
+        }
+        try {
+            Dutu::where('id',$request->id)->update(['idyear' => $year]);
+            return 'Thanh cong';
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }          
     }
      public function lenlopall(Request $request)
     {
-        return $request->all();
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
-        else
-        {
-           $lstdutu = Dutu::where('idyear','<>',4)->get();
-           foreach ($lstdutu as $dutu) {
-                $dutu->idyear += 1;
-           }
-        }            
+       $lstdutu = Dutu::where('idyear','<>',4)->get();
+       foreach ($lstdutu as $dutu) {
+            $dutu->idyear += 1;
+       }           
     }
 
     public function lstnhomtruong() //load danh sách Dự tu ra để set nhóm trưởng
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
         $lstzone = Zone::all();
         $index = 1;
         $lstnhomtruong = Dutu::with('getuser')->where('idstatus',1)->get();
@@ -266,25 +217,28 @@ class AdminController extends Controller
 
     public function nhomtruong(Request $request) //Set nhom trưởng cho 1 dự tu
     {
-        if(Auth::user()->roleid != 1)
+        $user = User::findOrFail($request->id);
+        if($request->value == 'true')
         {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
+            try {
+            $user->attachRole('nhomtruong');
+            $user->detachRole('dutu');
+            return "Thanh cong";
+            } catch (Exception $e) {
+                return $e->getMessage();
+            } 
         }
         else
         {
-            if($request->value == 'true')
-                $role = 2;
-            else
-            {
-                $role = 3;
-            }
             try {
-                User::where('id',$request->id)->update(['roleid' => $role]);
-                return "Thanh cong";
+            $user->detachRole('nhomtruong');
+            $user->attachRole('dutu');
+            return "Thanh cong";
             } catch (Exception $e) {
                 return $e->getMessage();
-            }
-        }            
+            } 
+        }
+
     }
 
     public function export() //export EXCELL
@@ -315,13 +269,7 @@ class AdminController extends Controller
 
     public function canhbao()
     {
-        if(Auth::user()->roleid != 1)
-        {
-            abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        }
-        else
-        {
-            $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get();
+        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get();
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
             $vang = 0;
@@ -352,8 +300,7 @@ class AdminController extends Controller
         // dd($lstdutu2);
         $lstdutu2 = (object) $lstdutu2;
         $index = 1;
-        return view('admin.dutu.canhbao',compact('lstdutu2','index'));
-        }   
+        return view('admin.dutu.canhbao',compact('lstdutu2','index'));   
     }
 
     public function getChangePassword()
@@ -367,4 +314,10 @@ class AdminController extends Controller
         return Redirect::back()->with('message','Đổi mật khẩu thành công!!!');
     }
 
+    public function lsttuchoi() //load ds những người đã bị từ chối và có thể xét duyệt lại (status là 2 và check là 1)
+    {
+        $lstdutu = Dutu::all()->where('idstatus',2)->where('check',1);
+        $index = 1;
+        return view('admin.dutu.tuchoi',compact('lstdutu','index'));
+    }
 }
