@@ -50,11 +50,18 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('admin_asset/dist/js/demo.js')}}"></script>
 
-   
+  
 
 
     <script>
       $(function () {
+         //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+          theme: 'bootstrap4'
+        })
         $("#example1").DataTable({
           "responsive": true,
           "autoWidth": false,
@@ -70,10 +77,7 @@
         });
 
       });
-      //Initialize Select2 Elements
-        $('.select2bs4').select2({
-          theme: 'bootstrap4'
-        })
+      
     </script>
     <!-- thu nhe -->
 
