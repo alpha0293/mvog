@@ -180,10 +180,10 @@ Route::prefix('dutus')->middleware('auth')->group(function () {
 
 //Route Điểm Danh
 Route::prefix('attdances')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:attendancesattendances-read'], 'uses'=>'AttendanceController@index','as'=>'attdance.index']);
+    Route::get('/', ['middleware' => ['permission:attendances-read'], 'uses'=>'AttendanceController@index','as'=>'attdance.index']);
     Route::get('/create', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@create','as'=>'attdance.create']);
     Route::post('/store', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@store','as'=>'attdance.store']);
-    Route::get('/show/{id}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@show','as'=>'attdance.show']);
+    Route::get('/{month}/{year}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@show','as'=>'attdance.show']);
     Route::get('/edit/{id}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@edit','as'=>'attdance.edit']);
     Route::post('/edit/{id}', ['middleware' => ['permission:attendances-delete'], 'uses'=>'AttendanceController@update','as'=>'attdance.update']);
 });

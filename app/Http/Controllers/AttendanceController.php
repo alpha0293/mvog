@@ -21,7 +21,7 @@ class AttendanceController extends Controller
     public function index()
     {
         $index = 1;
-        if (Auth::user()->hasRole('superadministrator|administrator')) {
+        if (!Auth::user()->hasRole('superadministrator|administrator')) {
             //return về một route khi người dùng không là admin
             return redirect()->route('home');
         }

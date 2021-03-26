@@ -60,7 +60,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->roleid = 3;
         
         try{
             $user->save();
@@ -97,7 +96,6 @@ class UserController extends Controller
         $user = User::findOrFail($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->roleid = 3;
         if(!empty($request->password)){
             $user->password = Hash::make($request->password);
         }
