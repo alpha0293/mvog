@@ -37,12 +37,12 @@ class RegisterController extends Controller
 	//direct after regist
 	protected function redirectTo()
     {
-        if (Auth::user()->roleid==1) {
+        if (Auth::user()->hasRole('superadministrator|administrator')) {
             return '/admin';
         }
         else
 		{
-			return '/dutu/create';
+			return route('dutu.create');
 		}
     }
 
@@ -79,27 +79,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if(Role::all()->count() == 0)
-        {
-            $role=array(
-                [
-                'id'=>'1',
-                'name'=>'Admin'
-                ],
-                [
-                'id'=>'2',
-                'name'=>'Trưởng Nhóm'
-                ],
-                [
-                'id'=>'3',
-                'name'=>'Dự Tu'
-                ]
-                );
-            foreach ($role as $ro) {
-                # code...
-                Role::create($ro);
-            }
-        }
         if(Status::all()->count() == 0)
         {
             $status=array(
@@ -142,18 +121,17 @@ class RegisterController extends Controller
                 Year::create($year);
             }
         }
-
-
+        $user = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                ]);
 
 		if (User::all()->count()==0)
-			$ro=1;
+			$user->attachRole('superadministrator');
 		else
-			$ro=3;
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-			'roleid'=> $ro,
-            'password' => Hash::make($data['password']),
-        ]);
+			$user->attachRole('dutu');
+        return $user;
+        
     }
 }

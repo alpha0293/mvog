@@ -33,8 +33,7 @@ class LoginController extends Controller
     //function direct affter login
     protected function redirectTo()
     {
-		$id=Auth::user()->roleid;
-        if (Auth::user()->roleid==1) {
+        if (Auth::user()->hasRole('superadministrator|administrator')) {
             return '/admin';
         }
 		else
@@ -42,13 +41,13 @@ class LoginController extends Controller
             $dutu = Dutu::all()->where('id',Auth::user()->id)->first();
             if($dutu == null)
             {
-                return 'dutu/create';
+                return route('dutu.create');
             }
 			else
 			{
                 if(($dutu->name == null) || ($dutu->holyname == null)|| ($dutu->dob == null) || ($dutu->parish == null) || ($dutu->school == null) || ($dutu->majors == null))
                 {
-                    return 'dutu/create';
+                    return route('dutu.create');
                 }
                 else{
                     return '/';
