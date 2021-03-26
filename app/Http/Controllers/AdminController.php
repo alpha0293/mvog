@@ -314,4 +314,10 @@ class AdminController extends Controller
         return Redirect::back()->with('message','Đổi mật khẩu thành công!!!');
     }
 
+    public function lsttuchoi() //load ds những người đã bị từ chối và có thể xét duyệt lại (status là 2 và check là 1)
+    {
+        $lstdutu = Dutu::all()->where('idstatus',2)->where('check',1);
+        $index = 1;
+        return view('admin.dutu.tuchoi',compact('lstdutu','index'));
+    }
 }
