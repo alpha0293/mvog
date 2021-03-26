@@ -1,116 +1,78 @@
 
-
-@section('title', 'Thêm mới người dùng')
-
-@section('style')
-    <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
-    
-@endsection()
-
+@extends('admin.layout.layout')
 @section('content')
+<style type="text/css">
 
-<!-- BEGIN CONTENT -->
-<div class="page-content-wrapper">
-    <!-- BEGIN CONTENT BODY -->
-    <div class="page-content">
-        <!-- BEGIN PAGE HEADER-->
-        <!-- BEGIN PAGE BAR -->
-        <div class="page-bar">
-            <ul class="page-breadcrumb">
-                <li>
-                    <a href="">Bảng Điều Khiển</a>
-                    <i class="fa fa-circle"></i>
-                    <a href="{{ route('user.index') }}">Danh Sách Người Dùng</a>
-                </li>
-            </ul>
-        </div>
-        <!-- END PAGE BAR -->
-        <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title">
-            <i class="fa fa-plus"></i>
-            Thêm Người Dùng
-        </h1>
-        <!-- END PAGE TITLE-->
-        <!-- END PAGE HEADER-->
-        <!-- BEGIN DASHBOARD STATS 1-->
-        @if($errors->any())
-        <div class="alert alert-danger">
-            <button class="close" data-close="alert"></button>
-            @foreach($errors->all() as $error)
-                <p> {{ $error }} </p>
-            @endforeach
-        </div>
-        @endif
-        <!-- BEGIN FORM-->
-        <form action="{{ route('user.add.post') }}" method="post" id="form_sample_3">
-            @csrf
-            <div class="row">
-                <div class="col-md-8">
-                    <!-- BEGIN VALIDATION STATES-->
-                    <div class="portlet light portlet-fit portlet-form bordered">
-                        <div class="portlet-body">
-                            <div class="form-body">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-                                        <label for="form_control_1">Họ tên <span class="required"> * </span></label>
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="email" value="{{ old('email') }}">
-                                        <label for="form_control_1">Email <span class="required"> * </span></label>
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <input type="password" class="form-control" name="password" value="{{ old('password') }}">
-                                        <label for="form_control_1">Mật khẩu <span class="required"> * </span></label>
-                                        <!-- <span id="name-error" class="help-block help-block-error">Để trống để giữ nguyên.</span> -->
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-key"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <select class="form-control" multiple="" class="ui fluid dropdown" name="role[]">
-                                        @foreach($roles as $role)
-                                        <option value="{{$role->id}}">{{ $role->display_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="form_control_1">Quyền</label>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn green"><i class="fa fa-save"></i> Lưu</button>
-                                        <button type="reset" class="btn default"><i class="fa fa-refresh"></i> Làm lại
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END VALIDATION STATES-->
+  label:not(.form-check-label):not(.custom-file-label) {
+    float: right;
+}
+</style>
+  <!-- /.row -->
+    <section class="content">
+      <div class="container-fluid">
+       <div class="row">
+          <div class="col-lg-12">
+            <h3 class="card-title" style="color: #0d83c5cc;margin-top: 15px; margin-bottom: 15px;" id="addnhom_title">Thêm mới người dùng hệ thống</h3>
+              @if($errors->any())
+                <div class="alert alert-danger">
+                    <button class="close" data-close="alert"></button>
+                    @foreach($errors->all() as $error)
+                        <p> {{ $error }} </p>
+                    @endforeach
                 </div>
+                @endif
+        <!-- Horizontal Form -->
+            <div class="card card-info col-sm-6" style="margin: 0 auto;">
+              
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="{{ route('user.add.post') }}" method="post"> @csrf
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Họ tên</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="name" value="{{ old('name') }}" id="" placeholder="Họ tên">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                      <input type="Email" class="form-control" id="inputEmail3" name="email" value="{{ old('email') }}" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Mật khẩu</label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" name="password" value="{{ old('password') }}" id="inputPassword3" placeholder="Password">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="" class="col-sm-3 col-form-label">Quyền</label>
+                    <div class="col-sm-9">
+                      <select  multiple="multiple" class="form-control select2" name="role[]">
+                         @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{ $role->display_name }}</option>
+                        @endforeach
+                    </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Lưu</button>
+                  <button type="reset" class="btn btn-default float-right"><i class="fa fa-refresh"></i> Làm lại
+                                        </button>
+                </div>
+                <!-- /.card-footer -->
+              </form>
+              <div class="clearfix"></div>
             </div>
-        </form>
-        <!-- END FORM-->
-        <div class="clearfix"></div>
-        <!-- END DASHBOARD STATS 1-->
-    </div>
-    <!-- END CONTENT BODY -->
-</div>
-<!-- END CONTENT -->
+            <!-- /.card -->
 
-
-@section('script')
-    
+          </div>
+        </div>
+        <!-- /.row -->
+       </div>
+     </section>
 @endsection
