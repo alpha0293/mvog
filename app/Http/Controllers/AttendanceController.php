@@ -112,40 +112,35 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+        $errors_validate = collect([]);
+        $errors_sql = collect([]);
         $data = json_decode($request->data, true);
-        // $roleid = Auth::user()->roleid;
-        
-        //return $user;
         if(Auth::user()->hasRole('superadministrator|administrator|nhomtruong') )
         {
             foreach ($data as $dt) 
             {
+
+                $dutu2 = Dutu::find($dt['iddutu']); //thử lấy dutu2 là ID được gửi từ bảng điểmm danh vào
+                if(!$dutu2)
+                {
+                    continue;
+                }
+
                 if(Auth::user()->hasRole('nhomtruong'))
                 {
                     $user = Dutu::findOrFail(Auth::id()); //Lấy Trưởng nhóm vừa đăng nhập
-                    $y1 = $user->idzone;
-                    //return $y1;
-                    
-                    
-                    try {
-                        $dutu2 = Dutu::findOrFail($dt['iddutu']); //thử lấy dutu2 là ID được gửi từ bảng điểmm danh vào
-                    } catch (Exception $e) {
-                        return "Lỗi ".$e->getMessage();
-                    }
-
-                    $y2 = $dutu2->idzone;
+                    $y1 = $user->idzone; 
+                    $y2 = $dutu2->idzone; //dutu 2 khac vùng sh thì không nhập dữ liệu vào bảng điểm danh
                     if ($y1 != $y2) {
-                        return "vô break";
-                        break;
-                    # code...
+                        continue;
                     }
                 }
-                
                 $dt['month'] = $request->month;
                 $dt['year'] = $request->year;
                 if(Attendance::validator($dt)->fails())
                 {
-                    return "Validate Errors";
+                    // return "Validate Errors";không return errors mà đẩy vào 1 biến rồi show ra view
+                    $errors_validate->push(Attendance::validator($dt)->fails()->errors());
                 }
                 else
                 {
@@ -161,7 +156,8 @@ class AttendanceController extends Controller
                             'note' => $dt['note'],
                             ]);                        
                         } catch (\Exception $e) {
-                            return $e->getMessage();
+                            $errors_sql->push($e->getMessage());
+                            // return $e->getMessage(); ghi log lỗi, đẩy lỗi vào biến và show ra view
                             
                         }
                     }
@@ -172,20 +168,15 @@ class AttendanceController extends Controller
                             'note' => $dt['note'],
                             ]);                        
                         } catch (\Exception $e) {
-                            return $e->getMessage();
+                            $errors_sql->push($e->getMessage());
+                            // return $e->getMessage(); ghi log, đẩy lỗi vào biến rồi return ra view
                             
                         }
                     }
                     
                 }
             }
-            return "Thành công!!!";
-        }
-        else
-        {
-            //$data = json_decode($request->data, true);
-            return "Bạn không có quyền điểm danh";
-            
+            return $errors_sql; //return kèm lỗi
         }
     }
 
