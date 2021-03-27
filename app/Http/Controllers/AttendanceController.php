@@ -140,7 +140,7 @@ class AttendanceController extends Controller
                 if(Attendance::validator($dt)->fails())
                 {
                     // return "Validate Errors";không return errors mà đẩy vào 1 biến rồi show ra view
-                    $errors_validate->push(Attendance::validator($dt)->fails()->errors());
+                    $errors_validate->push(Attendance::validator($dt)->errors());
                 }
                 else
                 {
