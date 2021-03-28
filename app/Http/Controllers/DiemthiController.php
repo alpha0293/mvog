@@ -55,52 +55,49 @@ class DiemthiController extends Controller
      */
     public function store(Request $request)
     {
-
-        // if(Auth::user()->roleid != 1)
-        // {
-        //     abort(403, 'Bạn không có quyền truy cập vào trang này!!!');
-        // }
-        // else
-        // {
-            $data = json_decode($request->data, true);
-            $roleid = Auth::user()->roleid;
-            $lstdiemthi = Diemthi::all();
-            foreach ($data as $dt) {
-                // return $dt;
-                if(Diemthi::validator($dt)->fails())
-                {
-                    return response()->json(['error' => Diemthi::validator($dt)], 422);
-                    // return -1; //validate không thành công
+        $errors_validate = collect([]);
+        $errors_sql = collect([]);
+        $data = json_decode($request->data, true);
+        $roleid = Auth::user()->roleid;
+        $lstdiemthi = Diemthi::all();
+        foreach ($data as $dt) {
+            // return $dt;
+            $dutu = Dutu::find($dt['iddutu']); //thử lấy dutu là ID được gửi từ bảng điểmm vào
+            if(!$dutu)
+            {
+                continue;
+            }
+            if(Diemthi::validator($dt)->fails())
+            {
+                $errors_validate->push(Diemthi::validator($dt)->errors());
+                // return 123;
+                // continue;
+            }
+            else
+            {
+                $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])->where('nam',$dt['nam']);
+                if(count($checktrung) == 0){ //create
+                   try {
+                        Diemthi::create([
+                            'iddutu' => $dt['iddutu'],
+                            'idnam' => $dt['idnam'],
+                            'diem' => $dt['diem'],
+                            'nam' => $dt['nam'],
+                        ]);
+                    } catch (\Exception $e) {
+                        $errors_sql->push($e->getMessage());
+                    }           
                 }
-                else
-                {
-                    // return $lstdiemthi;
-                    $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])->where('nam',$dt['nam']);
-                    // return count($checktrung);
-                    if(count($checktrung) == 0){ //create
-                       try {
-                            Diemthi::create([
-                                'iddutu' => $dt['iddutu'],
-                                'idnam' => $dt['idnam'],
-                                'diem' => $dt['diem'],
-                                'nam' => $dt['nam'],
-                            ]);
-                            // return 1;
-                        } catch (Exception $e) {
-                            return 0;
-                        }           
-                    }
-                    else{
-                        try {
-                            Diemthi::where('iddutu',$dt['iddutu'])->where('idnam',$dt['idnam'])->update(['diem' => $dt['diem']]);
-                            // return 'update';
-                        } catch (Exception $e) {
-                            return 0;
-                        }            
-                    }
+                else{
+                    try {
+                        Diemthi::where('iddutu',$dt['iddutu'])->where('idnam',$dt['idnam'])->where('nam',$dt['nam'])->update(['diem' => $dt['diem']]);
+                    } catch (\Exception $e) {
+                        $errors_sql->push($e->getMessage());
+                    }            
                 }
             }
-            return 'Thanh cong';
+        }
+        return $errors_validate.$errors_sql;
         // }
     }
 
