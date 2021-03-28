@@ -15,7 +15,7 @@
                 </a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="{{route('show.dutu',Auth::user()->id)}}">Thông tin cá nhân</a>
-                  <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                  <a class="dropdown-item" href="{{route('getchange.password')}}">Đổi mật khẩu</a>
                 </div>
             </li>
             </ul>

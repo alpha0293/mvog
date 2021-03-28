@@ -90,13 +90,16 @@
         <div class="modal-header">
           <h4 class="modal-title">Thêm loại giấy tờ</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
-          
+           
         </div>
         <div class="modal-body">
           <form action="{{route('save.paper')}}" method="POST">
           	@csrf
             <div class="fomrgroup">
               <input type="text" class="form-control txtmodal" placeholder="Nhập loại giấy tờ ..." name="name">
+            </div>
+            <div class="fomrgroup">
+              <input type="text"  class="form-control txtmodal"  placeholder="Click để chọn file mẫu ..." name="url" id="url-Paper-create" />
             </div>
           
         </div>
@@ -156,3 +159,20 @@
     });
     </script>
   <!-- end show modal -->
+  <!-- ckfinder select file paper create -->
+   <script type="text/javascript">
+    $('#url-Paper-create').click(function(){
+        CKFinder.modal( {
+        chooseFiles: true,
+        width: 800,
+        height: 600,
+        onInit: function( finder ) {
+          finder.on( 'files:choose', function( evt ) {
+            var file = evt.data.files.first();
+             document.getElementById( 'url-Paper-create' ).value = file.getUrl();
+          } );
+        }
+      } );
+
+        })
+  </script>

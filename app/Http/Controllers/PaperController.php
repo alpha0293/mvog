@@ -49,12 +49,13 @@ class PaperController extends Controller
             try {
                 Paper::create(
                     ['name'=>$request->name,
+                    'url'=>$request->url,
                     ]);
                 // return Paper::create(['name'=>$request->name,])->id;
-                return 'Thành công!!!';
+                return redirect()->back()->with('success', 'Tạo thành công!');
             } catch (\Exception $e) {
-                return $e->getMessage();
-            }
+                return Redirect::back()->withErrors("Thêm không thành công!");
+            } 
         }		
     }
 
@@ -80,6 +81,7 @@ class PaperController extends Controller
     public function edit($id)
     {
         //
+        return $id;
 		$paper = Paper::findOrFail($id);
         return view('paper.edit',compact('paper'));
 		//return trang edit paper
@@ -99,15 +101,15 @@ class PaperController extends Controller
         else
         {
             try {
-                Paper::where('id',$id)->update(
+                Paper::where('id',$request->id)->update(
                     [
                         'name'=>$request->name,
                         'url'=>$request->url,
                     ]);
-                return 'Thanh Cong!';
+                return redirect()->back()->with('success', 'Tạo thành công!');
             } catch (\Exception $e) {
-                return $e->getMessage();
-            }
+                return Redirect::back()->withErrors("Thêm không thành công!");
+            } 
         }
     }
 

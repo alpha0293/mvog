@@ -9,7 +9,6 @@
 
   <!-- Content Wrapper. Contains page content -->
  <!-- Content Wrapper. Contains page content -->
- @include('ckfinder::setup')
  <div class="content-wrapper">  
   <div class="content-header">
       <div class="container-fluid">

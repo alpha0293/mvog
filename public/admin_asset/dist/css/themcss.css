@@ -89,10 +89,9 @@ thead{
 }
  .txtmodal{
     float: none;
-    width: 69%;
     height: 40px;
     line-height: 53px;
-    margin: 0 auto;
+    margin: 0 auto 10px auto;
 }
 .modal-title{
     font-family: Times;

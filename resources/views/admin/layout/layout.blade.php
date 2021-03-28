@@ -39,11 +39,5 @@
       </script>
     </div>
 @endif
-<!-- @if(session()->get('errors'))
-    <script type="text/javascript">
-      toastr.error("{{ session()->get('errors') }}");
-    </script>
-@endif -->
-
 </body>
 </html>

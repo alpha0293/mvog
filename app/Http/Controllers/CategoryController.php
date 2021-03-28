@@ -59,7 +59,7 @@ class CategoryController extends Controller
                         'status' => $request->status,
                     ]);
                 // return Paper::create(['name'=>$request->name,])->id;
-                return redirect()->back()->with('success', 'Your message has been sent successfully!');
+                return redirect()->back()->with('success', 'Tạo thành công!');
             } catch (\Exception $e) {
                 return Redirect::back()->withErrors("Thêm không thành công!");
             }

@@ -49,6 +49,8 @@
     <script src="{{asset('toastr/toastr.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('admin_asset/dist/js/demo.js')}}"></script>
+    <!-- ckfinder setup -->
+     @include('ckfinder::setup')
     <!-- toastr option -->
     <script type="text/javascript">
          toastr.options = {
@@ -95,63 +97,4 @@
       });
       
     </script>
-    <!-- thu nhe -->
-
-    <script>
-        // lấy phần Modal them 
-        var modal = document.getElementById('addModal');
-      
-        // Lấy phần button mở Modal
-        var btn = document.getElementById("myBtn");
-      
-        // Lấy phần span đóng Modal
-        var span = document.getElementById("addClose");
-      
-        // Khi button được click thi mở Modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-      
-        // Khi span được click thì đóng Modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-      
-        // Khi click ngoài Modal thì đóng Modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-
-    <script>
-        // lấy phần Modal sua 
-        var modal = document.getElementById('editModal');
-      
-        // Lấy phần button mở Modal
-        
-        var btn = document.getElementById("iconEdit");
-      
-        // Lấy phần span đóng Modal
-        var span = document.getElementById("editClose");
-      
-        // Khi button được click thi mở Modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-      
-        // Khi span được click thì đóng Modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-      
-        // Khi click ngoài Modal thì đóng Modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-   
-    <!-- het thu --> 
+    

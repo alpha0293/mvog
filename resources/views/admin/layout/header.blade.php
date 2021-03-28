@@ -33,7 +33,7 @@
           Admin
         </a>
         <div class="dropdown-menu">
-          <a href="#" class="dropdown-item">
+          <a href="{{route('getchange.password')}}" class="dropdown-item">
             Đổi mật khẩu
           </a>
           <div class="dropdown-divider"></div>
