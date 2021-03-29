@@ -45,6 +45,7 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
+        $request['status'] = 1;
         if (Notifications::validator($request->all())->fails()) {
             # code...
             return Redirect::back()->withErrors(Notifications::validator($request->all()));
@@ -59,9 +60,9 @@ class NotificationsController extends Controller
                         'content' => $request->content,
                         'status' => $request->status,
                     ]);
-                return Redirect::back()->with('message','Tạo thành công Thông báo!!!');
+                return redirect()->back()->with('success', 'Tạo thành công!');
             } catch (\Exception $e) {
-                return Redirect::back()->with('message','Tạo không thành công!!!');
+                return Redirect::back()->withErrors("Thêm không thành công!");
             }
         }
     }

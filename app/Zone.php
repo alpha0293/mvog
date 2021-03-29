@@ -20,6 +20,12 @@ class Zone extends Model
 		//dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            ],
+            [
+            'required' => ':attribute không được để trống',
+            ],
+            [
+            'name' => 'Tên',
 			]);
     }	
 	
