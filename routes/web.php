@@ -267,3 +267,24 @@ Route::prefix('users')->middleware(['auth'])->group(function () {
     Route::post('/edit', ['middleware' => ['permission:users-update'], 'uses'=>'UserController@update','as'=>'user.edit.post']);
     Route::get('/delete/{id}', ['middleware' => ['permission:users-delete'], 'uses'=>'UserController@destroy','as'=>'user.delete.get']);
 });
+
+//Document Routes...
+Route::prefix('documents')->middleware(['auth'])->group(function () {
+    Route::get('/', ['middleware' => ['permission:documents-read'], 'uses'=>'DocumentController@index','as'=>'index.document']);
+    Route::get('/create', ['middleware' => ['permission:documents-create'], 'uses'=>'DocumentController@create','as'=>'create.document']);
+    Route::post('/create', ['middleware' => ['permission:documents-create'], 'uses'=>'DocumentController@store','as'=>'save.document']);
+    Route::get('/show/{id}', ['middleware' => ['permission:documents-update'], 'uses' =>'DocumentController@edit','as'=>'edit.document']);
+    Route::post('/edit', ['middleware' => ['permission:documents-update'], 'uses'=>'DocumentController@update','as'=>'update.document']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:documents-delete'], 'uses'=>'DocumentController@destroy','as'=>'delete.document']);
+});
+
+//Link Routes
+//Document Routes...
+Route::prefix('links')->middleware(['auth'])->group(function () {
+    Route::get('/', ['middleware' => ['permission:links-read'], 'uses'=>'LinkController@index','as'=>'index.link']);
+    Route::get('/create', ['middleware' => ['permission:links-create'], 'uses'=>'LinkController@create','as'=>'create.link']);
+    Route::post('/create', ['middleware' => ['permission:links-create'], 'uses'=>'LinkController@store','as'=>'save.link']);
+    Route::get('/show/{id}', ['middleware' => ['permission:links-update'], 'uses' =>'LinkController@edit','as'=>'edit.link']);
+    Route::post('/edit', ['middleware' => ['permission:links-update'], 'uses'=>'LinkController@update','as'=>'update.link']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:links-delete'], 'uses'=>'LinkController@destroy','as'=>'delete.link']);
+});

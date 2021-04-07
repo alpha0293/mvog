@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Redirect;
+use App\Link;
 
 class LinkController extends Controller
 {
@@ -14,6 +17,8 @@ class LinkController extends Controller
     public function index()
     {
         //
+        $links = Link::all();
+        return view('link.list',compact('links'));
     }
 
     /**
@@ -24,6 +29,7 @@ class LinkController extends Controller
     public function create()
     {
         //
+        return view('link.create');
     }
 
     /**
@@ -35,6 +41,19 @@ class LinkController extends Controller
     public function store(Request $request)
     {
         //
+        if(Link::validator($request->all())->fails())
+            return Redirect::back()->withErrors(Link::validator($request->all()));
+        else{
+            $request['status'] = 1;
+            // return $request->all();
+            try {
+                Link::create($request->all());
+                return redirect()->back()->with('success', 'Thêm thành công!');
+            } catch (\Exception $e) {
+                return Redirect::back()->withErrors("Thêm không thành công!");
+            }
+        }
+        
     }
 
     /**
@@ -46,6 +65,8 @@ class LinkController extends Controller
     public function show($id)
     {
         //
+        $link = Link::findorfail($id);
+        return view('link.view',compact('link'));
     }
 
     /**
@@ -57,6 +78,8 @@ class LinkController extends Controller
     public function edit($id)
     {
         //
+        $link = Link::findorfail($id);
+        return view('link.edit',compact('link'));
     }
 
     /**
@@ -66,9 +89,24 @@ class LinkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        if(Link::validator($request->all())->fails())
+            return Redirect::back()->withErrors(Link::validator($request->all()));
+        else
+        {
+            $link = Link::findorfail($request->id);
+            try {
+                $link->name = $request->name;
+                $link->url = $request->url;
+                $link->status = $request->status;
+                $link->save();
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
+            } catch (\Exception $e) {
+                return Redirect::back()->withErrors("Cập nhật không thành công!");
+            }
+        }        
     }
 
     /**
@@ -80,5 +118,12 @@ class LinkController extends Controller
     public function destroy($id)
     {
         //
+        $link = Link::findorfail($id);
+        try {
+            $link->delete();
+            return redirect()->back()->with('success', 'Xoá thành công!');
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors("Xoá không thành công!");
+        }
     }
 }
