@@ -258,7 +258,7 @@
             <div class="card-tools">
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="hidden" value="{{$ind=0}}">
-                @if(Auth::user()->roleid == 1) 
+                @if(Auth::user()->hasRole('superadministrator|administrator')) 
                 <button  id="ppedit" class="btn btn-primary" onclick="edithien()">Chỉnh sửa</button>
                 <button style="margin-left: 2%" type="submit" value="submit"  name="ppsave" id="ppsave" disabled class="btn btn-primary">Lưu
                 </button>
@@ -273,7 +273,7 @@
                 <tr>
                   <th style="width:30%">{{$paper->name}}</th>
                   <td>
-                    <input class="chk_pp" style="width:auto;height: auto;" type='checkbox' disabled id='checkboxSuccess3'
+                    <input class="chk_pp" style="width:auto;height: auto;" name="{{$paper->id}}" type='checkbox' disabled id='checkboxSuccess3 chk_pp'
                     @if($paper->getpaper->where('iddutu',$dutu->id)->first())
                     @if($paper->getpaper->where('iddutu',$dutu->id)->first()->status == 1) checked {{$ind+=1}} @endif @endif>
                   </td>
@@ -431,7 +431,7 @@
     });
         e.preventDefault();
 
-                var fdt = new FormData(this);
+            var fdt = new FormData(this);
             $.ajax({
                type:'POST',
                url: "{{ route('update.dutu',$dutu->id) }}",
@@ -469,6 +469,29 @@
         
      })
  </script>
+ <!-- ajax chinh sua giay to -->
+ <script type="text/javascript">
+   $('#ppsave').click(function(){
+      papersList = jQuery('input[class=chk_pp]')
+          data = []
+          for(i=0;i<papersList.length;i++) {
+          std = {
+            'idpaper': jQuery(papersList[i]).attr('name'),
+            'status': jQuery(papersList[i]).prop('checked')
+                }
+                data.push(std)
+              }
+          
+              $.post('{{ route('') }}',
+                {'_token': "{{ csrf_token() }}",
+                'iddutu': {{$dutu->id}},
+                'data': JSON.stringify(data)} 
+                ,function(data){
+               console.log(JSON.stringify(data));
+              });
+   })
+ </script>
+ <!-- hết ajax chinh sua giay to -->
 
  <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
