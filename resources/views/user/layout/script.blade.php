@@ -6,6 +6,7 @@
 <script src="{{asset('user_asset/assets/js/jquery.newsTicker.min.js')}}"></script> 
 <script src="{{asset('user_asset/assets/js/jquery.fancybox.pack.js')}}"></script> 
 <script src="{{asset('user_asset/assets/js/custom.js')}}"></script>
+<script src="{{asset('user_asset/assets/js/jssor.slider-28.1.0.min.js')}}"></script>
 <!-- <script src="{{asset('admin_asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script> -->
 <!-- AdminLTE App -->
 <!-- <script src="{{asset('admin_asset/dist/js/adminlte.js')}}"></script> -->

@@ -1,10 +1,10 @@
 <section id="navArea">
     <nav class="navbar navbar-inverse" id="color-bar" data-spy="affix" data-offset-top="197" role="navigation"> 
       <div class="navbar-header">
-         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+         <button style="color: #ffffffc4; border-color: white;" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span >Chính anh em là ánh sáng cho trần gian (Mt 5,14)  </span>
+        <span class="fa fa-bars"></span>
+                            
       </button>
       </div>
       <div  class="navbar-collapse collapse" id="myNavbar">

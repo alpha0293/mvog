@@ -67,12 +67,12 @@
             </select>
           </div>
           <div class="single_sidebar wow fadeInDown">
-            <h2><span>Links</span></h2>
+            <h2><span>Trang web liên kết</span></h2>
             <ul>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Rss Feed</a></li>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Life &amp; Style</a></li>
+              <li><a href="https://giaophanhatinh.com/">> Giáo phận Hà Tĩnh</a></li>
+              <li><a href="http://gpvinh.com/">> Giáo phận Vinh</a></li>
+              <li><a href="https://dcvphanxicoxavie.com/">> Đại chủng viện F.x</a></li>
+              <li><a href="https://hdgmvietnam.com/">> HĐGM Việt Nam</a></li>
             </ul>
           </div>
         </aside>
