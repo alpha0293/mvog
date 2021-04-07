@@ -17,7 +17,7 @@ class CustomCKFinderAuth
     public function handle($request, Closure $next)
     {
         config(['ckfinder.authentication' => function() {
-            if (Auth::check() && Auth::user() -> roleid == 1) {
+            if (Auth::check() && Auth::user() -> hasRole('superadministrator|administrator')) {
                 # code...
                 return true;
             }
