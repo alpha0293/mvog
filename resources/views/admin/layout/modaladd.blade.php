@@ -99,7 +99,7 @@
               <input type="text" class="form-control txtmodal" placeholder="Nhập loại giấy tờ ..." name="name">
             </div>
             <div class="fomrgroup">
-              <input type="text"  class="form-control txtmodal"  placeholder="Click để chọn file mẫu ..." name="url" id="url-Paper-create" />
+              <input readonly type="text"  class="form-control txtmodal"  placeholder="Click để chọn file mẫu ..." name="url" id="url-Paper-create" />
             </div>
           
         </div>
@@ -128,9 +128,8 @@
           <form action="{{route('save.notifi')}}" method="POST">
           	@csrf
             <div class="fomrgroup">
-              <input type="text" class="form-control txtmodal" placeholder="Nhập thông báo ..." name="title">
-              <input type="area" class="form-control" name="content">
-			  <input type="checkbox" class="form-control" name="status" value="1">
+              <input type="text" class="form-control txtmodal" placeholder="Nhập tiêu đề thông báo ..." name="title">
+              <textarea name="content" rows="6" placeholder="Nhập nội dung thông báo ..." class="form-control" cols="30"></textarea>
             </div>
           
         </div>

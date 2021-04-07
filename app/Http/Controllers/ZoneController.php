@@ -44,7 +44,7 @@ class ZoneController extends Controller
     {
         //
         if(Zone::validator($request->all())->fails())
-            return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
+            return Redirect::back()->withErrors(Zone::validator($request->all()));
         else
         {
             try {
@@ -52,9 +52,9 @@ class ZoneController extends Controller
                     [
                         'name'=>$request->name,
                     ]);
-                return 'Thành công!!!';
+                 return redirect()->back()->with('success', 'Tạo thành công!');
             } catch (\Exception $e) {
-                return $e->getMessage();
+                return Redirect::back()->withErrors("Thêm không thành công!");
             }
             }
     }

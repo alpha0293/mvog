@@ -18,7 +18,7 @@
               <input type="text" class="form-control txtmodal" placeholder="Nhập loại giấy tờ ..."  id="name_Paper" name="name">
             </div>
             <div class="fomrgroup">
-              <input type="text" class="form-control txtmodal" placeholder="Click để chọn file mẫu ..."  id="url-Paper-edit" name="url">
+              <input readonly type="text" class="form-control txtmodal" placeholder="Click để chọn file mẫu ..."  id="url-Paper-edit" name="url">
             </div>
           
         </div>
