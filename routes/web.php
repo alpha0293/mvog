@@ -226,6 +226,8 @@ Route::prefix('papers')->middleware('auth')->group(function () {
     Route::get('/show/{id}', ['middleware' => ['permission:paper-update'], 'uses'=>'PaperController@show','as'=>'paper.show']);
     Route::get('/edit/{id}', ['middleware' => ['permission:paper-update'], 'uses'=>'PaperController@edit','as'=>'paper.edit']);
     Route::post('/edit/{id}', ['middleware' => ['permission:paper-delete'], 'uses'=>'PaperController@update','as'=>'paper.update']);
+    // paper for dutu
+     Route::post('/storepaper_dutu', ['middleware' => ['permission:paper-delete'], 'uses'=>'Paper_DutuController@store','as'=>'update.paper_dutu']);
 });
 
 //Route Điểm thi

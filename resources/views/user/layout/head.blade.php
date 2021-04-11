@@ -15,6 +15,8 @@
 <link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/jquery.fancybox.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/theme.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('user_asset/assets/css/style.css')}}">
+<!-- Toastr -->
+  <link rel="stylesheet" href="{{asset('toastr/toastr.min.css')}}">
 <!-- font cho post -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cuprum:wght@700&display=swap" rel="stylesheet">
@@ -101,3 +103,6 @@
 			}
 
 </style>
+<style type="text/css">
+    .toast-message{white-space : pre-line !important;}
+ </style>

@@ -183,7 +183,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .tab-content{margin-top:10px}
 .nav-tabs{background:none repeat scroll 0 0 #333; border-bottom:none}
 .nav-tabs > li{margin-bottom:0}
-.nav-tabs > li > a{margin-right:0; color:#fff; font-size:15px; border-radius:0; border:none; font-family:"Oswald",sans-serif; -webkit-transition:all 0.5s; -mz-transition:all 0.5s; -ms-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
+.nav-tabs > li > a{margin-right:0; color:#fff; font-size:15px; border-radius:0; border:none; font-family:'Philosopher', sans-serif; -webkit-transition:all 0.5s; -mz-transition:all 0.5s; -ms-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
 .nav-tabs > li > a:hover, .nav-tabs > li > a:focus{color:#fff !important; border:none}
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{border-width:0; border-color:#ddd #ddd transparent; color:#fff}
 .vide_area{float:left; display:inline; width:100%}
