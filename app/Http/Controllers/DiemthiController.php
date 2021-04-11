@@ -75,7 +75,7 @@ class DiemthiController extends Controller
             }
             else
             {
-                $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam'])->where('nam',$dt['nam']);
+                $checktrung = $lstdiemthi->where('iddutu','=',$dt['iddutu'])->where('idnam','=',$dt['idnam']);
                 if(count($checktrung) == 0){ //create
                    try {
                         Diemthi::create([
