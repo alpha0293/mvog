@@ -36,13 +36,32 @@ class Paper_DutuController extends Controller
      */
     public function store(Request $request)
     {
-        //
-		PaperDutu::create(
-		['iddutu'=>$request->iddutu,
-		'idpaper'=>$request->idpaper,
-		'url'=>$request->url,
-		'status'=>$request->status,
-		]);
+        $data = json_decode($request->data, true);
+        foreach ($data as $dt) {
+            # code...
+            try {
+                $temp = PaperDutu::get()->where('iddutu',$request->iddutu)->where('idpaper',$dt['idpaper']);
+                if ($temp->count() == 0) {
+                    # code...
+                    PaperDutu::create(
+                        ['iddutu'=>$request->iddutu,
+                        'idpaper'=>$dt['idpaper'],
+                        'status'=>$dt['status'],
+                        ]);
+                    
+                }
+                else
+                {
+                    $temp->first()->status = $dt['status'];
+                    $temp->first()->save();
+                }
+                
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+
+        }
+		
 		
     }
 

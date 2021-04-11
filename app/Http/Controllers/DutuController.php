@@ -100,9 +100,7 @@ class DutuController extends Controller
 			}
 			catch(\Exception $e)
 			{
-				dd($e->getMessage());
 				return Redirect::back()->withErrors($e->getMessage());
-				dd(($e->getMessage()));
 			}
 		}	
     }
@@ -239,7 +237,7 @@ class DutuController extends Controller
 					'idstatus'=>$request->idstatus,
 					]);
 				User::where('id',$id)->update(['email'=>$request->email]);
-				return "Thành Công";
+				return 'success';
 			} catch (\Exception $e) {
 				return $e->getMessage();
 			}

@@ -6,7 +6,8 @@
 <script src="{{asset('user_asset/assets/js/jquery.newsTicker.min.js')}}"></script> 
 <script src="{{asset('user_asset/assets/js/jquery.fancybox.pack.js')}}"></script> 
 <script src="{{asset('user_asset/assets/js/custom.js')}}"></script>
-<script src="{{asset('user_asset/assets/js/jssor.slider-28.1.0.min.js')}}"></script>
+<!-- Toastr -->
+    <script src="{{asset('toastr/toastr.min.js')}}"></script>
 <!-- <script src="{{asset('admin_asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script> -->
 <!-- AdminLTE App -->
 <!-- <script src="{{asset('admin_asset/dist/js/adminlte.js')}}"></script> -->
@@ -49,3 +50,19 @@
           $("body").css("background-color", b);
        });
      </script>
+     <!-- toastr option -->
+    <script type="text/javascript">
+         toastr.options = {
+                      "closeButton": true,
+                      "progressBar": true,
+                      "onclick": null,
+                      "showDuration": "3000",
+                      "hideDuration": "1000",
+                      "timeOut": "5000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                }
+    </script>

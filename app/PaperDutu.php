@@ -21,7 +21,6 @@ class PaperDutu extends Model
         return Validator::make($data, [
 			'iddutu' => ['required','int'],
             'idpaper' => ['required', 'int'],
-			'url' => ['required', 'string', 'max:255'],
         ]);
     }	
 }

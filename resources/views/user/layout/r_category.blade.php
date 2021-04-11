@@ -22,6 +22,7 @@
             </ul>
           </div>
           <!-- popular -->
+          <!-- tab -->
           <div class="single_sidebar">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
@@ -36,7 +37,7 @@
                   @endforeach
                 </ul>
               </div>
-              <!-- <div role="tabpanel" class="tab-pane" id="video">
+              <div role="tabpanel" class="tab-pane" id="video">
                 <div class="vide_area">
                   <iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -50,9 +51,11 @@
                   </li>
                  
                 </ul>
-              </div> -->
+              </div>
             </div>
+            <!-- end tab content -->
           </div>
+          <!-- end tab -->
           <div class="single_sidebar wow fadeInDown">
             <h2><span>Sponsor</span></h2>
             <a class="sideAdd" href="#"><img src="images/add_img.jpg" alt=""></a> </div>
