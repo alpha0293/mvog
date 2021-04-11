@@ -201,16 +201,24 @@ class DutuController extends Controller
 			}
 			else
 			{
-				$validatedData = $request->validate([
-			        'profileimg' => 'image',
-			    ]);
+				$valid_img = Validator::make($request->all(),[
+						'profileimg' =>'image',
+					],
+					[
+						'image' => ':attribute không hợp lệ',
+					],
+					[
+						'profileimg' => 'Ảnh đại diện',
+					]);
+				if ($valid_img->fails()) {
+					return $valid_img->errors();
+				}
 
 				$imagename = time().'.'.request()->profileimg->getClientOriginalExtension();
 	            $request['profileimg'] = $imagename;
 	          	try {
 	          		request()->profileimg->move(public_path('file\profileimg'), $imagename);
-	          		$path = public_path().'/file/profileimg/'.$dutu->profileimg;
-	          		// return $path;	
+	          		$path = public_path().'/file/profileimg/'.$dutu->profileimg;	
 	          		File::delete($path);
 	          	} catch (\Exception $e) {
 	          		return "Lỗi move ảnh";
