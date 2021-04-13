@@ -8,9 +8,6 @@
 <body>
 
 
-   @include('user.layout.loader')
-    <!-- ***** Preloader End ***** -->
- 
 <div class="container">
    @include('user.layout.header')
    @include('user.layout.menu')
