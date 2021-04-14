@@ -127,7 +127,7 @@ class RegisterController extends Controller
                     'password' => Hash::make($data['password']),
                 ]);
 
-		if (User::all()->count()==0)
+		if (User::all()->count()==1)
 			$user->attachRole('superadministrator');
 		else
 			$user->attachRole('dutu');

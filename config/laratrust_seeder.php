@@ -30,7 +30,8 @@ return [
             'roles' => 'c,r,u,d',
             'status' => 'c,r,u,d',
             'years' => 'c,r,u,d',
-            'zones' => 'c,r,u,d'
+            'zones' => 'c,r,u,d',
+            'admins' => 'm'
         ],
         'administrator' => [
             'categories' => 'c,r,u,d',
@@ -60,6 +61,7 @@ return [
         'c' => 'create',
         'r' => 'read',
         'u' => 'update',
-        'd' => 'delete'
+        'd' => 'delete',
+        'm' => 'manage'
     ]
 ];
