@@ -30,8 +30,8 @@ $config['authentication'] = '\App\Http\Middleware\CustomCKFinderAuth';
 /*============================ License Key ============================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-$config['licenseName'] = 'localhost';
-$config['licenseKey']  = '*5?7-*1**-2**M-*2**-*1**-4*T*-3**D';
+$config['licenseName'] = 'https://mvog.herokuapp.com/';
+$config['licenseKey']  = 'PW3WVLKF1JAKV242C5X8Q19VX93BL';
 
 /*============================ CKFinder Internal Directory ============================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_privateDir
