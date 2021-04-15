@@ -43,7 +43,7 @@ class PaperController extends Controller
     public function store(Request $request)
     {
         if(Paper::validator($request->all())->fails())
-            return Redirect::back()->with('message','Vui lòng điền đầy đủ các trường');
+            return Redirect::back()->withErrors(Paper::validator($request->all()));
         else
         {
             try {

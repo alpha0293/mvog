@@ -18,7 +18,14 @@ class Paper extends Model
     {
 		//dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required','string'],
+        ],
+        [
+            'required' => ':attribute không được để trống',
+            'string' => ':attribute chỉ được nhập kí tự',
+        ],
+        [
+            'name' => 'Tên Giấy Tờ',
         ]);
     }	
 

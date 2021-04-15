@@ -11,7 +11,7 @@ class Dongtu extends Model
 {
 	use Notifiable;
 	protected $fillable = [
-        'id','name','information',
+        'id','name','information','url',
     ];
     //
 	
@@ -19,8 +19,17 @@ class Dongtu extends Model
     {
 		//dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-			'information' => ['required','string'],
+            'name' => ['required','string'],
+            'information' => ['required','string'],
+        ],
+        [
+            'required' => ':attribute không được để trống',
+            'string' => ':attribute chỉ được nhập kí tự',
+        ],
+        [
+            'name' => 'Tên',
+            'information' => 'Tình Trạng',
+            'url' => 'Trang web',
         ]);
     }	
 }
