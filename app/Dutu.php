@@ -64,6 +64,7 @@ class Dutu extends Model
 			'idyear' => ['required', 'int', 'max:255'],
 			'idstatus' => ['required', 'int','max:255'],
             'email' => ['required', 'string','max:255'],
+            'phonenumber' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
         ],
     	[
     		'required' => ':attribute không được để trống',
@@ -73,6 +74,8 @@ class Dutu extends Model
     		'int' => ':attribute chỉ được nhập số',
     		'after' => ':attribute phải sau ngày 01/01/1900',
     		'before' => ':attribute phải trước ngày 31/12/3000',
+            'min' => ':attribute tối thiếu 10 kí tự',
+            'regex' => ':attribute không đúng định dạng',
     	],
     	[
     		'profileimg' => 'Ảnh',
@@ -82,8 +85,10 @@ class Dutu extends Model
     		'parish' => 'Giáo xứ',
     		'school' => 'Trường học',
     		'majors' => 'Chuyên ngành',
-            'idzone' => 'Vùng SH',
+            'idzone' => 'Vùng sinh hoạt',
             'email' => 'Email',
+            'idyear' => 'Năm sinh hoạt',
+            'phonenumber' => 'Số điện thoại',
     	]);
     }
 

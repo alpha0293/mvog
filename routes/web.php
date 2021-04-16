@@ -136,6 +136,7 @@ Route::post('/password/change', 'AdminController@changePassword')->name('change.
 Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
 
 Route::resource('configs', 'ConfigController');
+Route::resource('chungsinhs', 'ChungsinhController');
 
 //route for admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
