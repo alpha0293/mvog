@@ -100,6 +100,20 @@
            @enderror
          
         </div>
+
+        <div class="mb-3"> <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+          <input id="phonenumber" type="text" class="form-control @error('phonenumber') is-invalid @enderror" name="phonenumber" value="" autocomplete="phonenumber" placeholder="Số điện thoại" >
+         </div>
+          
+         
+            @error('phonenumber')
+             <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+             </span>
+           @enderror
+         
+        </div>
       </div>
       <!-- nhom 1 - nhom 2 -->
       <div class="col-md-4">
