@@ -17,7 +17,6 @@
             <div class="form-control" style="width: 80%; height: 200px; border: groove 2px #187de8;">
               <img style="padding: 2px; width: 100%; height: 100%;" alt="Hình nổi bật" id="imgnb">
             </div>
-           <input type="hidden"  class="form-control col-sm-3" name="url" id="url" /> 
            <button style="margin-top: 4px;" id="sl_imgnb" class="btn btn-info" >Chọn ảnh nổi bật</button>
           </div><!-- /.col -->
           <div class="col-sm-8">
@@ -90,16 +89,15 @@
 <!-- ./wrapper -->
      <script>
         $('#sl_imgnb').click(function(){
+
           CKFinder.popup( {
                  chooseFiles: true,
                  onInit: function( finder ) {
                      finder.on( 'files:choose', function( evt ) {
                          var file = evt.data.files.first();
-                         document.getElementById( 'url' ).value = file.getUrl();
                          $('#imgnb' ).attr("src",file.getUrl());
                      } );
                      finder.on( 'file:choose:resizedImage', function( evt ) {
-                         $('#url' ).val() = evt.data.resizedUrl;
                          $('#imgnb' ).attr("src",evt.data.resizedUrl);
                      } );
                  }
@@ -134,10 +132,9 @@
         {
          
             var data = CKEDITOR.instances.text.getData();
-            // alert(data);
             $.post('{{route('save.post')}}',{
                 '_token': "{{ csrf_token() }}",
-                'thumbimg': jQuery('[name=url]').val(),
+                'thumbimg': jQuery('[id=imgnb]').attr("src"),
                 'title': $('#title').val(),
                 'content': data,
                 'status': 1,
