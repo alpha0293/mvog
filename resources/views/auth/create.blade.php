@@ -234,7 +234,7 @@
           <!-- /.col -->
           <br/>
              <div class="col-md-5" style="margin-bottom: 10px;">
-               <a style="color: #ffffffc4;" href="{{url('user')}}" class="text-center">Trở về TRANG CHỦ</a>
+               <a style="color: #ffffffc4;" href="{{url('/')}}" class="text-center">Trở về TRANG CHỦ</a>
               </div>
           </div>
           

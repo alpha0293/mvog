@@ -17,8 +17,6 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
     
 
@@ -29,10 +27,19 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
     
 </head>
+<style type="text/css">
+  @media only screen and (max-width: 750px) {
+    .mobile1 {
+      width: 100%;
+      margin: 0 auto !important;
+    }
+    
+  }
+</style>
 <body class="bg-image-1" style="background-image: url('{{ asset('user_asset/images/vanhanh.jpg')}}');">
  <div class="container-fluid">
         <div class="col-md-12" >
-            <div class="col-md-offset-4 col-md-4" id="box"> 
+            <div class="col-md-4 mobile1" id="box"> 
                <h2>Đăng Ký thành viên</h2> 
                <hr> 
                <form class="needs-validation form-horizontal" action="{{ route('register') }}" method="post" >
@@ -121,7 +128,7 @@
       <br/>
       <div style="margin-bottom: 10px;">
         <a style="color: #ffffffc4;" href="{{'login'}}" class="text-center">Tôi đã có tài khoản</a>
-        <a style="float: right; color: #ffffffc4;" href="{{url('user')}}" class="text-center">Trở về TRANG CHỦ</a>
+        <a style="float: right; color: #ffffffc4;" href="{{url('/')}}" class="text-center">Trở về TRANG CHỦ</a>
       </div>
       
               </div> 

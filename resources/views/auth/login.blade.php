@@ -30,10 +30,19 @@
 
     
 </head>
+<style type="text/css">
+  @media only screen and (max-width: 750px) {
+    .mobile1 {
+      width: 100%;
+      margin: 0 auto !important;
+    }
+    
+  }
+</style>
 <body class="bg-image-1" style="background-image: url('{{ asset('user_asset/images/vanhanh.jpg')}}');">
     <div class="container-fluid">
         <div class="col-md-12" >
-            <div class="col-md-offset-4 col-md-4" id="box"> 
+            <div class="col-md-4 mobile1" id="box"> 
                <h2>Đăng nhập</h2> 
                <hr> 
                <form class="form-horizontal" id="login_form" role="form" action="{{ route('login') }}" method="post"> @csrf
