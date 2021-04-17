@@ -66,7 +66,7 @@ class ChungsinhController extends Controller
     public function show(Chungsinh $chungsinh)
     {
         //
-        return 'show chungsinh';
+        return $chungsinh;
     }
 
     /**
@@ -91,6 +91,7 @@ class ChungsinhController extends Controller
     public function update(Request $request, Chungsinh $chungsinh)
     {
         //
+        dd($request);
     }
 
     /**
