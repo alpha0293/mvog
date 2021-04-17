@@ -153,7 +153,7 @@
                              </tr>
                              <tr>
                               <td style="width:50%">
-                                <a class="float-left">Trường học</a> <b class="float-right"><input name="school" type="text" class="form-control thongtin" disabled value="Bôn Ba" placeholder="Chưa có"></b> 
+                                <a class="float-left">Trường học</a> <b class="float-right"><input name="school" type="text" class="form-control thongtin" disabled value="{{$dutu->school}}" placeholder="Chưa có"></b> 
                               </td>
                               <td style="width:50%">
                                 <a class="float-left">Ngành học</a> <b class="float-right"><input name="majors" type="text" class="form-control thongtin" disabled value="{{$dutu->majors}}" placeholder="Chưa có"></b> 
