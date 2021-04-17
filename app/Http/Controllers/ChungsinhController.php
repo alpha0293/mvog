@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chungsinh;
 use Illuminate\Http\Request;
+use Redirect;
 
 class ChungsinhController extends Controller
 {
@@ -27,6 +28,7 @@ class ChungsinhController extends Controller
     public function create()
     {
         //
+        return view('chungsinh.create');
     }
 
     /**
@@ -38,6 +40,21 @@ class ChungsinhController extends Controller
     public function store(Request $request)
     {
         //
+        $arrName = explode(" ",$request->name);
+        $request['tenthanh'] = array_shift($arrName);
+        $request['tengoi'] = array_pop($arrName);
+        $request['ho'] = implode(" ", $arrName);
+        if (Chungsinh::validator($request->all())->fails()) {
+            # code...
+            return Redirect::back()->withErrors(Chungsinh::validator($request->all()));
+        }
+        try {
+
+            Chungsinh::create($request->all());
+            return Redirect::back();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -49,6 +66,7 @@ class ChungsinhController extends Controller
     public function show(Chungsinh $chungsinh)
     {
         //
+        return 'show chungsinh';
     }
 
     /**
@@ -60,6 +78,7 @@ class ChungsinhController extends Controller
     public function edit(Chungsinh $chungsinh)
     {
         //
+        return view('chungsinh.edit',compact('chungsinh'));
     }
 
     /**
@@ -83,5 +102,7 @@ class ChungsinhController extends Controller
     public function destroy(Chungsinh $chungsinh)
     {
         //
+        // dd($chungsinh);
+        $chungsinh->delete();
     }
 }

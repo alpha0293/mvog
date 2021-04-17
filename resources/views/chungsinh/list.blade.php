@@ -10,13 +10,14 @@
 	<table>
 		<th>Tên</th>
 		<th>Thông tin</th>
+		<th>Chức Năng</th>
 		@foreach($chungsinhs as $chungsinh)
 		<tr>
-			<td>{{$chungsinh->name}}</td>
-			<td>{{$chungsinh->information}}</td>
-			<td><a href="{{route('delete.chungsinh',$chungsinh->id)}}">Delete</a>
-				<a href="{{route('show.chungsinh',$chungsinh->id)}}">View</a>
-				<a href="{{route('getupdate.chungsinh',$chungsinh->id)}}">Edit</a>
+			<td>{{$chungsinh->tengoi}}</td>
+			<td>{{$chungsinh->tenthanh}}</td>
+			<td><a href="{{route('chungsinhs.destroy',$chungsinh->id)}}">Delete</a>
+				<a href="{{route('chungsinhs.show',$chungsinh->id)}}">View</a>
+				<a href="{{route('chungsinhs.edit',$chungsinh->id)}}">Edit</a>
 			</td>
 		</tr>
 			

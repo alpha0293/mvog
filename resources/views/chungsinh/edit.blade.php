@@ -9,10 +9,14 @@
     		{{ implode('', $errors->all(':message')) }}
 		@endif
 	</div>
-	<form method="post" action="{{route('update.dongtu',$dongtu->id)}}">
+	<form method="post" action="{{route('chungsinhs.update'),$chungsinh}}">
 		@csrf()
-		<input type="text" name="name" placeholder="Tên Dòng Tu" value="{{$dongtu->name}}">
-		<input type="text" name="information" placeholder="Thông tin..." value="{{$dongtu->information}}">
+		<input type="text" name="name" placeholder="Tên thánh - Tên gọi">
+		<input type="date" name="ngaysinh" placeholder="Ngày sinh">
+		<input type="text" name="giaoxu" placeholder="Giáo Xứ">
+		<input type="date" name="ngayvaodcv" placeholder="Ngày vào ĐCV">
+		<input type="text" name="nienkhoa" placeholder="Niên Khoá">
+		<input type="text" name="khoa" placeholder="Khoá">
 		<button>Submit</button>
 	</form>
 </body>
