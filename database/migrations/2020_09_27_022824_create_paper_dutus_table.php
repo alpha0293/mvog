@@ -17,7 +17,7 @@ class CreatePaperDutusTable extends Migration
             $table->id();
 			$table->unsignedBigInteger('iddutu');
 			$table->unsignedBigInteger('idpaper');
-			$table->string('url');
+			$table->string('url')->nullable();
 			$table->string('status');
 			$table->foreign('iddutu')->references('id')->on('dutus');
 			$table->foreign('idpaper')->references('id')->on('papers');

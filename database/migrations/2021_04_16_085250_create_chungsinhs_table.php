@@ -18,6 +18,7 @@ class CreateChungsinhsTable extends Migration
             $table->string('tenthanh');
             $table->string('tengoi');
             $table->string('ho');
+            $table->string('profileimg')->nullable();
             $table->date('ngaysinh');
             $table->date('ngayvaodcv');
             $table->string('giaoxu');

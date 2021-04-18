@@ -136,7 +136,7 @@ Route::post('/password/change', 'AdminController@changePassword')->name('change.
 Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
 
 Route::resource('configs', 'ConfigController');
-Route::resource('chungsinhs', 'ChungsinhController');
+// Route::resource('chungsinhs', 'ChungsinhController');
 
 //route for admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
@@ -290,4 +290,15 @@ Route::prefix('links')->middleware(['auth'])->group(function () {
     Route::get('/show/{id}', ['middleware' => ['permission:links-update'], 'uses' =>'LinkController@edit','as'=>'edit.link']);
     Route::post('/edit', ['middleware' => ['permission:links-update'], 'uses'=>'LinkController@update','as'=>'update.link']);
     Route::get('/delete/{id}', ['middleware' => ['permission:links-delete'], 'uses'=>'LinkController@destroy','as'=>'delete.link']);
+});
+
+
+//Route Chungsinh
+Route::get('chungsinhs','ChungsinhController@index')->name('chungsinh.index');
+Route::prefix('chungsinhs')->middleware(['auth'])->group(function(){
+    Route::get('/create', ['middleware' => ['permission:chungsinhs-create'], 'uses'=>'ChungsinhController@create','as'=>'create.chungsinh']);
+    Route::post('/create', ['middleware' => ['permission:chungsinhs-create'], 'uses'=>'ChungsinhController@store','as'=>'save.chungsinh']);
+    Route::get('/show/{id}', ['middleware' => ['permission:chungsinhs-update'], 'uses' =>'ChungsinhController@edit','as'=>'edit.chungsinh']);
+    Route::post('/edit', ['middleware' => ['permission:chungsinhs-update'], 'uses'=>'ChungsinhController@update','as'=>'update.chungsinh']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:chungsinhs-delete'], 'uses'=>'ChungsinhController@destroy','as'=>'delete.chungsinh']);
 });

@@ -15,9 +15,8 @@
 		<tr>
 			<td>{{$chungsinh->tengoi}}</td>
 			<td>{{$chungsinh->tenthanh}}</td>
-			<td><a href="{{route('chungsinhs.destroy',$chungsinh->id)}}">Delete</a>
-				<a href="{{route('chungsinhs.show',$chungsinh->id)}}">View</a>
-				<a href="{{route('chungsinhs.edit',$chungsinh->id)}}">Edit</a>
+			<td><a href="{{route('delete.chungsinh',$chungsinh->id)}}">Delete</a>
+				<a href="{{route('edit.chungsinh',$chungsinh->id)}}">Edit</a>
 			</td>
 		</tr>
 			
