@@ -16,7 +16,6 @@
             <div class="form-control" style="width: 80%; height: 200px; border: groove 2px #187de8;">
               <img src="{{$post->thumbimg}}" style="padding: 2px; width: 100%; height: 100%;" alt="Hình nổi bật" id="imgnb">
             </div>
-           <input type="hidden" value="{{$post->thumbimg}}"  class="form-control col-sm-3" name="url" id="url" /> 
            <button style="margin-top: 4px;" id="sl_imgnb" class="btn btn-info" >Đổi ảnh nổi bật</button>
           </div><!-- /.col -->
           <div class="col-sm-8">
@@ -90,11 +89,9 @@
                  onInit: function( finder ) {
                      finder.on( 'files:choose', function( evt ) {
                          var file = evt.data.files.first();
-                         document.getElementById( 'url' ).value = file.getUrl();
                          $('#imgnb' ).attr("src",file.getUrl());
                      } );
                      finder.on( 'file:choose:resizedImage', function( evt ) {
-                         $('#url' ).val() = evt.data.resizedUrl;
                          $('#imgnb' ).attr("src",evt.data.resizedUrl);
                      } );
                  }
@@ -131,7 +128,7 @@
             // alert(data);
             $.post('{{route('update.post',$post->id)}}',{
                 '_token': "{{ csrf_token() }}",
-                'thumbimg': jQuery('[name=url]').val(), 
+                'thumbimg': jQuery('[id=imgnb]').attr("src"), 
                 'title': $('#title').val(),
                 'content': data,
                 'status': 1,

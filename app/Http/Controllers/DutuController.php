@@ -66,12 +66,12 @@ class DutuController extends Controller
      */
     public function store(Request $request)
     {
-		$request->idstatus=2;
+		$request['idstatus']=2;
 		if(Dutu::validator($request->all())->fails())
 		{
 			//dd(Dutu::validator($request->all())->errors());
 			$vali=Dutu::validator($request->all());
-			// dd($vali->errors());
+			 dd($vali->errors());
 			return Redirect::back()->withErrors($vali);
 		}
 		else
@@ -87,7 +87,7 @@ class DutuController extends Controller
 				'name'=>$lastName,
 				'fullname'=>$firstName.' '.$middleName,
 				'dob'=>$request->dob,
-				'phonenumber'=>'0987654321',
+				'phonenumber'=>$request->phonenumber,
 				'parish'=>$request->parish,
 				'school'=>$request->school,
 				'majors'=>$request->majors,
@@ -100,6 +100,7 @@ class DutuController extends Controller
 			}
 			catch(\Exception $e)
 			{
+				dd($e->getMessage());
 				return Redirect::back()->withErrors($e->getMessage());
 			}
 		}	
