@@ -53,6 +53,7 @@ class PostController extends Controller
         else
         {
             try {
+                $request['iduser'] = Auth::id();
                 Post::create($request->all());
                 return 'Thành công!!!';
             } catch (\Exception $e) {
@@ -127,8 +128,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         if (Post::validator($request->all())->fails()) {
-                # code...
-                return Post::validator($request->all());
+            return Post::validator($request->all());
         }
         else
         {
