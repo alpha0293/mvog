@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edit Dong tu</title>
+	<title>Edit chủng sinh</title>
 </head>
 <body>
 	<div>
@@ -9,9 +9,8 @@
     		{{ implode('', $errors->all(':message')) }}
 		@endif
 	</div>
-	<form method="post" action="{{route('chungsinhs.update',$chungsinh)}}">
+	<form method="post" action="{{route('update.chungsinh',$chungsinh->id)}}">
 		@csrf()
-		<input type="hidden" name="_method" value="PUT">
 		<input type="text" name="name" placeholder="Tên thánh - Tên gọi" value="{{$chungsinh->tenthanh.' '.$chungsinh->ho.' '.$chungsinh->tengoi}}">
 		<input type="date" name="ngaysinh" placeholder="Ngày sinh" value="{{$chungsinh->ngaysinh}}">
 		<input type="text" name="giaoxu" placeholder="Giáo Xứ" value="{{$chungsinh->giaoxu}}">

@@ -9,7 +9,7 @@ class Chungsinh extends Model
 {
     //
     protected $fillable = [
-    	'tenthanh','tengoi','ho','ngaysinh','ngayvaodcv','giaoxu','nienkhoa','khoa',
+    	'tenthanh','tengoi','ho','ngaysinh','ngayvaodcv','giaoxu','nienkhoa','khoa','profileimg',
     ];
 
     public static function validator(array $data)

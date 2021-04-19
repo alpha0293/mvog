@@ -7,14 +7,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<a href="{{route('create.chungsinh')}}">Tạo mới</a>
 	<table>
 		<th>Tên</th>
 		<th>Thông tin</th>
 		<th>Chức Năng</th>
 		@foreach($chungsinhs as $chungsinh)
 		<tr>
-			<td>{{$chungsinh->tengoi}}</td>
-			<td>{{$chungsinh->tenthanh}}</td>
+			<td>{{$chungsinh->tenthanh}} {{$chungsinh->ho}} {{$chungsinh->tengoi}}</td>
+			<td></td>
 			<td><a href="{{route('delete.chungsinh',$chungsinh->id)}}">Delete</a>
 				<a href="{{route('edit.chungsinh',$chungsinh->id)}}">Edit</a>
 			</td>

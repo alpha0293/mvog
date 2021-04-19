@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>View Dong Tu</title>
+	<title>View Chủng Sinh</title>
 </head>
 <body>
-	{{$dongtu}}
+	{{$chungsinh}}
 </body>
 </html>
