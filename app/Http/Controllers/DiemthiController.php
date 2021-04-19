@@ -16,15 +16,31 @@ class DiemthiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if ($request->year) {
+            # code...
+            $cur_year = $request->year;
+        }
+        else
+        {
+            if (date("m")<9) {
+                $cur_year = (date("Y")-1). "-" .date("Y"); 
+            }
+            else{
+                $cur_year = date("Y"). "-" .(date("Y")+1); 
+            }
+        }
         $lstdiemthi = Diemthi::all();
-        $lstdutu = Dutu::with(['getdiem' => function($query){
-            $query->where('nam','2020-2021');
+        $lstdutu = Dutu::with(['getdiem' => function($query) use ($cur_year){
+            $query->where('nam',$cur_year);
         }])->where('idstatus',1)->get();
+        $index = 1;
+        $lstzone = Zone::all();
+        $lstyear = Year::all();
         // dd($lstdutu->first());
-        return view('diemthi.list',compact('lstdutu'));
+        return view('diemthi.list',compact('lstdutu','index','lstzone','lstyear'));
     }
 
     /**

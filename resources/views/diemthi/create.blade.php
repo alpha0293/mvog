@@ -12,7 +12,7 @@
         <div class="col-md-12" id="danhsach_nhom">
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title" id="addnhom_title">Danh sách Chọn nhóm trưởng</h3>
+                <h3 class="card-title" id="addnhom_title">Nhập điểm thi cho dự tu</h3>
                 @if(session('message'))
                 <h4>{{session('message')}}</h4>                  
                 @endif
@@ -38,7 +38,7 @@
 
 					 </div>
 					 <div class="form-group col-md-3">
-                        <select class="form-control" aria-label="Vùng sinh hoạt" name="zone" id="sl_zone" title="Vùng sinh hoạt" class="sl_at" onclick="getnumval()" onchange="locdata()">
+                        <select class="form-control" aria-label="Vùng sinh hoạt" name="zone" id="sl_zone" title="Vùng sinh hoạt" class="sl_at" onchange="locdata()">
                             <option value="0">Chọn vùng sinh hoạt</option>
                             @foreach($lstzone as $zone)
                               <option value="{{$zone->id}}">{{$zone->name}}</option>
@@ -53,21 +53,21 @@
                             @endforeach
                       </select>
 					 </div>
-					 
-                   
+             @if ($lstdutu->count()!=0)
+              <button type="submit" class="form-control col-md-2 btn btn-success" id="btnsubmit" > Gửi điểm thi</buton>
+             @endif
                     </div>
                     
                   </div>
                 </div>
                
-                @if (is_null($lstdutu))
+                @if ($lstdutu->count()==0)
                   <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
                 @else
                 <table id="tableID" class="table table-bordered table-striped">
                    <thead>
 				    <tr>
 				    	<th>STT</th>
-				    	<th >Tên Thánh</th>
 				        <th >Tên</th>
 				        <th >Giáo xứ</th>
 				        <th hidden="true" ></th>
@@ -81,8 +81,7 @@
 				   		@foreach($lstdutu as $dutu)
 					        <tr>
 					        	<td>{{$index++}}</td>
-					        	<td name ="{{$dutu->id}}">{{$dutu->holyname}}</td>
-					            <td>{{$dutu->name}}_{{$dutu->id}}</td>
+					            <td name ="{{$dutu->id}}">{{$dutu->holyname}} {{$dutu->fullname}} {{$dutu->name}}</td>
 					            <td>{{$dutu->parish}}</td>
 					            <td hidden="true">{{$dutu->namezone->id}}</td>
 					            <td hidden="true">{{$dutu->nameyear->id}}</td>
@@ -93,7 +92,7 @@
 				        @endforeach
 				     </tbody>
                 </table>
-                <button type="submit" id="btnsubmit" > submit</buton>
+               
                 @endif
 
         
@@ -127,7 +126,7 @@
  	  	if(val != ""){
  	  		if(valold.length===0){
        		  obj1.id = idd;
- 	  		  obj1.va = val;
+ 	  		  obj1.va = "0";
  	  		  valold.push(obj1);
        		}
 		    else{
@@ -144,6 +143,7 @@
 	 	  		 valold.push(obj1);
 			   }
 		    }
+        
  	  		console.log(valold);	
  	  	}	
  	  }
@@ -180,6 +180,12 @@
           // console.log(filter);
           table = $("#tableID");
           tr = $("tr");
+
+          if(valnew.length>0){
+            if(valold[0].va!=valnew[0].va){
+            alert("khác");
+         }
+          }
          
           if (slz === '0' && sly === '0') {
                $ ('tr').show ();
@@ -187,7 +193,7 @@
            else{
            	if(slz === '0'){
            		for (i = 1; i < tr.length; i++) {
-                  td = tr[i].children[5];
+                  td = tr[i].children[4];
                   if (td) {
                      slValue = td.textContent || td.innerText; 
                      // console.log(slValue);
@@ -201,7 +207,7 @@
            	}
            	if(sly === '0'){
            		 for (i = 1; i < tr.length; i++) {
-                  td = tr[i].children[4];
+                  td = tr[i].children[3];
                   if (td) {
                      slValue = td.textContent || td.innerText; 
                      // console.log(slValue);
@@ -216,8 +222,8 @@
            	}
            		if(sly != '0' && slz !='0'){
            		 for (i = 1; i < tr.length; i++) {
-                  var tdz = tr[i].children[4];
-                  var tdy = tr[i].children[5];
+                  var tdz = tr[i].children[3];
+                  var tdy = tr[i].children[4];
                   if (tdz && tdy) {
                      var slValuez = tdz.textContent || tdz.innerText; 
                      var slValuey = tdy.textContent || tdy.innerText; 
