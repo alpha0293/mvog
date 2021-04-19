@@ -44,13 +44,13 @@ Route::get('attend/edit/{id}','AttendanceController@edit')->name('getupdate.atte
 
 
 //Route for Post
-Route::get('post','PostController@index')->name('post')->middleware('auth');
-Route::get('post/create','PostController@create')->name('create.post')->middleware('auth');
-Route::get('post/{id}','PostController@show')->name('show.post');
-Route::get('post/delete/{id}','PostController@destroy')->name('delete.post')->middleware('auth');
-Route::post('post/edit/{id}','PostController@update')->name('update.post')->middleware('auth');
-Route::post('post/store','PostController@store')->name('save.post')->middleware('auth');
-Route::get('post/edit/{id}','PostController@edit')->name('getupdate.post')->middleware('auth');
+// Route::get('post','PostController@index')->name('post')->middleware('auth');
+// Route::get('post/create','PostController@create')->name('create.post')->middleware('auth');
+// Route::get('posts/{id}','PostController@show')->name('show.post');
+// Route::get('post/delete/{id}','PostController@destroy')->name('delete.post')->middleware('auth');
+// Route::post('post/edit/{id}','PostController@update')->name('update.post')->middleware('auth');
+// Route::post('post/store','PostController@store')->name('save.post')->middleware('auth');
+// Route::get('post/edit/{id}','PostController@edit')->name('getupdate.post')->middleware('auth');
 
 //Route for Category
 Route::get('category','CategoryController@index')->name('category');
@@ -190,13 +190,15 @@ Route::prefix('attdances')->middleware('auth')->group(function () {
 });
 
 //Route Bài viết
+Route::get('posts/{id}','PostController@show')->name('show.post');
 Route::prefix('posts')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'posts.index']);
-    Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'post.create']);
-    Route::post('/store', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@store','as'=>'post.store']);
-    Route::get('/show/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@show','as'=>'post.show']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@edit','as'=>'post.edit']);
-    Route::post('/edit/{id}', ['middleware' => ['permission:posts-delete'], 'uses'=>'PostController@update','as'=>'post.update']);
+    Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'post']);
+    Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'create.post']);
+    Route::post('/store', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@store','as'=>'store.post']);
+    // Route::get('/show/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@show','as'=>'show.post']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@edit','as'=>'getupdate.post']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@update','as'=>'update.post']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:posts-delete'], 'uses'=>'PostController@destroy','as'=>'delete.post']);
 });
 
 //Route Category
