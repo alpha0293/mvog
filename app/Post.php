@@ -12,7 +12,7 @@ class Post extends Model
 	use Notifiable;
     
 	protected $fillable = [
-        'id','thumbimg','title','content','status','idcategory',
+        'id','thumbimg','title','content','status','idcategory','iduser',
     ];
     //
 	public static function validator(array $data)

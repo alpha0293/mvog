@@ -44,13 +44,13 @@ Route::get('attend/edit/{id}','AttendanceController@edit')->name('getupdate.atte
 
 
 //Route for Post
-Route::get('post','PostController@index')->name('post')->middleware('auth');
-Route::get('post/create','PostController@create')->name('create.post')->middleware('auth');
-Route::get('post/{id}','PostController@show')->name('show.post');
-Route::get('post/delete/{id}','PostController@destroy')->name('delete.post')->middleware('auth');
-Route::post('post/edit/{id}','PostController@update')->name('update.post')->middleware('auth');
-Route::post('post/store','PostController@store')->name('save.post')->middleware('auth');
-Route::get('post/edit/{id}','PostController@edit')->name('getupdate.post')->middleware('auth');
+// Route::get('post','PostController@index')->name('post')->middleware('auth');
+// Route::get('post/create','PostController@create')->name('create.post')->middleware('auth');
+// Route::get('posts/{id}','PostController@show')->name('show.post');
+// Route::get('post/delete/{id}','PostController@destroy')->name('delete.post')->middleware('auth');
+// Route::post('post/edit/{id}','PostController@update')->name('update.post')->middleware('auth');
+// Route::post('post/store','PostController@store')->name('save.post')->middleware('auth');
+// Route::get('post/edit/{id}','PostController@edit')->name('getupdate.post')->middleware('auth');
 
 //Route for Category
 Route::get('category','CategoryController@index')->name('category');
@@ -136,7 +136,7 @@ Route::post('/password/change', 'AdminController@changePassword')->name('change.
 Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
 
 Route::resource('configs', 'ConfigController');
-Route::resource('chungsinhs', 'ChungsinhController');
+// Route::resource('chungsinhs', 'ChungsinhController');
 
 //route for admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
@@ -190,13 +190,15 @@ Route::prefix('attdances')->middleware('auth')->group(function () {
 });
 
 //Route Bài viết
+Route::get('posts/{id}','PostController@show')->name('show.post');
 Route::prefix('posts')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'posts.index']);
-    Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'post.create']);
-    Route::post('/store', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@store','as'=>'post.store']);
-    Route::get('/show/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@show','as'=>'post.show']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@edit','as'=>'post.edit']);
-    Route::post('/edit/{id}', ['middleware' => ['permission:posts-delete'], 'uses'=>'PostController@update','as'=>'post.update']);
+    Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'post']);
+    Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'create.post']);
+    Route::post('/store', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@store','as'=>'store.post']);
+    // Route::get('/show/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@show','as'=>'show.post']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@edit','as'=>'getupdate.post']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@update','as'=>'update.post']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:posts-delete'], 'uses'=>'PostController@destroy','as'=>'delete.post']);
 });
 
 //Route Category
@@ -290,4 +292,39 @@ Route::prefix('links')->middleware(['auth'])->group(function () {
     Route::get('/show/{id}', ['middleware' => ['permission:links-update'], 'uses' =>'LinkController@edit','as'=>'edit.link']);
     Route::post('/edit', ['middleware' => ['permission:links-update'], 'uses'=>'LinkController@update','as'=>'update.link']);
     Route::get('/delete/{id}', ['middleware' => ['permission:links-delete'], 'uses'=>'LinkController@destroy','as'=>'delete.link']);
+});
+
+
+//Route Chungsinh
+Route::get('chungsinhs','ChungsinhController@index')->name('chungsinh.index');
+Route::prefix('chungsinhs')->middleware(['auth'])->group(function(){
+    Route::get('/create', ['middleware' => ['permission:chungsinhs-create'], 'uses'=>'ChungsinhController@create','as'=>'create.chungsinh']);
+    Route::post('/create', ['middleware' => ['permission:chungsinhs-create'], 'uses'=>'ChungsinhController@store','as'=>'save.chungsinh']);
+    Route::get('/show/{id}', ['middleware' => ['permission:chungsinhs-update'], 'uses' =>'ChungsinhController@edit','as'=>'edit.chungsinh']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:chungsinhs-update'], 'uses'=>'ChungsinhController@update','as'=>'update.chungsinh']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:chungsinhs-delete'], 'uses'=>'ChungsinhController@destroy','as'=>'delete.chungsinh']);
+});
+
+//Get all reoutes for project
+Route::get('routes', function() {
+     $routeCollection = Route::getRoutes();
+    echo "<style>table, th, td, tr {border: 1px solid black;} </style>";
+    echo "<table style='width:100%;'>";
+    echo "<tr style='border: 1px solid black;'>";
+    echo "<td width='10%'><h4>HTTP Method</h4></td>";
+    echo "<td width='10%'><h4>Route</h4></td>";
+    echo "<td width='10%'><h4>Link</h4></td>";
+    echo "<td width='10%'><h4>Name</h4></td>";
+    echo "<td width='70%'><h4>Corresponding Action</h4></td>";
+    echo "</tr>";
+    foreach ($routeCollection as $value) {
+        echo "<tr>";
+        echo "<td>" . $value->methods()[0] . "</td>";
+        echo "<td>" . $value->uri() . "</td>";
+        echo "<td> <a href='". $value->uri()."'</a>". $value->getName() ."</td>";
+        echo "<td>" . $value->getName() . "</td>";
+        echo "<td>" . $value->getActionName() . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 });

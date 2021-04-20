@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Create Dong Tu</title>
+	<title>Thêm mới Chủng sinh</title>
 </head>
 <body>
 	<div>
@@ -9,10 +9,14 @@
     		{{ implode('', $errors->all(':message')) }}
 		@endif
 	</div>
-	<form method="post" action="{{route('save.dongtu')}}">
+	<form method="post" action="{{route('save.chungsinh')}}">
 		@csrf()
-		<input type="text" name="name" placeholder="Tên Dòng Tu">
-		<input type="text" name="information" placeholder="Thông tin...">
+		<input type="text" name="name" placeholder="Tên thánh - Tên gọi">
+		<input type="date" name="ngaysinh" placeholder="Ngày sinh">
+		<input type="text" name="giaoxu" placeholder="Giáo Xứ">
+		<input type="date" name="ngayvaodcv" placeholder="Ngày vào ĐCV">
+		<input type="text" name="nienkhoa" placeholder="Niên Khoá">
+		<input type="text" name="khoa" placeholder="Khoá">
 		<button>Submit</button>
 	</form>
 </body>
