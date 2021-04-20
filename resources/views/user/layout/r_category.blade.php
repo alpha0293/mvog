@@ -6,12 +6,14 @@
               @foreach($lstpopularpost as $post)
               <li>
                 <div class="media wow fadeInDown">
-                  <button class="fa fa-ellipsis-v setMenu"
-                    onclick="setPopular({{$post->id}});"></button> 
+                  @if(Auth::check() && Auth::user()->hasPermission('posts-update|posts-delete')) 
+                      <button class="fa fa-ellipsis-v setMenu"
+                      onclick="setPopular({{$post->id}});"></button> 
                       <ul class="showSet" id="popular{{$post->id}}">
                         <li><a style="color:blue; float: none;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
-                        <li><a style="color:red; float: none;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                        <li><a style="color:red; float: none;" class="fa fa-trash-o" href="{{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
                     </ul> 
+                    @endif
                   <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
                   <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title">{{strlen($post->title) > 80 ? Str::substr($post->title,0,70) : $post->title}}...</a> 
                     <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6>
