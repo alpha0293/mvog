@@ -42,7 +42,7 @@ class RegisterController extends Controller
         }
         else
 		{
-			return route('dutu.create');
+			return route('create.dutu');
 		}
     }
 

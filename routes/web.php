@@ -24,13 +24,13 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/admin','AdminController@index')->name('admin')->middleware('verified');
 
-Route::get('dutu','DutuController@index');
-Route::get('dutu/create','DutuController@create')->name('create.dutu')->middleware('auth');
-Route::get('/dutu/{id}','DutuController@show')->name('show.dutu')->middleware('auth');
-Route::get('dutu/delete/{id}','DutuController@destroy')->name('delete.dutu');
-Route::post('dutu/edit/{id}','DutuController@update')->name('update.dutu');
-Route::post('dutu/info_edit','DutuController@update_ajax')->name('update_ajax.dutu');
-Route::post('dutu/store','DutuController@store')->name('save.dutu');
+// Route::get('dutu','DutuController@index');
+// Route::get('dutu/create','DutuController@create')->name('create.dutu')->middleware('auth');
+// Route::get('/dutu/{id}','DutuController@show')->name('show.dutu')->middleware('auth');
+// Route::get('dutu/delete/{id}','DutuController@destroy')->name('delete.dutu');
+// Route::post('dutu/edit/{id}','DutuController@update')->name('update.dutu');
+// Route::post('dutu/info_edit','DutuController@update_ajax')->name('update_ajax.dutu');
+// Route::post('dutu/store','DutuController@store')->name('save.dutu');
 //Route::get('dutu/edit/{id}','DutuController@edit')->name('getupdate.dutu');
 
 //route for attdance
@@ -171,12 +171,14 @@ Route::prefix('roles')->middleware('auth')->group(function () {
 
 //Route Dutu
 Route::prefix('dutus')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'DutuController@index','as'=>'dutu.index']);
-    Route::get('/create', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@create','as'=>'dutu.create']);
-    Route::post('/store', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@store','as'=>'dutu.store']);
-    Route::get('/show/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@show','as'=>'dutu.show']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@edit','as'=>'dutu.edit']);
-    Route::post('/edit/{id}', ['middleware' => ['permission:dutus-delete'], 'uses'=>'DutuController@update','as'=>'dutu.update']);
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'DutuController@index','as'=>'index.dutu']);
+    Route::get('/create', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@create','as'=>'create.dutu']);
+    Route::post('/store', ['middleware' => ['permission:dutus-create'], 'uses'=>'DutuController@store','as'=>'save.dutu']);
+    Route::get('/show/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@show','as'=>'show.dutu']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@edit','as'=>'edit.dutu']);
+    Route::post('/edit/{id}', ['middleware' => ['permission:dutus-delete'], 'uses'=>'DutuController@update','as'=>'update.dutu']);
+    Route::post('/info_edit', ['middleware' => ['permission:dutus-update'], 'uses'=>'DutuController@update_ajax','as'=>'update_ajax.dutu']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:dutus-delete'], 'uses'=>'DutuController@destroy','as'=>'delete.dutu']);
 });
 
 //Route Điểm Danh
@@ -195,7 +197,6 @@ Route::prefix('posts')->middleware('auth')->group(function () {
     Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'post']);
     Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'create.post']);
     Route::post('/store', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@store','as'=>'store.post']);
-    // Route::get('/show/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@show','as'=>'show.post']);
     Route::get('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@edit','as'=>'getupdate.post']);
     Route::post('/edit/{id}', ['middleware' => ['permission:posts-update'], 'uses'=>'PostController@update','as'=>'update.post']);
     Route::get('/delete/{id}', ['middleware' => ['permission:posts-delete'], 'uses'=>'PostController@destroy','as'=>'delete.post']);
@@ -203,7 +204,7 @@ Route::prefix('posts')->middleware('auth')->group(function () {
 
 //Route Category
 Route::prefix('categories')->middleware('auth')->group(function () {
-    Route::get('/', ['middleware' => ['permission:categoriescategories-read'], 'uses'=>'CategoryController@index','as'=>'categorie.index']);
+    Route::get('/', ['middleware' => ['permission:categories-read'], 'uses'=>'CategoryController@index','as'=>'categorie.index']);
     Route::get('/create', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@create','as'=>'categorie.create']);
     Route::post('/store', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@store','as'=>'categorie.store']);
     Route::get('/show/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@show','as'=>'categorie.show']);

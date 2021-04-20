@@ -41,13 +41,13 @@ class LoginController extends Controller
             $dutu = Dutu::all()->where('id',Auth::user()->id)->first();
             if($dutu == null)
             {
-                return route('dutu.create');
+                return route('create.dutu');
             }
 			else
 			{
                 if(($dutu->name == null) || ($dutu->holyname == null)|| ($dutu->dob == null) || ($dutu->parish == null) || ($dutu->school == null) || ($dutu->majors == null))
                 {
-                    return route('dutu.create');
+                    return route('create.dutu');
                 }
                 else{
                     return '/';

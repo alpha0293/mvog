@@ -71,7 +71,7 @@ class DutuController extends Controller
 		{
 			//dd(Dutu::validator($request->all())->errors());
 			$vali=Dutu::validator($request->all());
-			 dd($vali->errors());
+			 // dd($vali->errors());
 			return Redirect::back()->withErrors($vali);
 		}
 		else
@@ -118,6 +118,14 @@ class DutuController extends Controller
 		if($id != Auth::id() && Auth::user()->hasRole('dutu'))
 		{
 			abort (403);
+		}
+		if (Auth::user()->hasRole('dutu|nhomtruong')) {
+			# code...
+			$dutu = Dutu::find($id);
+			if (!$dutu) {
+				# code...
+				return Redirect::route('create.dutu');
+			}
 		}
 		$user = Auth::user();
 		$dutu = Dutu::findOrFail($id);
