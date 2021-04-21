@@ -27,7 +27,7 @@
                                         </h6>
                                         <div class="col-md-4 text-right" style="margin: 25px 0;">
                                             <div class="btn-group">
-                                                <a id="sample_editable_1_new" class="btn btn-primary" href="{{ route('role.edit', $role->id) }}"><i class="fa fa-edit"></i> Chỉnh sửa
+                                                <a id="sample_editable_1_new" class="btn btn-primary" href="{{ route('edit.role', $role->id) }}"><i class="fa fa-edit"></i> Chỉnh sửa
                                                 </a>
                                             </div>
                                         </div>

@@ -74,9 +74,9 @@ Route::get('dongtu/{id}','DongtuController@show')->name('show.dongtu');
 
 
 //Route for Paper
-Route::get('paper','PaperController@index');
+Route::get('papers','PaperController@index');
 // Route::get('paper/create','PaperController@create')->name('create.paper')->middleware('auth');
-Route::get('paper/{id}','PaperController@show')->name('show.paper');
+Route::get('papers/{id}','PaperController@show')->name('show.paper');
 // Route::get('paper/delete/{id}','PaperController@destroy')->name('delete.paper')->middleware('auth');
 // Route::post('paper/edit/{id}','PaperController@update')->name('update.paper')->middleware('auth');
 // Route::post('paper/store','PaperController@store')->name('save.paper')->middleware('auth');
@@ -231,7 +231,8 @@ Route::prefix('papers')->middleware('auth')->group(function () {
     Route::get('/edit/{id}', ['middleware' => ['permission:paper-update'], 'uses'=>'PaperController@edit','as'=>'edit.paper']);
     Route::post('/edit/{id}', ['middleware' => ['permission:paper-delete'], 'uses'=>'PaperController@update','as'=>'update.paper']);
     // paper for dutu
-     Route::post('/storepaper_dutu', ['middleware' => ['permission:paper-delete'], 'uses'=>'Paper_DutuController@store','as'=>'update.paper_dutu']);
+    Route::post('/storepaper_dutu', ['middleware' => ['permission:paper-delete'], 'uses'=>'Paper_DutuController@store','as'=>'update.paper_dutu']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:paper-delete'], 'uses'=>'PaperController@destroy','as'=>'delete.paper']);
 });
 
 //Route Điểm thi

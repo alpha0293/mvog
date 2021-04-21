@@ -9,7 +9,7 @@
           <div class="col-lg-12">
             <h3 class="card-title" style="color: #0d83c5cc;margin-top: 15px; margin-bottom: 40px;" id="addnhom_title">Tạo quyền mới</b></h3>
       
-                <form class="form-horizontal" action="{{ route('role.store') }}" method="POST">
+                <form class="form-horizontal" action="{{ route('save.role') }}" method="POST">
                     @csrf
                     <div class="form-body">
                          <div class="col-md-5" style="float: left;">
