@@ -34,7 +34,7 @@
                    }
                     ?>
                     <div class="form-group col-md-2.5">
-                      <form method="get" action="{{route('diemthi.index')}}">
+                      <form method="get" action="{{route('diemthi')}}">
                         <div class="input-group mb-3"><!-- /btn-group -->
                                 @if(isset($_GET['year']))
                                 <select style="padding: 4px; border-color: red; color: red;" class="sl_at form-control" aria-label="Năm" name="year" id="year" title="Năm"  >
