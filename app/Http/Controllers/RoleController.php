@@ -103,7 +103,7 @@ class RoleController extends Controller
             $role->syncPermissions($request->permissions);
         }
 
-        return redirect()->route('role.show', $id)->with('status_success', 'Chỉnh sửa nhóm quyền '.$role->display_name.' thành công!');
+        return redirect()->route('show.role', $id)->with('status_success', 'Chỉnh sửa nhóm quyền '.$role->display_name.' thành công!');
     }
 
     /**

@@ -29,10 +29,10 @@
                                         <div class="ribbon-sub ribbon-clip ribbon-left"></div> {{ $role->display_name }} </div>
                                     <p class="ribbon-content">{{ $role->description }}</p>
                                     <div class="btn-group">
-                                        <a href="{{ route('role.show', $role->id) }}" class="btn blue"><i class="fa fa-eye"></i> Chi tiết</a>
+                                        <a href="{{ route('show.role', $role->id) }}" class="btn blue"><i class="fa fa-eye"></i> Chi tiết</a>
                                     </div>
                                     <div class="btn-group">
-                                        <a href="{{ route('role.edit', $role->id) }}" class="btn btn-default"><i class="fa fa-edit"></i> Chỉnh sửa</a>
+                                        <a href="{{ route('edit.role', $role->id) }}" class="btn btn-default"><i class="fa fa-edit"></i> Chỉnh sửa</a>
                                     </div>
                                 </div>
                             </div>

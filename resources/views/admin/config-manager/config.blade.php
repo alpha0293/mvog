@@ -23,7 +23,7 @@
               
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <form method="post" action="{{route('configs.store')}}">
+                <form method="post" action="{{route('save.config')}}">
                   @csrf()
                   <span>Tiêu đề trang web</span>
                   <input type="text" class="form-control cf" name="title" placeholder="Nhập ..." value="{{$config->first()->title}}">

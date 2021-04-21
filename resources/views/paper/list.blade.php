@@ -33,7 +33,7 @@
                       <td style="word-wrap: break-word; width: 15%; max-width: 300px;">{{$paper->url}}</td>
                       <td>
                             <a class="fa fa-eye" style="color:green; padding-right: 10%"  href="{{route('show.paper',$paper->id)}}"></a>
-              <a class="fa fa-trash-alt" style="color:green; padding-right: 10%" href="{{route('delete.paper',$paper->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a>
+              <a class="fa fa-trash-alt" style="color:green; padding-right: 10%" href="{{route('delete.paper',$paper->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Giấy tờ này không?');" title="Xóa"></a>
                             <a url_paper="{{$paper->url}}" name_paper="{{$paper->name}}" id_paper="{{$paper->id}}" id="edit_paper"><i class="fas fa-edit" style="color:red"></i></a>
                           </td>
                     </tr>

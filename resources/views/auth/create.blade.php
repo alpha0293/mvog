@@ -48,14 +48,14 @@
     <div class="col-md-12" >
       <div class="mobile1 col-md-8" id="box" >
        
-         <h2>Cập nhật tài khoản thành viên</h2> 
+         <h2>Tạo mới tài khoản Dự tu</h2> 
         <hr> 
         <?php 
           $arrName = explode(" ", $name);
           $holyname = array_shift($arrName);
           $fullname = implode(" ", $arrName);
          ?>           
-         <form class="needs-validation form-horizontal" action="{{url('dutu/store')}}" method="post" >
+         <form class="needs-validation form-horizontal" action="{{route('save.dutu')}}" method="post" >
         @csrf
 
         <div class="row">
