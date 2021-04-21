@@ -123,6 +123,7 @@
     function oldval(val, idd){
       var obj1 = [];
       var ct=0;
+
       if(val != ""){
         if(valold.length===0){
             obj1.id = idd;
@@ -144,8 +145,14 @@
          }
         }
         
-        console.log(valold);  
+      }
+      else{
+        obj1.va = "0";
+        obj1.id = idd;
+        valold.push(obj1);
       } 
+      
+        console.log(valold);  
     }
     function newval(val, idd){
       var obj2 = [];
