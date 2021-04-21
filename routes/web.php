@@ -135,7 +135,7 @@ Route::get('gety','AdminController@gety')->name('gety');
 Route::post('/password/change', 'AdminController@changePassword')->name('change.password')->middleware('auth');
 Route::get('/password/change', 'AdminController@getChangePassword')->name('getchange.password')->middleware('auth');
 
-Route::resource('configs', 'ConfigController');
+// Route::resource('configs', 'ConfigController');
 // Route::resource('chungsinhs', 'ChungsinhController');
 
 //route for admin
@@ -328,4 +328,11 @@ Route::get('routes', function() {
         echo "</tr>";
     }
     echo "</table>";
+});
+
+
+//Route for Config
+Route::prefix('configs')->middleware(['auth'])->group(function(){
+    Route::get('/', ['middleware' => ['permission:configs-read'], 'uses'=>'ConfigController@index','as'=>'create.config']);
+    Route::post('/', ['middleware' => ['permission:configs-update'], 'uses'=>'ConfigController@store','as'=>'save.config']);
 });
