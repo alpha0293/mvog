@@ -265,7 +265,7 @@ Route::prefix('notifies')->middleware('auth')->group(function () {
     Route::get('/create', ['middleware' => ['permission:notifications-create'], 'uses'=>'NotificationsController@create','as'=>'create.notifi']);
     Route::post('/store', ['middleware' => ['permission:notifications-create'], 'uses'=>'NotificationsController@store','as'=>'save.notifi']);
     Route::get('/show/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@show','as'=>'show.notifi']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@edit','as'=>'edit.notifi']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@edit','as'=>'getupdate.notifi']);
     Route::post('/edit/{id}', ['middleware' => ['permission:notifications-delete'], 'uses'=>'NotificationsController@update','as'=>'update.notifi']);
     Route::get('/delete/{id}', ['middleware' => ['permission:notifications-delete'], 'uses'=>'NotificationsController@destroy','as'=>'delete.notifi']);
 });

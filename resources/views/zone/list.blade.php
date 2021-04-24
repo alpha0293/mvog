@@ -21,20 +21,24 @@
               </div>
               
               <!-- /.card-header -->
+              <?php 
+              $index = 1; ?>
               <div class="card-body table-responsive p-0">
                 <table id="table-post" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 40%;">STT</th>
+                      <th style="width: 10%;">STT</th>
                       <th style="width: 15%;">Tên nhóm</th>
-                      <th style="width: 16%;">Chức năng</th>
+                      <th>Số thành viên</th>
+                      <th>Chức năng</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach($lstzone as $zone)
                     <tr>
-                      <td>1</td>
+                      <td>{{$index++}}</td>
                       <td>{{$zone->name}}</td>
+                      <td>{{$zone->dutu->where('idstatus',1)->count()}}</td>
                       <td>
                             <a class="fa fa-eye" style="color:green; padding-right: 10%" href="{{route('show.zone',$zone->id)}}"></a>
               <a class="fa fa-trash-alt" style="color:green; padding-right: 10%" href="{{route('delete.zone',$zone->id)}} " onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a>
