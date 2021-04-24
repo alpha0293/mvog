@@ -87,7 +87,7 @@
                       <td hidden="true">{{$dutu->nameyear->id}}</td>
                       <td>{{$dutu->namezone->name}}</td>
                       <td id="namdutu">{{$dutu->nameyear->name}}</td>
-                      <td ><input onchange="newval(this.value, this.id)" onclick="oldval(this.value, this.id)" name="{{$dutu->id}}" namdutu="{{$dutu->nameyear->id}}" id="{{$dutu->id}}" class="form-control" type="number" ></td>
+                      <td ><input onchange="newval(this.value, this.id)" onmousedown="oldval(this.value, this.id)" name="{{$dutu->id}}" namdutu="{{$dutu->nameyear->id}}" id="{{$dutu->id}}" class="form-control" type="number" ></td>
                   </tr>
                 @endforeach
              </tbody>
@@ -123,50 +123,53 @@
     function oldval(val, idd){
       var obj1 = [];
       var ct=0;
-      if(val != ""){
+
+    
         if(valold.length===0){
             obj1.id = idd;
-          obj1.va = "0";
+          obj1.va = Number("0.00");
           valold.push(obj1);
           }
         else{
           for (var i = 0; i < valold.length; i++) {
-        if(valold[i].id == idd){
-           ct+=1;
-           break;
-        }
+          if(valold[i].id == idd){
+             ct+=1;
+             break;
+          }
                 
         }
         if (ct===0) {
-         obj1.id = idd;
-           obj1.va = val;
+           obj1.id = idd;
+           obj1.va = Number("0.00");
            valold.push(obj1);
          }
         }
-        
-        console.log(valold);  
-      } 
-    }
+        console.log(valold); 
+      }
+      
+      
+         
+
     function newval(val, idd){
       var obj2 = [];
     var trung =0;
         if(valnew.length===0){
             obj2.id = idd;
-          obj2.va = val;
+            obj2.va = Number(val);
           valnew.push(obj2);
           }
         else{
           for (var i = 0; i < valnew.length; i++) {
         if(valnew[i].id === idd){
            valnew[i].id = idd;
-           valnew[i].va = val;
+           valnew[i].va = Number(val);
            trung+=1;
            break;
         }               
         }
         if(trung===0){
           obj2.id = idd;
-          obj2.va = val;
+          obj2.va = Number(val);
           valnew.push(obj2);
         }
         }
@@ -179,12 +182,26 @@
           // console.log(filter);
           table = $("#tableID");
           tr = $("tr");
+          t = 0;
+          for (var i = 0; i < valnew.length; i++) {
+            if (Number(valnew[i].va)!=0) {
+            if (valnew[i].id === valold[i].id && Number(valnew[i].va) != Number(valold[i].va)) {
+              t+=1;
+              break;
+            } 
+            }
+          }
            if(valnew.length>0){
-            if(valold[0].va!=valnew[0].va){
+            if(t>0){
             var thongbao = confirm("Bạn chưa lưu điểm vừa nhập, bạn có muốn rời trang?");
               if(thongbao)  {
-                  $('input[type=number]').val(undefined);
-                  valnew[0].va = "0";
+                $('input[type=number]').val(undefined);
+                for (var i = 0; i < valnew.length; i++) {
+                for(var j=0; j<valold.length;j++){
+                  if (valold[j].id === valnew[i].id && Number(valold[j].va) != Number(valnew[i].va)) {
+                    valnew[i].va = Number("0.00");
+                  }
+                }} // for
                   if (slz === '0' && sly === '0') {
                       $ ('tr').show ();
                   }

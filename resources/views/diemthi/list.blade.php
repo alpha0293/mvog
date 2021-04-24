@@ -8,6 +8,7 @@
   .form-control{
     width: auto;
   }
+
 </style>
     <section class="content">
       <div class="container-fluid">
@@ -72,7 +73,7 @@
 
            </div>
            <div class="form-group col-md-3">
-                        <select class="form-control" aria-label="Vùng sinh hoạt" name="zone" id="sl_zone" title="Vùng sinh hoạt" class="sl_at" onclick="getnumval()" onchange="locdata()">
+                        <select class="form-control" aria-label="Vùng sinh hoạt" name="zone" id="sl_zone" title="Vùng sinh hoạt" class="sl_at" onchange="locdata()">
                             <option value="0">Chọn vùng sinh hoạt</option>
                             @foreach($lstzone as $zone)
                               <option value="{{$zone->id}}">{{$zone->name}}</option>
@@ -88,7 +89,7 @@
                       </select>
            </div>
              @if ($lstdutu->count()!=0)
-              <button type="submit" class="form-control col-md-2 btn btn-success" id="btnsubmit" > Gửi điểm thi</buton>
+              <button style="display: none;" type="submit" class="form-control col-md-2 btn btn-success" id="btnsubmit" > Gửi điểm thi</buton>
               
              @endif
                     </div>
@@ -124,7 +125,9 @@
                       <td>{{$dutu->namezone->name}}</td>
                       <td id="namdutu">{{$dutu->nameyear->name}}</td>
                       <td class="showdiem">@if($dutu->getdiem->first()) {{$dutu->getdiem->first()->diem}} @else Chưa có thông tin @endif</td>
-                      <td style="display: none;" class="editdiem">@if($dutu->getdiem->first()) <input type="number" class="" name="{{$dutu->id}}" namdutu="{{$dutu->nameyear->id}}" id="{{$dutu->id}}" value="{{$dutu->getdiem->first()->diem}}"> @else Chưa có thông tin @endif</td>
+                      <td style="display: none;" class="editdiem">@if($dutu->getdiem->first()) 
+                        <input onmousedown="oldval(this.value, this.id)" onchange="newval(this.value, this.id)" type="number" min="0" name="{{$dutu->id}}" class="textdiem" namdutu="{{$dutu->nameyear->id}}" id="{{$dutu->id}}" value="{{$dutu->getdiem->first()->diem}}"> @else Chưa có thông tin @endif
+                      </td>
                       <td>
                         <a class="fa fa-eye" style="color:green; padding-right: 10%" href="{{route('show.dutu',$dutu->id)}}"></a>                        
                       </td>
@@ -164,49 +167,50 @@
     function oldval(val, idd){
       var obj1 = [];
       var ct=0;
-      if(val != ""){
         if(valold.length===0){
-            obj1.id = idd;
-          obj1.va = val;
+          obj1.id = idd;
+          obj1.va = Number(val);
           valold.push(obj1);
           }
         else{
           for (var i = 0; i < valold.length; i++) {
-        if(valold[i].id == idd){
-           ct+=1;
-           break;
-        }
+          if(valold[i].id == idd){
+             ct+=1;
+             break;
+          }
                 
         }
         if (ct===0) {
-         obj1.id = idd;
-           obj1.va = val;
+           obj1.id = idd;
+           obj1.va = Number(val);
            valold.push(obj1);
          }
         }
-        console.log(valold);  
-      } 
-    }
+        console.log(valold); 
+      }
+         
+    
+
     function newval(val, idd){
       var obj2 = [];
     var trung =0;
         if(valnew.length===0){
-            obj2.id = idd;
-          obj2.va = val;
+          obj2.id = idd;
+          obj2.va = Number(val);
           valnew.push(obj2);
           }
         else{
           for (var i = 0; i < valnew.length; i++) {
         if(valnew[i].id === idd){
            valnew[i].id = idd;
-           valnew[i].va = val;
+           valnew[i].va = Number(val);
            trung+=1;
            break;
         }               
         }
         if(trung===0){
           obj2.id = idd;
-          obj2.va = val;
+          obj2.va = Number(val);
           valnew.push(obj2);
         }
         }
@@ -216,69 +220,193 @@
       function locdata(){
           var slz, sly, table, tr, td, i, slValue;
           slz = $('#sl_zone').val();
-          sly = $('#sl_yearsh').val()
+          sly = $('#sl_yearsh').val();
           // console.log(filter);
           table = $("#tableID");
           tr = $("tr");
-         
-          if (slz === '0' && sly === '0') {
-               $ ('tr').show ();
-           }
-           else{
-            if(slz === '0'){
-              for (i = 1; i < tr.length; i++) {
-                  td = tr[i].children[4];
-                  if (td) {
-                     slValue = td.textContent || td.innerText; 
-                     // console.log(slValue);
-                    if (slValue.toUpperCase() === sly) {
-                      tr[i].style.display = "";
-                    } else {
-                      tr[i].style.display = "none";
+          t = 0;
+          for (var i = 0; i < valnew.length; i++) {
+            for (var j = 0; j < valold.length; j++) {
+            if (valold[j].id === valnew[i].id && Number(valnew[i].va) != Number(valold[j].va)) {
+                t+=1;
+                break;
+              }
+            } 
+
+          }
+          if(valnew.length>0){
+            if(t>0){
+            var thongbao = confirm("Bạn chưa lưu điểm vừa nhập, bạn có muốn rời trang?");
+              if(thongbao)  {
+                for (var i = 0; i < valnew.length; i++) {
+                for(var j=0; j<valold.length;j++){
+                  if (valold[j].id === valnew[i].id && Number(valold[j].va) != Number(valnew[i].va)) {
+                    $('#'+valnew[i].id).val(valold[j].va);
+                    valnew[i].va = valold[j].va ;
+                  }
+                }} // for
+                if (slz === '0' && sly === '0') {
+                      $ ('tr').show ();
+                  }
+                  else{
+                    if(slz === '0'){
+                      for (i = 1; i < tr.length; i++) {
+                          td = tr[i].children[4];
+                          if (td) {
+                             slValue = td.textContent || td.innerText; 
+                             // console.log(slValue);
+                            if (slValue.toUpperCase() === sly) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
                     }
-                  }       
-                }
-            }
-            if(sly === '0'){
-               for (i = 1; i < tr.length; i++) {
-                  td = tr[i].children[3];
-                  if (td) {
-                     slValue = td.textContent || td.innerText; 
-                     // console.log(slValue);
-                    if (slValue.toUpperCase() === slz) {
-                      tr[i].style.display = "";
-                    } else {
-                      tr[i].style.display = "none";
+                    if(sly === '0'){
+                       for (i = 1; i < tr.length; i++) {
+                          td = tr[i].children[3];
+                          if (td) {
+                             slValue = td.textContent || td.innerText; 
+                             // console.log(slValue);
+                            if (slValue.toUpperCase() === slz) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
                     }
-                  }       
-                }
-
-            }
-              if(sly != '0' && slz !='0'){
-               for (i = 1; i < tr.length; i++) {
-                  var tdz = tr[i].children[3];
-                  var tdy = tr[i].children[4];
-                  if (tdz && tdy) {
-                     var slValuez = tdz.textContent || tdz.innerText; 
-                     var slValuey = tdy.textContent || tdy.innerText; 
-
-                     // console.log(slValue);
-                    if (slValuez.toUpperCase() === slz && slValuey.toUpperCase() === sly ) {
-                      tr[i].style.display = "";
-                    } else {
-                      tr[i].style.display = "none";
+                      if(sly != '0' && slz !='0'){
+                       for (i = 1; i < tr.length; i++) {
+                          var tdz = tr[i].children[3];
+                          var tdy = tr[i].children[4];
+                          if (tdz && tdy) {
+                             var slValuez = tdz.textContent || tdz.innerText; 
+                             var slValuey = tdy.textContent || tdy.innerText; 
+                             // console.log(slValue);
+                            if (slValuez.toUpperCase() === slz && slValuey.toUpperCase() === sly ) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
                     }
-                  }       
-                }
-
-            }
-
-
-
-           
-           }
-                
-            };
+                   
+                   }
+              } // thong bao
+              else {
+                 
+                  }
+            } //t>0
+            else{
+                if (slz === '0' && sly === '0') {
+                      $ ('tr').show ();
+                  }
+                  else{
+                    if(slz === '0'){
+                      for (i = 1; i < tr.length; i++) {
+                          td = tr[i].children[4];
+                          if (td) {
+                             slValue = td.textContent || td.innerText; 
+                             // console.log(slValue);
+                            if (slValue.toUpperCase() === sly) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
+                    }
+                    if(sly === '0'){
+                       for (i = 1; i < tr.length; i++) {
+                          td = tr[i].children[3];
+                          if (td) {
+                             slValue = td.textContent || td.innerText; 
+                             // console.log(slValue);
+                            if (slValue.toUpperCase() === slz) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
+                    }
+                      if(sly != '0' && slz !='0'){
+                       for (i = 1; i < tr.length; i++) {
+                          var tdz = tr[i].children[3];
+                          var tdy = tr[i].children[4];
+                          if (tdz && tdy) {
+                             var slValuez = tdz.textContent || tdz.innerText; 
+                             var slValuey = tdy.textContent || tdy.innerText; 
+                             // console.log(slValue);
+                            if (slValuez.toUpperCase() === slz && slValuey.toUpperCase() === sly ) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
+                    }
+                   
+                   }
+              }
+          }//valvew.lenght > 0
+           // else if valnew.lenght > 0
+            else{
+              if (slz === '0' && sly === '0') {
+                      $ ('tr').show ();
+                  }
+                  else{
+                    if(slz === '0'){
+                      for (i = 1; i < tr.length; i++) {
+                          td = tr[i].children[4];
+                          if (td) {
+                             slValue = td.textContent || td.innerText; 
+                             // console.log(slValue);
+                            if (slValue.toUpperCase() === sly) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
+                    }
+                    if(sly === '0'){
+                       for (i = 1; i < tr.length; i++) {
+                          td = tr[i].children[3];
+                          if (td) {
+                             slValue = td.textContent || td.innerText; 
+                             // console.log(slValue);
+                            if (slValue.toUpperCase() === slz) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
+                    }
+                      if(sly != '0' && slz !='0'){
+                       for (i = 1; i < tr.length; i++) {
+                          var tdz = tr[i].children[3];
+                          var tdy = tr[i].children[4];
+                          if (tdz && tdy) {
+                             var slValuez = tdz.textContent || tdz.innerText; 
+                             var slValuey = tdy.textContent || tdy.innerText; 
+                             // console.log(slValue);
+                            if (slValuez.toUpperCase() === slz && slValuey.toUpperCase() === sly ) {
+                              tr[i].style.display = "";
+                            } else {
+                              tr[i].style.display = "none";
+                            }
+                          }       
+                        }
+                    }
+                   
+                   }
+            }                
+          };
 
       
 
@@ -288,6 +416,7 @@
       $('#showedit').click(function(){
         $('.showdiem').css('display','none');
         $('.editdiem').css('display','');
+        $('#btnsubmit').css('display','');
       })
     </script>
      <script type="text/javascript">
@@ -320,5 +449,5 @@
       
         
      </script>
-   
+
   @endsection
