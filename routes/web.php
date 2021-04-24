@@ -220,7 +220,7 @@ Route::prefix('dongtus')->middleware('auth')->group(function () {
     Route::get('/create', ['middleware' => ['permission:dongtus-create'], 'uses'=>'DongtuController@create','as'=>'create.dongtu']);
     Route::post('/store', ['middleware' => ['permission:dongtus-create'], 'uses'=>'DongtuController@store','as'=>'save.dongtu']);
     Route::get('/show/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@show','as'=>'show.dongtu']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@edit','as'=>'edit.dongtu']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@edit','as'=>'getupdate.dongtu']);
     Route::post('/edit/{id}', ['middleware' => ['permission:dongtus-delete'], 'uses'=>'DongtuController@update','as'=>'update.dongtu']);
     Route::get('/delete/{id}', ['middleware' => ['permission:dongtus-delete'], 'uses'=>'DongtuController@destroy','as'=>'delete.dongtu']);
 });

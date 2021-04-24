@@ -13,6 +13,7 @@
 		@csrf()
 		<input type="text" name="name" placeholder="Tên Dòng Tu">
 		<input type="text" name="information" placeholder="Thông tin...">
+		<input type="text" name="url" placeholder="Địa chỉ Web...">
 		<button>Submit</button>
 	</form>
 </body>

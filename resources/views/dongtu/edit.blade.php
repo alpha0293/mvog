@@ -13,6 +13,7 @@
 		@csrf()
 		<input type="text" name="name" placeholder="Tên Dòng Tu" value="{{$dongtu->name}}">
 		<input type="text" name="information" placeholder="Thông tin..." value="{{$dongtu->information}}">
+		<input type="text" name="url" placeholder="Địa chỉ Web..." value="{{$dongtu->url}}">
 		<button>Submit</button>
 	</form>
 </body>
