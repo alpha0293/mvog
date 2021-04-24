@@ -192,7 +192,7 @@ Route::prefix('attdances')->middleware('auth')->group(function () {
 });
 
 //Route Bài viết
-Route::get('posts/{id}','PostController@show')->name('show.post');
+Route::get('posts/show/{id}','PostController@show')->name('show.post');
 Route::prefix('posts')->middleware('auth')->group(function () {
     Route::get('/', ['middleware' => ['permission:posts-read'], 'uses'=>'PostController@index','as'=>'post']);
     Route::get('/create', ['middleware' => ['permission:posts-create'], 'uses'=>'PostController@create','as'=>'create.post']);
@@ -208,8 +208,9 @@ Route::prefix('categories')->middleware('auth')->group(function () {
     Route::get('/create', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@create','as'=>'create.category']);
     Route::post('/store', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@store','as'=>'save.category']);
     Route::get('/show/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@show','as'=>'show.category']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@edit','as'=>'edit.category']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@edit','as'=>'getupdate.category']);
     Route::post('/edit/{id}', ['middleware' => ['permission:categories-delete'], 'uses'=>'CategoryController@update','as'=>'update.category']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:categories-delete'], 'uses'=>'CategoryController@destroy','as'=>'delete.category']);
 });
 
 //Route Dòng tu
@@ -316,7 +317,6 @@ Route::get('routes', function() {
     echo "<td width='10%'><h4>HTTP Method</h4></td>";
     echo "<td width='10%'><h4>Route</h4></td>";
     echo "<td width='10%'><h4>Link</h4></td>";
-    echo "<td width='10%'><h4>Name</h4></td>";
     echo "<td width='70%'><h4>Corresponding Action</h4></td>";
     echo "</tr>";
     foreach ($routeCollection as $value) {
@@ -324,7 +324,6 @@ Route::get('routes', function() {
         echo "<td>" . $value->methods()[0] . "</td>";
         echo "<td>" . $value->uri() . "</td>";
         echo "<td> <a href='". $value->uri()."'</a>". $value->getName() ."</td>";
-        echo "<td>" . $value->getName() . "</td>";
         echo "<td>" . $value->getActionName() . "</td>";
         echo "</tr>";
     }
