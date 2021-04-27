@@ -136,6 +136,9 @@ class AttendanceController extends Controller
                     }
                 }
                 $dt['month'] = $request->month;
+                if ($dt['month'] == 0) {
+                    return response()->json(['error' => 'Vui lòng chọn tháng/năm hợp lệ!!!'], 400);
+                }
                 $dt['year'] = $request->year;
                 if(Attendance::validator($dt)->fails())
                 {
