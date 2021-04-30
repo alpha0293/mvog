@@ -18,10 +18,7 @@ class ConfigController extends Controller
      */
     public function index()
     {
-        //
-        $config = Config::all();
-        // return $config;
-        return view('admin.config-manager.config',compact('config'));
+        return view('admin.config-manager.config');
     }
 
     /**
@@ -29,10 +26,6 @@ class ConfigController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -44,81 +37,32 @@ class ConfigController extends Controller
     {
         if(Config::validator($request->all())->fails())
         {
-            // return Config::validator($request->all())->errors();
             return Redirect::back()->withErrors(Config::validator($request->all()));
         }
             
         else
         {
-            $config = Config::all()->first();
-            // return $config;
-            if($config) //update cấu hình ở đây
-            {
-                try {
-                    Config::all()->first()->update(
-                        $request->all()
-                    );
-                    return Redirect::back()->with('message','Update thành công!');
-                } catch (Exception $e) {
-                    return Redirect::back()->withErrors('Update không thành công!');
-                }
+
+            \Setting::set('config.title', $request->input('title'));
+            \Setting::set('config.loichua', $request->input('loichua'));
+            \Setting::set('config.timediemdanhlai', $request->input('timediemdanhlai'));
+            \Setting::set('config.tilevang', $request->input('tilevang'));
+            \Setting::set('config.diemxetquanam', $request->input('diemxetquanam'));
+            \Setting::set('config.tuoithidcv', $request->input('tuoithidcv'));
+            \Setting::set('config.logo', $request->input('logo'));
+            \Setting::set('config.banner', $request->input('banner'));
+            \Setting::set('config.footer', $request->input('footer'));
+            \Setting::set('config.backgroundcolor', $request->input('backgroundcolor'));
+            \Setting::set('config.barcolor', $request->input('barcolor'));
+            try{
+                \Setting::save();
+                \Log::info('Người dùng ID:'.Auth::user()->id.' đã cập nhật thông tin công ty');
+                return Redirect::back()->with('message','Update thành công!');
             }
-            else //chưa có cấu hình thì insert
-            {
-                try {
-                    Config::create(
-                        $request->all()
-                    );
-                    return Redirect::back()->with('message','Thêm mới cấu hình thành công!');
-                } catch (Exception $e) {
-                    return Redirect::back()->withErrors('Thêm không thành công!');
-                }
+            catch(\Exception $e){
+                \Log::error($e);
+                return Redirect::back()->withErrors('Update không thành công!');
             }
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

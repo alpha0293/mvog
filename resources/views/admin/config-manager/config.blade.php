@@ -26,77 +26,77 @@
                 <form method="post" action="{{route('save.config')}}">
                   @csrf()
                   <span>Tiêu đề trang web</span>
-                  <input type="text" class="form-control cf" name="title" placeholder="Nhập ..." value="{{$config->first()->title}}">
+                  <input type="text" class="form-control cf" name="title" placeholder="Nhập ..." value="{{ setting('config.title','') }}">
                   <div>
                       @if($errors->has('title'))
                           <span class="error">{{ $errors->first('title') }}</span>
                       @endif
                   </div>
                   <span>Câu Lời Chúa</span>
-                  <input type="text" class="form-control cf" name="loichua" placeholder="Nhập ..." value="{{$config->first()->loichua}}">
+                  <input type="text" class="form-control cf" name="loichua" placeholder="Nhập ..." value="{{ setting('config.loichua','') }}">
                   <div>
                       @if($errors->has('loichua'))
                           <span class="error">{{ $errors->first('loichua') }}</span>
                       @endif
                   </div>
                   <span>Thời gian cho phép điểm danh lại:</span>
-                  <input type="number" class="col-lg-5 form-control cf" name="timediemdanhlai" placeholder="Nhập ..." value="{{$config->first()->timediemdanhlai}}">
+                  <input type="number" class="col-lg-5 form-control cf" name="timediemdanhlai" placeholder="Nhập ..." value="{{ setting('config.timediemdanhlai','') }}">
                   <div>
                       @if($errors->has('timediemdanhlai'))
                           <span class="error">{{ $errors->first('timediemdanhlai') }}</span>
                       @endif
                   </div>
                   <span>Tỉ lệ vắng không quá:</span>
-                  <input type="number" class="col-lg-5 form-control cf" name="tilevang" placeholder="Nhập ..." value="{{$config->first()->tilevang}}">
+                  <input type="number" class="col-lg-5 form-control cf" name="tilevang" placeholder="Nhập ..." value="{{ setting('config.tilevang','') }}">
                   <div>
                       @if($errors->has('tilevang'))
                           <span class="error">{{ $errors->first('tilevang') }}</span>
                       @endif
                   </div>
                   <span>Mức điểm qua năm</span>
-                  <input type="number" class="col-lg-5 form-control cf" name="diemxetquanam" placeholder="Nhập ..." value="{{$config->first()->diemxetquanam}}">
+                  <input type="number" class="col-lg-5 form-control cf" name="diemxetquanam" placeholder="Nhập ..." value="{{ setting('config.diemxetquanam','') }}">
                   <div>
                       @if($errors->has('diemxetquanam'))
                           <span class="error">{{ $errors->first('diemxetquanam') }}</span>
                       @endif
                   </div>
                   <span>Tuổi thi ĐCV không quá</span>
-                  <input type="number" class="col-lg-5 form-control cf" name="tuoithidcv" placeholder="Nhập ..." value="{{$config->first()->tuoithidcv}}">
+                  <input type="number" class="col-lg-5 form-control cf" name="tuoithidcv" placeholder="Nhập ..." value="{{ setting('config.tuoithidcv','') }}">
                   <div>
                       @if($errors->has('tuoithidcv'))
                           <span class="error">{{ $errors->first('tuoithidcv') }}</span>
                       @endif
                   </div>
                   <span>Chọn logo</span>
-                  <input type="text" class="form-control cf" name="logo" placeholder="Nhập ..." value="{{$config->first()->logo}}">
+                  <input type="text" class="form-control cf" name="logo" placeholder="Nhập ..." value="{{ setting('config.logo','') }}">
                   <div>
                       @if($errors->has('logo'))
                           <span class="error">{{ $errors->first('logo') }}</span>
                       @endif
                   </div>
                   <span>Chọn banner</span>
-                  <input type="text" class="form-control cf" name="banner" placeholder="Nhập ..." value="{{$config->first()->banner}}">
+                  <input type="text" class="form-control cf" name="banner" placeholder="Nhập ..." value="{{ setting('config.banner','') }}">
                   <div>
                       @if($errors->has('banner'))
                           <span class="error">{{ $errors->first('banner') }}</span>
                       @endif
                   </div>
                   <span>Chân trang</span>
-                  <input type="text" class="form-control cf" name="footer" placeholder="Nhập ..." value="{{$config->first()->footer}}">
+                  <input type="text" class="form-control cf" name="footer" placeholder="Nhập ..." value="{{ setting('config.footer','') }}">
                   <div>
                       @if($errors->has('footer'))
                           <span class="error">{{ $errors->first('footer') }}</span>
                       @endif
                   </div>
                   <span>Màu background</span>
-                  <input type="color" class="form-control cf" name="backgroundcolor" placeholder="Nhập ..." value="{{$config->first()->backgroundcolor}}">
+                  <input type="color" class="form-control cf" name="backgroundcolor" placeholder="Nhập ..." value="{{ setting('config.backgroundcolor','') }}">
                   <div>
                       @if($errors->has('backgroundcolor'))
                           <span class="error">{{ $errors->first('backgroundcolor') }}</span>
                       @endif
                   </div>
                   <span>Màu thanh ngang</span>
-                  <input type="color" class="form-control cf" name="barcolor" placeholder="Nhập ..." value="{{$config->first()->barcolor}}">
+                  <input type="color" class="form-control cf" name="barcolor" placeholder="Nhập ..." value="{{ setting('config.barcolor','') }}">
                   <div>
                       @if($errors->has('barcolor'))
                           <span class="error">{{ $errors->first('barcolor') }}</span>
