@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
+        "anlutro/l4-settings": "^1.0",
         "ckfinder/ckfinder-laravel-package": "v3.5.1.6",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

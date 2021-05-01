@@ -167,6 +167,7 @@ Route::prefix('roles')->middleware('auth')->group(function () {
     Route::get('/show/{id}', ['middleware' => ['permission:roles-update'], 'uses'=>'RoleController@show','as'=>'show.role']);
     Route::get('/edit/{id}', ['middleware' => ['permission:roles-update'], 'uses'=>'RoleController@edit','as'=>'edit.role']);
     Route::post('/edit/{id}', ['middleware' => ['permission:roles-delete'], 'uses'=>'RoleController@update','as'=>'update.role']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:roles-delete'], 'uses'=>'RoleController@destroy','as'=>'delete.role']);
 });
 
 //Route Dutu
@@ -219,8 +220,9 @@ Route::prefix('dongtus')->middleware('auth')->group(function () {
     Route::get('/create', ['middleware' => ['permission:dongtus-create'], 'uses'=>'DongtuController@create','as'=>'create.dongtu']);
     Route::post('/store', ['middleware' => ['permission:dongtus-create'], 'uses'=>'DongtuController@store','as'=>'save.dongtu']);
     Route::get('/show/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@show','as'=>'show.dongtu']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@edit','as'=>'edit.dongtu']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:dongtus-update'], 'uses'=>'DongtuController@edit','as'=>'getupdate.dongtu']);
     Route::post('/edit/{id}', ['middleware' => ['permission:dongtus-delete'], 'uses'=>'DongtuController@update','as'=>'update.dongtu']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:dongtus-delete'], 'uses'=>'DongtuController@destroy','as'=>'delete.dongtu']);
 });
 
 //Route Giấy tờ
@@ -252,8 +254,9 @@ Route::prefix('zones')->middleware('auth')->group(function () {
     Route::get('/create', ['middleware' => ['permission:zones-create'], 'uses'=>'ZoneController@create','as'=>'create.zone']);
     Route::post('/store', ['middleware' => ['permission:zones-create'], 'uses'=>'ZoneController@store','as'=>'save.zone']);
     Route::get('/show/{id}', ['middleware' => ['permission:zones-update'], 'uses'=>'ZoneController@show','as'=>'show.zone']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:zones-update'], 'uses'=>'ZoneController@edit','as'=>'edit.zone']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:zones-update'], 'uses'=>'ZoneController@edit','as'=>'getupdate.zone']);
     Route::post('/edit/{id}', ['middleware' => ['permission:zones-delete'], 'uses'=>'ZoneController@update','as'=>'update.zone']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:zones-delete'], 'uses'=>'ZoneController@destroy','as'=>'delete.zone']);
 });
 
 //Route Thông báo
@@ -262,8 +265,9 @@ Route::prefix('notifies')->middleware('auth')->group(function () {
     Route::get('/create', ['middleware' => ['permission:notifications-create'], 'uses'=>'NotificationsController@create','as'=>'create.notifi']);
     Route::post('/store', ['middleware' => ['permission:notifications-create'], 'uses'=>'NotificationsController@store','as'=>'save.notifi']);
     Route::get('/show/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@show','as'=>'show.notifi']);
-    Route::get('/edit/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@edit','as'=>'edit.notifi']);
+    Route::get('/edit/{id}', ['middleware' => ['permission:notifications-update'], 'uses'=>'NotificationsController@edit','as'=>'getupdate.notifi']);
     Route::post('/edit/{id}', ['middleware' => ['permission:notifications-delete'], 'uses'=>'NotificationsController@update','as'=>'update.notifi']);
+    Route::get('/delete/{id}', ['middleware' => ['permission:notifications-delete'], 'uses'=>'NotificationsController@destroy','as'=>'delete.notifi']);
 });
 
 // User Routes...

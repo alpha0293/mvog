@@ -55,6 +55,7 @@ class DongtuController extends Controller
                     [
                         'name' => $request->name,
                         'information' => $request->information,
+                        'url' => $request->url,
                     ]);
                 return Redirect::back()->with('message','Tạo thành công dòng tu!!!');
             } catch (\Exception $e) {
