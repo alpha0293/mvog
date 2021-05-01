@@ -1,59 +1,106 @@
 
 <!DOCTYPE html>
 <html lang="vi">
-<head>
    @include('user.layout.head')
     <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
-   @include('user.layout.script')
-   <style type="text/css">
-     .notep{
-      min-width: 63px; 
-      width: 100%;
-      white-space: normal;
-      word-wrap: break-word;
-     }
-     .at_td{
-      min-width: 10px; 
-     }
-     .float-left{
-      float: left;
-     }
-     .float-right{
-      float: right;
-     }
-     .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-        color: #555 !important;
-        cursor: default !important;
-        background-color: #fff !important;
-        border: 1px solid #ddd !important;
-        border-bottom-color: transparent !important;
-    }
-        .nav-tabs>li {
-        float: left !important;
-        margin-bottom: -1px !important;
-        width: auto !important;
-    }
-        .nav>li {
-        position: relative !important;
-        display: block !important; 
-      }
-      .nav-tabs {
-      border-bottom: 1px solid #ddd !important;
-      background-color: #f7f7f700 !important;
-      }
-      .nav {
-      padding-left: 0 !important;
-      margin-bottom: 0 !important;
-      list-style: none !important;
-      }
-      .nav-tabs>li>a {
-          padding: 10px 15px !important;
-          color: #3680bf !important;
-          font-size: 15px !important;
-      }
-   </style>
-</head>
+    <style type="text/css">
+    	.tt_seminarian{
+    		background-color: none; 
+    		margin-left: 7px; 
+    		margin-bottom: 35px;
+    		width: 24%; 
+    		float: left; 
+    		height: 200px;
+    	}
+    	.imgsemir{
+    		height: 87%;
+		    object-fit: cover;
+		    object-position: 20% 10%;
+		    border: 3px solid #fffdfd;
+		    width: 90%;
+		    border-radius: 25%;
 
+    	}
+      .fake-link {
+         cursor: pointer;
+      }
+    </style>
+    <style>
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+
+/* Slideshow container */
+.slideshow-container {
+  position: relative;
+  background: #f1f1f1f1;
+}
+
+/* Slides */
+.mySlides {
+  display: none;
+  padding: 80px;
+  text-align: center;
+}
+
+/* Next & previous buttons */
+.prevs, .nexts {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.nexts {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prevs:hover, .nexts:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+
+/* The dot/bullet/indicator container */
+.dot-container {
+    text-align: center;
+    padding: 20px;
+    background: #ddd;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the active dot/circle */
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Add an italic font style to all quotes */
+q {font-style: italic;}
+
+/* Add a blue color to the author */
+.author {color: cornflowerblue;}
+</style>
+   @include('user.layout.script')
 <body>
    @include('user.layout.loader')
     <!-- ***** Preloader End ***** -->
@@ -61,8 +108,7 @@
    @include('user.layout.header')
    @include('user.layout.menu')
    @include('user.layout.chuchay')
-    <section id="sliderSection">
-    </section> <!-- kết thúc sliderSection -->
+   
   <section id="contentSection">
     <div class="row">
     <section class="col-lg-9 col-md-9 col-sm-9">
@@ -72,41 +118,47 @@
           <div class="row mb-2">
             <div style="text-align: center; margin-bottom: 5%;" class="col-sm-12">
               <h1>THÔNG TIN CHỦNG SINH</h1>
-              <h2 style="text-transform: uppercase; color: #67a6ff;"></h2>
+              <h2 style="text-transform: uppercase; color: #67a6ff;">Khoá: ?</h2>
+              <button class="btn btn-success" style="width: auto;float: right; margin: 1px 1px 5px 1px;"><i class="fa fa-plus"></i> Thêm Khoá</button>
               <hr  width="100%" align="center" />
-            </div>
-            <div class="col-sm-9" style="display:none">
-              <ol class="breadcrumb float-sm-right">
-                <div class="alert alert-danger print-error-msg" style="display:none"></div>
-                <div class="success alert alert-success"></div>
-              </ol>
+              <div class="loc">
+                     <button id="addSemina" class="btn btn-danger" style="width: auto;float: right; margin: 1px 1px 5px 1px;"><i class="fa fa-plus"></i> Thêm chủng sinh</button>
+                  <select style="width: auto;float: right;margin-right: 15px" aria-label="Năm" name="year" id="year" title="Năm" class="form-control">
+                    <option value="0">Chọn chủng sinh khoá</option>
+                    @for($i=1; $i<=17; $i++)
+                    <option @if($i==17) selected @endif value="{{$i}}">Khoá {{$i}}</option>
+                    @endfor
+                  </select>
+              </div>
+             
+
             </div>
           </div>  
         </div><!-- /.container-fluid -->
       </section>
       <!-- Main content -->
-  <!-- tab -->
-			   <a href="{{route('create.chungsinh')}}">Tạo mới</a>
-				<table>
-					<th>Tên</th>
-					<th>Thông tin</th>
-					<th>Chức Năng</th>
-					@foreach($chungsinhs as $chungsinh)
-					<tr>
-						<td>{{$chungsinh->tenthanh}} {{$chungsinh->ho}} {{$chungsinh->tengoi}}</td>
-						<td></td>
-						<td><a href="{{route('delete.chungsinh',$chungsinh->id)}}">Delete</a>
-							<a href="{{route('edit.chungsinh',$chungsinh->id)}}">Edit</a>
-						</td>
-					</tr>
-						
-					@endforeach
-				</table>
+          <section class="content" style="margin-top: 15px;">
+          <div class="container-fluid">
+          	<div class="col-md-12">
+          		<div class="row divthongtin" >
+          			@for($i=0;$i<12;$i++)
+          			
+          			<div class="tt_seminarian">
+          				<span id="{{$i}}" idsemina="{{$i}}" class="fake-link" onclick="showSeminarian(this.id)">
+          					<img class="imgsemir" src="{{asset('file/profileimg/medium_cong_vo.jpg')}}">
+                    <h4 style="text-align: center;">Antôn Võ Thành Công</h4>
+          				</span>
+          			</div>
+          			@endfor
+          		</div>
+          	</div>
+           
+          </div>
+        </section> <!-- content -->
+         
+      </div> <!-- /.left container -->
+     </section><!-- /.col-lg-9 -->
 
-<!-- endtab -->         
-   </div><!-- /.left container -->
-  </section>
-  <!-- thieu div container day -->
  <!--  hết phần bên trái -->
  <!--  Phần bên phải -->
       <section class="col-lg-3 col-md-3 col-sm-3">
@@ -132,10 +184,54 @@
       </section>
     </div>
   </section>
+
+  @include('chungsinh.show')
+  @include('chungsinh.create')
   @include('user.layout.footer')
 </div>
+
+ <script type="text/javascript">
+    $("[id='addSemina']").click(function(){
+      $("#createSemina").modal({backdrop: false});
+    });
+    $("[id='showSeminas']").click(function(){
+     $("#viewSemina").modal({backdrop: false});
+    });
+  </script>
+  <script>
+    var slideIndex = 1;
+    function showSeminarian(id){
+      slideIndex = Number(id);
+      showSlides(slideIndex);
+      $("#viewSemina").modal({backdrop: false});
+    }
+
+
+function plusSlides(n) {
+  showSlides(Number(slideIndex += n));
+}
+
+function currentSlide(n) {
+  showSlides(number(slideIndex = n));
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+ 
+  slides[slideIndex-1].style.display = "block";  
+  
+}
+
+</script>
 
 </body>
 </html>
 
 
+ 
