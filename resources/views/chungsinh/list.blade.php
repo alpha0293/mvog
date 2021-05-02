@@ -15,7 +15,6 @@
     	.imgsemir{
     		height: 87%;
 		    object-fit: cover;
-		    object-position: 20% 10%;
 		    border: 3px solid #fffdfd;
 		    width: 90%;
 		    border-radius: 25%;
@@ -99,6 +98,33 @@ q {font-style: italic;}
 
 /* Add a blue color to the author */
 .author {color: cornflowerblue;}
+@media only screen and (max-width: 1024px) {
+    .tt_seminarian {
+     margin-left: 0 !important; 
+    width: 31% !important;
+    
+  }
+@media only screen and (max-width: 450px) {
+    .tt_seminarian {
+     margin-left: 0 !important; 
+    width: 50% !important;
+    height: 180px !important;
+    }
+    .imgsemir {
+    height: 75% !important;
+    }
+  }
+@media only screen and (max-width: 300px) {
+    .tt_seminarian {
+     margin-left: 0 !important; 
+    width: 100% !important;
+    height: 180px !important;
+    }
+    .imgsemir {
+    height: 75% !important;
+    }
+  }
+
 </style>
    @include('user.layout.script')
 <body>

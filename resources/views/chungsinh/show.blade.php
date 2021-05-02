@@ -1,4 +1,6 @@
 <!-- Modal view chung sinh -->
+<link rel="stylesheet" href="{{asset('admin_asset/dist/css/bootstrap-datetimepicker.css')}} " rel="stylesheet" media="screen">
+ <link rel="stylesheet" href="{{asset('admin_asset/plugins/fontawesome-free/css/all.min.css')}}">
 <style type="text/css">
   .multi-item-carousel{
   .carousel-inner{
@@ -45,6 +47,7 @@ img.img-responsive {
 }
 .mySlides{
   padding: 30px;
+  height: 250px;
 }
 .showimg{
   height: 150px;
@@ -58,6 +61,57 @@ p{
   margin: 0;
   text-align: initial;
 }
+.div-anh{
+  height: 100%;
+}
+.div-thongtin{
+  height: 100%;
+}
+@media only screen and (max-width: 767px) {
+    .mySlides{
+      height: auto;
+    }
+    .div-anh{
+      height: 150px;
+    }
+    .div-thongtin{
+      height: 100%;
+      margin-top: 10px;
+    }
+  }
+@media only screen and (max-width: 450px) {
+    .mySlides{
+      height: auto;
+    }
+    .div-anh{
+      height: 150px;
+    }
+    .div-thongtin{
+      height: 100%;
+      margin-top: 10px;
+    }
+  }
+@media only screen and (max-width: 300px) {
+    .mySlides{
+      height: auto;
+    }
+    .div-anh{
+      height: 150px;
+    }
+    .div-thongtin{
+      height: 100%;
+      margin-top: 10px;
+    }
+  }
+  .btn+.btn{
+    margin-bottom: 5px !important;
+  }
+  .datetimepicker{
+    background-color: #fffcfc !important;
+  }
+  td{
+    cursor: pointer;
+  }
 </style>
   <div class="modal fade" id="viewSemina" role="dialog">
     <div class="modal-dialog">
@@ -74,17 +128,39 @@ p{
           
 <div class="slideshow-container">
 
-<div class="mySlides" style="height: 200px">
-      <div class="col-sm-4" style="height: 100%; ">
+<div class="mySlides">
+      <div class="col-sm-4 div-anh">
         <img src="{{asset('file/profileimg/medium_cong_vo.jpg')}}" style="height: 100%;">
       </div>
-      <div class="col-sm-8" style=" height: 100%;">
-        <p>Tên: </p>
-        <p>Ngày sinh: </p>
-        <p>Giáo xứ: </p>
-        <p>Ngày vào đại chủng viện: </p>
-        <p>Khoá: </p>
-        <p>Niên khoá: </p>
+      <div class="col-sm-8" id="div-thongtin" >
+        <p>Tên: Nguyễn Anh Tuấn</p>
+        <p>Ngày sinh: 09/9/1996</p>
+        <p>Giáo xứ: Khe Gát</p>
+        <p>Ngày vào đại chủng viện: 09/9/1996</p>
+        <p>Khoá: XIIII</p>
+        <p>Niên khoá: 2021 - 2022</p>
+      </div>
+      <div class="col-sm-8 div-thongtin" id="sua-thongtin" style="display: none;">
+        <div class="formgroup ">
+                <input type="text" class="form-control txtmodal" placeholder="Nhập Thánh và họ tên ..." name="name">
+              </div>
+             <div class="formgroup">
+              <input type="text" id="dob" value=""  class="form_datetime form-control " required placeholder="Ngày sinh" autofocus autocomplete="off" name="dob" >
+            </div>
+              <div class="formgroup">
+                <input type="text" class="form-control txtmodal" placeholder="Nhập Giáo xứ ..." name="name">
+              </div>
+              <div class="formgroup">
+              <input type="text" id="ngayvaodcv" autocomplete="off" value=""  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
+            </div>
+              <div class="formgroup">
+                <select id="khoa" type="text" class="form-control custom-select browser-default " name="khoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
+                        <option value="">Chọn khoá</option>
+                        <option value="1">Khoá 1 (2012-2013)</option>
+                        <option value="2">Khoá 2 (2013-2014)</option>
+                        
+              </select>
+              </div>
       </div>
 </div>
 <div class="mySlides">
@@ -111,8 +187,9 @@ p{
 </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Lưu</button>
+          <button type="submit" id="btn-submit" class="btn btn-primary" style="display: none;">Lưu</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="btn-edit">Chỉnh sửa</button>
         </div> 
         </div>    
     </div>
@@ -122,6 +199,7 @@ p{
 $('.multi-item-carousel').carousel({
   interval: false
 });
+
 
 // for every slide in carousel, copy the next slide's item in the slide.
 // Do the same for the next, next item.
@@ -139,4 +217,24 @@ $('.multi-item-carousel .item').each(function(){
   }
 });
   </script>
+  <script src="{{asset('js/datetime_picker/bootstrap-datetimepicker.js')}}"></script>
+    <script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+      format: 'yyyy-mm-dd',
+      language:  'vi',
+      weekStart: 1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 2,
+    forceParse: 0
+    });
+    </script> 
+    <script type="text/javascript">
+      $("#btn-edit").click(function(){
+        $("#btn-submit").css({"display":""});
+        $("#div-thongtin").css({"display":"none"});
+        $("#sua-thongtin").css({"display":""});
+      })
+    </script>
   <!-- end Modal view chung sinh -->
