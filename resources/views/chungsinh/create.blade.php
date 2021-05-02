@@ -39,8 +39,6 @@
         <div class="modal-header">
           <h4 class="modal-title">Thông tin</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
-          
-        </div><button id="uu">fgjkl</button>
       <form action="{{route('save.chungsinh')}}" method="POST">
           	@csrf
         <div class="modal-body" style="height: auto;">
