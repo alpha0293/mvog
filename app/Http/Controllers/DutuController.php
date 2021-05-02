@@ -95,6 +95,7 @@ class DutuController extends Controller
 				'idyear'=>$request->idyear,
 				'idstatus'=>$request->idstatus,
 				'check' => 0,
+				'checklenlop' => 0,
 				]);
 				return redirect()->route('home')->with('message','Đăng kí thành công!!!');
 			}
