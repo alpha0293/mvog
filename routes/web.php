@@ -204,11 +204,11 @@ Route::prefix('posts')->middleware('auth')->group(function () {
 });
 
 //Route Category
+Route::get('categories/show/{id}','CategoryController@show')->name('show.category');
 Route::prefix('categories')->middleware('auth')->group(function () {
     Route::get('/', ['middleware' => ['permission:categories-read'], 'uses'=>'CategoryController@index','as'=>'category']);
     Route::get('/create', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@create','as'=>'create.category']);
     Route::post('/store', ['middleware' => ['permission:categories-create'], 'uses'=>'CategoryController@store','as'=>'save.category']);
-    Route::get('/show/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@show','as'=>'show.category']);
     Route::get('/edit/{id}', ['middleware' => ['permission:categories-update'], 'uses'=>'CategoryController@edit','as'=>'getupdate.category']);
     Route::post('/edit/{id}', ['middleware' => ['permission:categories-delete'], 'uses'=>'CategoryController@update','as'=>'update.category']);
     Route::get('/delete/{id}', ['middleware' => ['permission:categories-delete'], 'uses'=>'CategoryController@destroy','as'=>'delete.category']);
