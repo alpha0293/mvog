@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(Zone::class);
 		$this->call(Year::class);
 		$this->call(Status::class);
-		// $this->call(Role::class);
+		$this->call(ChungsinhSeeder::class);
         
     }
 }

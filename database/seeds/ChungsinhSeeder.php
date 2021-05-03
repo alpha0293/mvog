@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\User;
+use App\Dutu;
 class ChungsinhSeeder extends Seeder
 {
     /**
@@ -12,5 +13,7 @@ class ChungsinhSeeder extends Seeder
     public function run()
     {
         //
+        factory(User::class, 200)->create();
+        factory(Dutu::class, 200)->create();
     }
 }
