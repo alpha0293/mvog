@@ -177,7 +177,7 @@ class AdminController extends Controller
     public function lstlenlop() //load danh sách
     {
         $index = 1;
-        $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4);
+        $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4)->where('checklenlop',0);
         return view('admin.dutu.lenlop',compact('lstlenlop','index'));
     }
 

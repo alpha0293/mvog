@@ -13,7 +13,7 @@ class Dutu extends Model
 	
 	protected $fillable = [
 
-        'id','profileimg','name','holyname','dob','school','majors','parish','idzone','idyear','idstatus','check','fullname','phonenumber',
+        'id','profileimg','name','holyname','dob','school','majors','parish','idzone','idyear','idstatus','check','fullname','phonenumber','checklenlop',
 
     ];
     //
