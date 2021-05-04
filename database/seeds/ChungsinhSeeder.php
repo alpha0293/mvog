@@ -13,7 +13,7 @@ class ChungsinhSeeder extends Seeder
     public function run()
     {
         //
-        factory(User::class, 200)->create();
-        factory(Dutu::class, 200)->create();
+        factory(User::class, 1000)->create();
+        factory(Dutu::class, 1000)->create();
     }
 }

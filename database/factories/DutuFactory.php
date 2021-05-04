@@ -18,12 +18,12 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Dutu::class, function (Faker $faker) {
-    $holy = ['phero','paul','fx','jos'];
-    $name = ['Trần Văn Nam','Lê Văn Anh','Đinh Công Minh','Bùi Văn Cao','Trương Văn Công','Tuấn Văn Mái','Võ Thị Giáp','Màu Văn Đạt'];
-    $ho = ['nguyễn','Trần','Phan','Phạm','ĐInh'];
+    $holy = ['Peter','Paul','Phanxico','Jos','GB','Gioan','Luis','Marta','Maria'];
+    $name = ['Nam','Anh','Minh','Thông','Công','Mái','Giáp','Đạt','Cường','Quân','Quý','Nam','Giang'];
+    $ho = ['Trần Văn','Lê Văn','Đinh Công','Trương Văn','Tuấn Văn','Võ Thị','Màu Văn'];
     return [
-        'name' => $faker->name,
-        'holyname' => $holy[random_int(1,3)],
+        'name' => $name[random_int(0,12)],
+        'holyname' => $holy[random_int(0,8)],
         'dob' => now(),
         'school' => 'Bach Khoa',
         'majors' => 'CNTT',
@@ -32,8 +32,8 @@ $factory->define(Dutu::class, function (Faker $faker) {
         'idyear' => random_int(1,4),
         'idstatus' => random_int(1,2),
         'check' => 0,
-        'fullname' => $name[random_int(1,7)],
+        'fullname' => $ho[random_int(0,6)],
         'phonenumber' => $faker->phonenumber,
-        'checklenlop' => 0,
+        'checklenlop' => 1,
     ];
 });
