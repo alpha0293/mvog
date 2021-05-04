@@ -29,7 +29,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $iddt=Dutu::get()->where('idstatus','1');
+        $iddt=Dutu::get()->where('idstatus','1')->sortBy('name');
 		//get all dutu from zone...
 		$izone=Dutu::get();
         $zone1 = Zone::all();
@@ -137,7 +137,7 @@ class AdminController extends Controller
 
     public function lstxetduyet() //Load ds xét duyệt
     {
-        $lstxetduyet = Dutu::with('getuser')->where('idstatus',2)->where('check',0)->get();
+        $lstxetduyet = Dutu::with('getuser')->where('idstatus',2)->where('check',0)->get()->sortBy('name');
         for ($i=0; $i < $lstxetduyet->count(); $i++) {
             if (!$lstxetduyet[$i]->getuser->email_verified_at) {
                 $lstxetduyet->pull($i);
@@ -177,7 +177,7 @@ class AdminController extends Controller
     public function lstlenlop() //load danh sách
     {
         $index = 1;
-        $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4)->where('checklenlop',0);
+        $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4)->where('checklenlop',0)->sortBy('name');
         return view('admin.dutu.lenlop',compact('lstlenlop','index'));
     }
 
@@ -211,7 +211,7 @@ class AdminController extends Controller
     {
         $lstzone = Zone::all();
         $index = 1;
-        $lstnhomtruong = Dutu::with('getuser')->where('idstatus',1)->get();
+        $lstnhomtruong = Dutu::with('getuser')->where('idstatus',1)->get()->sortBy('name');
         return view('admin.dutu.nhomtruong',compact('lstnhomtruong','index','lstzone'));
     }
 
@@ -269,7 +269,7 @@ class AdminController extends Controller
 
     public function canhbao()
     {
-        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get();
+        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get()->sortBy('name');
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
             $vang = 0;
@@ -316,7 +316,7 @@ class AdminController extends Controller
 
     public function lsttuchoi() //load ds những người đã bị từ chối và có thể xét duyệt lại (status là 2 và check là 1)
     {
-        $lstdutu = Dutu::all()->where('idstatus',2)->where('check',1);
+        $lstdutu = Dutu::all()->where('idstatus',2)->where('check',1)->sortBy('name');
         $index = 1;
         return view('admin.dutu.tuchoi',compact('lstdutu','index'));
     }
