@@ -41,6 +41,7 @@ class ChungsinhController extends Controller
     public function store(Request $request)
     {
         //
+        dd($request->all());
         $arrName = explode(" ",$request->name);
         $request['tenthanh'] = array_shift($arrName);
         $request['tengoi'] = array_pop($arrName);

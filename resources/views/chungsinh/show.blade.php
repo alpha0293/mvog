@@ -127,31 +127,36 @@ p{
         <div class="modal-body">
           
 <div class="slideshow-container">
-
+<?php $index=1; ?>
+  @foreach($chungsinhs as $chungsinh)
+  <?php $index++; ?>
 <div class="mySlides">
-      <div class="col-sm-4 div-anh">
-        <img src="{{asset('file/profileimg/medium_cong_vo.jpg')}}" style="height: 100%;">
+      <div class="col-sm-4 fake-link div-anh" id="{{$chungsinh->id}}" onclick="chonanh(this.id);">
+        <img src="{{$chungsinh->profileimg}}" id="preview{{$chungsinh->id}}" style="height: 100%;">
+
       </div>
-      <div class="col-sm-8" id="div-thongtin" >
-        <p>Tên: Nguyễn Anh Tuấn</p>
-        <p>Ngày sinh: 09/9/1996</p>
-        <p>Giáo xứ: Khe Gát</p>
-        <p>Ngày vào đại chủng viện: 09/9/1996</p>
-        <p>Khoá: XIIII</p>
-        <p>Niên khoá: 2021 - 2022</p>
+
+      <div class="col-sm-8 div-thongtin" id="tt{{$chungsinh->id}}" >
+        <p>Tên: {{$chungsinh->tenthanh}} {{$chungsinh->ho}} {{$chungsinh->tengoi}}</p>
+        <p>Ngày sinh: {{$chungsinh->ngaysinh}}</p>
+        <p>Giáo xứ: {{$chungsinh->giaoxu}}</p>
+        <p>Ngày vào đại chủng viện: {{$chungsinh->ngayvaodcv}}</p>
+        <p>Khoá: {{$chungsinh->khoa}}</p>
+        <p>Niên khoá: {{$chungsinh->nienkhoa}}</p>
       </div>
-      <div class="col-sm-8 div-thongtin" id="sua-thongtin" style="display: none;">
+      <div class="col-sm-8 div-thongtin sua-thongtin" id="sua{{$chungsinh->id}}" style="display: none;">
         <div class="formgroup ">
-                <input type="text" class="form-control txtmodal" placeholder="Nhập Thánh và họ tên ..." name="name">
+                <input type="text" id="slc_anh{{$chungsinh->id}}" name="profileimg">
+                <input type="text" value="{{$chungsinh->tenthanh}} {{$chungsinh->ho}} {{$chungsinh->tengoi}}" class="form-control txtmodal" placeholder="Nhập Thánh và họ tên ..." name="name" required>
               </div>
              <div class="formgroup">
-              <input type="text" id="dob" value=""  class="form_datetime form-control " required placeholder="Ngày sinh" autofocus autocomplete="off" name="dob" >
+              <input type="text" id="dob" value="{{$chungsinh->ngaysinh}}"  class="form_datetime form-control " required placeholder="Ngày sinh" autofocus autocomplete="off" name="dob" >
             </div>
               <div class="formgroup">
-                <input type="text" class="form-control txtmodal" placeholder="Nhập Giáo xứ ..." name="name">
+                <input type="text" value="{{$chungsinh->giaoxu}}" class="form-control txtmodal" placeholder="Nhập Giáo xứ ..." required name="name">
               </div>
               <div class="formgroup">
-              <input type="text" id="ngayvaodcv" autocomplete="off" value=""  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
+              <input type="text" id="ngayvaodcv" autocomplete="off" value="{{$chungsinh->ngayvaodcv}}"  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
             </div>
               <div class="formgroup">
                 <select id="khoa" type="text" class="form-control custom-select browser-default " name="khoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
@@ -162,19 +167,10 @@ p{
               </select>
               </div>
       </div>
+      <button style="height: 28px;border-radius: 50px;padding: 0;margin-top: 3px;background: none;color: #d43f3a;float: right;margin-top: 10px;margin-right: -28px;" type="button" class="btn-edit btn btn-danger" id="{{$chungsinh->id}}" onclick="chinhsua(this.id)">Chỉnh sửa</button>
 </div>
-<div class="mySlides">
-  <q>I love you the more ittttttttn that I believe you had liked me for my own sake and for nothing else</q>
-  <p class="author">- John Keats</p>
-</div>
-<div class="mySlides">
-  <q>I love you the more uuuuuuin that I believe you had liked me for my own sake and for nothing else</q>
-  <p class="author">- John Keats</p>
-</div>
-<div class="mySlides">
-  <q>I love you the more ppppppin that I believe you had liked me for my own sake and for nothing else</q>
-  <p class="author">- John Keats</p>
-</div>
+@endforeach
+
    
     
  </div>
@@ -189,7 +185,7 @@ p{
         <div class="modal-footer">
           <button type="submit" id="btn-submit" class="btn btn-primary" style="display: none;">Lưu</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger" id="btn-edit">Chỉnh sửa</button>
+          
         </div> 
         </div>    
     </div>
@@ -231,10 +227,29 @@ $('.multi-item-carousel .item').each(function(){
     });
     </script> 
     <script type="text/javascript">
-      $("#btn-edit").click(function(){
+      function chinhsua(id){
         $("#btn-submit").css({"display":""});
-        $("#div-thongtin").css({"display":"none"});
-        $("#sua-thongtin").css({"display":""});
-      })
+        $("#tt"+id).css({"display":"none"});
+        $("#sua"+id).css({"display":""});
+      }
+      
+    </script>
+    <script type="text/javascript">
+      function chonanh(id){
+        CKFinder.popup( {
+                 chooseFiles: true,
+                 onInit: function( finder ) {
+                     finder.on( 'files:choose', function( evt ) {
+                         var file = evt.data.files.first();
+                         $('#preview'+id ).attr("src",file.getUrl());
+                         $('#slc_anh'+id).val(file.getUrl());
+                     } );
+                     finder.on( 'file:choose:resizedImage', function( evt ) {
+                         $('#preview'+id ).attr("src",evt.data.resizedUrl);
+                         document.getElementById('slc_anh'+id).value = evt.data.resizedUrl;
+                     } );
+                 }
+             } ); 
+      }
     </script>
   <!-- end Modal view chung sinh -->

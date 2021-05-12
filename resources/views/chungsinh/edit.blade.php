@@ -11,6 +11,7 @@
 	</div>
 	<form method="post" action="{{route('update.chungsinh',$chungsinh->id)}}">
 		@csrf()
+		<input type="text" name="profileimg">
 		<input type="text" name="name" placeholder="Tên thánh - Tên gọi" value="{{$chungsinh->tenthanh.' '.$chungsinh->ho.' '.$chungsinh->tengoi}}">
 		<input type="date" name="ngaysinh" placeholder="Ngày sinh" value="{{$chungsinh->ngaysinh}}">
 		<input type="text" name="giaoxu" placeholder="Giáo Xứ" value="{{$chungsinh->giaoxu}}">

@@ -127,6 +127,9 @@ q {font-style: italic;}
 
 </style>
    @include('user.layout.script')
+   <!-- ckfinder setup -->
+  @include('ckfinder::setup')
+    <!-- toastr option -->
 <body>
    @include('user.layout.loader')
     <!-- ***** Preloader End ***** -->
@@ -167,15 +170,16 @@ q {font-style: italic;}
           <div class="container-fluid">
           	<div class="col-md-12">
           		<div class="row divthongtin" >
-          			@for($i=0;$i<12;$i++)
-          			
+                <?php $index=0; ?>
+          			@foreach($chungsinhs as $lstchungsinh)
+          			<?php $index++; ?>
           			<div class="tt_seminarian">
-          				<span id="{{$i}}" idsemina="{{$i}}" class="fake-link" onclick="showSeminarian(this.id)">
-          					<img class="imgsemir" src="{{asset('file/profileimg/medium_cong_vo.jpg')}}">
-                    <h4 style="text-align: center;">Antôn Võ Thành Công</h4>
+          				<span id="{{$index}}" idsemina="{{$lstchungsinh->id}}" class="fake-link" onclick="showSeminarian(this.id)">
+          					<img class="imgsemir" src="{{$lstchungsinh->profileimg}}">
+                    <h4 style="text-align: center;">{{$lstchungsinh->tenthanh}} {{$lstchungsinh->ho}} {{$lstchungsinh->tengoi}}</h4>
           				</span>
           			</div>
-          			@endfor
+          			@endforeach
           		</div>
           	</div>
            
@@ -193,15 +197,22 @@ q {font-style: italic;}
           <h2><span>Thông báo</span></h2>
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
+
             <ul class="latest_postnav">
-              
-              <li>
-                <div class="media"> <a href="#" class="media-left">  </a>
-                  <div class="media-body"> <a href="#" class="catg_title"> ssss</a> </div>
-                  <div class="media-body"> <a href="#" class="catg_title"> sssss</a> </div>
+              @foreach($lstnoti as $noti)
+              <li style="margin-top: -25px">
+                <div class="media" style="margin-top: -5px;"> <a href="#" class="media-left">  </a>
+                  <div style="margin-bottom: 5px;" class="thongbao "> <a href="#" class="catg_title cap"> {{$noti->title}}</a>
+                    <h6 style="font-family: initial; font-style: italic; display: unset;"> ({{date_format($noti->updated_at,"d/m/Y")}})</h6>
+                    @if(now()->diffInDays($noti->updated_at) <= 7)
+                   <img class="new" src="{{asset('user_asset/images/new.gif')}}" alt="(New)">
+                    @endif
+                  </div>
+                  <div class="media-body"> <a href="#" class="catg_title cont"> {{$noti->content}}</a> </div>
                 </div>
+                 <hr style="border: 1px solid red;">
               </li>
-              
+              @endforeach
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
           </div>
@@ -255,6 +266,14 @@ function showSlides(n) {
 }
 
 </script>
+ 
+    <script src={{ url('ckeditor/ckeditor.js') }}></script>
+    <script>
+    CKEDITOR.replace( 'text', {
+        filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
+
+    } );
+    </script>
 
 </body>
 </html>
