@@ -157,6 +157,7 @@ class AttendanceController extends Controller
                             'year' => $request->year,
                             'status' => $dt['status'],
                             'note' => $dt['note'],
+                            'iduser' => Auth::id(),
                             ]);                        
                         } catch (\Exception $e) {
                             $errors_sql->push($e->getMessage());

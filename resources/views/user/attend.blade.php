@@ -35,7 +35,7 @@
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
      <div class="header-attend">
-      <h3><b>Điểm danh nhóm {{$lstdutu[0]->namezone->name}}</b></h3>
+      <h3><b>Điểm danh nhóm {{$lstdutu->first()->namezone->name}}</b></h3>
       <h4 style="padding:15px;">Trưởng nhóm: {{Auth::user()->name}}</h4>
       <select aria-label="Tháng" name="month" id="month" title="Tháng" class="sl_at">
         <option value="0">Tháng</option>

@@ -21,6 +21,8 @@ class CreateAttendancesTable extends Migration
             $table->integer('status');
             $table->string('note');
             $table->foreign('iddutu')->references('id')->on('dutus')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('iduser');
+            $table->foreign('iduser')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->timestamps();
 			//$table->foreignId('user_id')->constrained()->onDelete('cascade');
         });

@@ -22,8 +22,8 @@ class CreateChungsinhsTable extends Migration
             $table->date('ngaysinh');
             $table->date('ngayvaodcv');
             $table->string('giaoxu');
-            $table->string('nienkhoa');
-            $table->string('khoa');
+            $table->unsignedBigInteger('idkhoa');
+            $table->foreign('idkhoa')->references('id')->on('nienkhoas');
             $table->timestamps();
         });
     }

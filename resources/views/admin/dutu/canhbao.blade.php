@@ -27,7 +27,7 @@ tr:nth-child(even) {
        <div class="row">
           <div class="col-lg-12">
              <h3 class="card-title" style="color: #0d83c5cc;margin-top: 15px; margin-bottom: 15px;" id="addnhom_title">Danh sách những dự tu KHÔNG đủ điều kiện lên lớp</h3>
-            <h5 style="text-align: center;">(Điều kiện: vắng không quá 30% - điểm thi trên trung bình)</h5>
+            <h5 style="text-align: center;">(Điều kiện lên lớp: vắng không quá 30% - điểm thi trên trung bình)</h5>
               <div  class="card-header">
                 <button class="btn btn-danger" onclick="lenlopall()">Cho lên lớp tất cả</button>
               </div>
@@ -41,8 +41,7 @@ tr:nth-child(even) {
                  <thead>
                   <tr>
                     <th>STT</th>
-                    <th>Mã</th>
-                    <th>Tên thành viên(s)</th>
+                    <th>Tên thành viên</th>
                     <th>Ngày sinh</th>
                     <th>Giáo xứ</th>
                     <th>Nhóm</th>
@@ -58,8 +57,7 @@ tr:nth-child(even) {
                           @foreach ($lstdutu2 as $i)
                           <tr>
                             <td id="stt">{{$index++}}</td>
-                            <td id="ma">{{$i['holyname']}}</td>
-                            <td id="ten">{{$i['name']}}</td>
+                            <td id="ten">{{$i['holyname'].' '.$i['fullname'].' '.$i['name']}}</td>
                             <td id=ns>{{$i['dob']}}</td>
                             <td id="xu">{{$i['parish']}}</td>
                             <td id="nhom">{{$i['namezone']['name']}}</td>

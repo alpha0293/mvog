@@ -35,7 +35,7 @@ class DiemthiController extends Controller
         $lstdiemthi = Diemthi::all();
         $lstdutu = Dutu::with(['getdiem' => function($query) use ($cur_year){
             $query->where('nam',$cur_year);
-        }])->where('idstatus',1)->get();
+        }])->where('idstatus',1)->get()->sortBy('name');
         $index = 1;
         $lstzone = Zone::all();
         $lstyear = Year::all();
@@ -56,7 +56,7 @@ class DiemthiController extends Controller
         // }
         //
         // $lstdutu = Dutu::all();
-        $lstdutu = Dutu::where('idstatus',1)->with('nameyear')->get();
+        $lstdutu = Dutu::where('idstatus',1)->with('nameyear')->get()->sortBy('name');
         $index = 1;
         $lstzone = Zone::all();
         $lstyear = Year::all();

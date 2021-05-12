@@ -147,7 +147,6 @@
                   <thead>
                   <tr>
                     <th>STT</th>
-                    <th>Mã</th>
                     <th>Tên thành viên(s)</th>
                     <th>Ngày sinh</th>
                     <th>Trường học</th>
@@ -163,8 +162,7 @@
                           @foreach ($iddt as $i)
                           <tr>
                             <td id="stt">{{$index++}}</td>
-                            <td id="ma">{{$i->holyname}}</td>
-                            <td id="ten">{{$i->name}}</td>
+                            <td id="ten">{{$i->holyname.' '.$i->fullname.' '.$i->name}}</td>
                             <td id=ns>{{$i->dob}}</td>
                             <td id="truong">{{$i->school}}</td>
                             <td id="nganh">{{$i->majors}}</td>
@@ -175,7 +173,6 @@
                             <td>
                               <a class="fa fa-eye" style="color:green; padding-right: 10%" href="{{route('show.dutu',$i->id)}}"></a>
                 <a class="fa fa-trash-alt" style="color:green; padding-right: 10%" href="{{route('delete.dutu',$i->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Dự tu này không?');" title="Xóa"></a>
-                              <i class="fas fa-edit" style="color:red"></i>
                             </td>
                           </tr>
                         @endforeach

@@ -45,7 +45,6 @@
                   <thead>
                   <tr>
                     <th>STT</th>
-                    <th>Tên Thánh</th>
                     <th>Tên thành viên</th>
                     <th>Ngày sinh</th>
                     <th>Trường học</th>
@@ -60,8 +59,7 @@
                       @foreach ($lstnhomtruong as $i)
                         <tr>
                           <td id="stt">{{$index++}}</td>
-                          <td id="ma">{{$i->holyname}}</td>
-                          <td id="ten">{{$i->name}}</td>
+                          <td id="ten">{{$i->holyname.' '.$i->fullname.' '.$i->name}}</td>
                           <td id=ns>{{$i->dob}}</td>
                           <td id="truong">{{$i->school}}</td>
                           <td id="xu">{{$i->parish}}</td>
@@ -108,7 +106,7 @@
            }
            else{
             for (i = 1; i < tr.length; i++) {
-                  td = tr[i].children[7];
+                  td = tr[i].children[6];
                   if (td) {
                      slValue = td.textContent || td.innerText; 
                      // console.log(slValue);
