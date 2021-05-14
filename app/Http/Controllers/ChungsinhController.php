@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Chungsinh;
 use Illuminate\Http\Request;
 use Redirect;
+use App\Nienkhoa;
 
 class ChungsinhController extends Controller
 {
@@ -29,7 +30,8 @@ class ChungsinhController extends Controller
     public function create()
     {
         //
-        return view('chungsinh.create');
+        $nienkhoas = Nienkhoa::all();
+        return view('chungsinh.create',compact('nienkhoas'));
     }
 
     /**
