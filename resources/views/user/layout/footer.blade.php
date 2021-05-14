@@ -1,5 +1,5 @@
 <footer id="footer">
-    <div class="footer_top">
+    <div class="footer_top" id="color-bar">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="footer_widget wow fadeInLeftBig">

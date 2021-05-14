@@ -40,16 +40,7 @@
 	 });
 
  </script>
-     <script type="text/javascript">
-       $('#bar_color').change(function(){
-        var a = $('#bar_color').val();
-          $("[id='color-bar']").css("background-color", a);
-       });
-        $('#background_color').change(function(){
-        var b = $('#background_color').val();
-          $("body").css("background-color", b);
-       });
-     </script>
+     
      <!-- toastr option -->
     <script type="text/javascript">
          toastr.options = {
@@ -66,3 +57,13 @@
                       "hideMethod": "fadeOut"
                 }
     </script>
+<script type="text/javascript">
+       $('#bar_color').change(function(){
+        var a = $('#bar_color').val();
+          $("[id='color-bar']").css("background-color", a);
+       });
+        $('#background_color').change(function(){
+        var b = $('#background_color').val();
+          $("body").css("background-color", b);
+       });
+ </script>

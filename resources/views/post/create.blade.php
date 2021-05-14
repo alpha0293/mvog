@@ -29,7 +29,7 @@
                   </div>
                   <div class="form-group">
                     <label>Thể loại bài viết</label>
-                  <select class="form-control select2" style="width: 100%;" name="idpost">
+                  <select class="form-control" style="width: 100%;" name="idpost">
                     <!-- <option selected="selected">Thể loại 1</option>
                     <option>Thể loại 2</option>
                     <option>Thể loại 3</option> -->

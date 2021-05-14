@@ -28,7 +28,8 @@
                   </div>
                   <div class="form-group">
                     <label>Thể loại bài viết</label>
-                  <select class="form-control select2" style="width: 100%;" name="idcategory">
+                  <select class="form-control" style="width: 100%;" name="idcategory">
+                    <!-- <select class="form-control select2" style="width: 100%;" name="idcategory"> -->
                     @foreach($lstcategory as $category)
                     <option @if($post->idcategory == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach

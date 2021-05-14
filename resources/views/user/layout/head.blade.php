@@ -101,6 +101,9 @@
 				background:#FFD204;
 				margin-top:0;
 			}
+			#color-bar{
+				background-color: {{ setting('config.barcolor','') }};
+			}
 
 </style>
 <style type="text/css">
