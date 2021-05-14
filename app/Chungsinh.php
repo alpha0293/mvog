@@ -9,7 +9,7 @@ class Chungsinh extends Model
 {
     //
     protected $fillable = [
-    	'tenthanh','tengoi','ho','ngaysinh','ngayvaodcv','giaoxu','nienkhoa','khoa','profileimg',
+    	'tenthanh','tengoi','ho','ngaysinh','ngayvaodcv','giaoxu','idkhoa','profileimg',
     ];
 
     public static function validator(array $data)
@@ -22,8 +22,7 @@ class Chungsinh extends Model
 			'ngaysinh' => ['required','date','after:01-01-1900','before:30-12-3000'],
 			'ngayvaodcv' => ['required','date','after:01-01-1900','before:30-12-3000'],
 			'giaoxu' => ['required', 'string', 'max:255'],
-			'nienkhoa' => ['required','string','max:255'],
-			'khoa' => ['required','string','max:255'],
+			'idkhoa' => ['required','string','max:255'],
         ],
     	[
     		'required' => ':attribute không được để trống',
@@ -43,8 +42,7 @@ class Chungsinh extends Model
     		'ngaysinh' => 'Ngày sinh',
     		'ngayvaodcv' => 'Ngày vào ĐCV',
     		'giaoxu' => 'Giáo xứ',
-    		'nienkhoa' => 'Niên Khoá',
-            'khoa' => 'Khoá',
+            'idkhoa' => 'Khoá',
     	]);
     }
 }
