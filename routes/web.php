@@ -340,3 +340,5 @@ Route::prefix('configs')->middleware(['auth'])->group(function(){
     Route::get('/', ['middleware' => ['permission:configs-read'], 'uses'=>'ConfigController@index','as'=>'create.config']);
     Route::post('/', ['middleware' => ['permission:configs-update'], 'uses'=>'ConfigController@store','as'=>'save.config']);
 });
+
+Route::resource('tuyensinh', 'TuyenSinhController');
