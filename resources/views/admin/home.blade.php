@@ -242,16 +242,16 @@
                     var sheet = xlsx.xl.worksheets['sheet1.xml'];
      
                     // jQuery selector to add a border
-                    $('row c[r*="10"]', sheet).attr( 's', '25' );
-
+                    $('row c[r*="2"]', sheet).attr( 's', '20' );
+                    $('c', sheet).attr( 's', '25' );
                     $('row c[r^="C"]', sheet).each( function () {
                         // Get the value
                         if ( $('is t', this).text() == 'New York' ) {
                             $(this).attr( 's', '20' );
                         }
                     });
-
-                    $('row c[r^="C"]', sheet).attr( 's', '2' );
+                    $('row:first c', sheet).attr( 's', '42' );
+                    // $('row c[r^="C"]', sheet).attr( 's', '2' );
                 }
             },
             'pdf', 'print' ]
