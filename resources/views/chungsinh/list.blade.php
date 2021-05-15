@@ -148,16 +148,22 @@ q {font-style: italic;}
             <div style="text-align: center; margin-bottom: 5%;" class="col-sm-12">
               <h1>THÔNG TIN CHỦNG SINH</h1>
               <h2 style="text-transform: uppercase; color: #67a6ff;">Khoá: ?</h2>
-              <button class="btn btn-success" style="width: auto;float: right; margin: 1px 1px 5px 1px;"><i class="fa fa-plus"></i> Thêm Khoá</button>
+               @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
+              <button class="btn btn-success" id="addKhoa" style="width: auto;float: right; margin: 1px 1px 5px 1px;"><i class="fa fa-plus"></i> Thêm Khoá</button>
+              @endif
               <hr  width="100%" align="center" />
               <div class="loc">
+                  @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
                      <button id="addSemina" class="btn btn-danger" style="width: auto;float: right; margin: 1px 1px 5px 1px;"><i class="fa fa-plus"></i> Thêm chủng sinh</button>
-                  <select style="width: auto;float: right;margin-right: 15px" aria-label="Năm" name="year" id="year" title="Năm" class="form-control">
-                    <option value="0">Chọn chủng sinh khoá</option>
-                    @for($i=1; $i<=17; $i++)
-                    <option @if($i==17) selected @endif value="{{$i}}">Khoá {{$i}}</option>
-                    @endfor
-                  </select>
+                  @endif
+                    @if(!empty($nienkhoas))
+                    <select style="width: auto;float: right;margin-right: 15px" aria-label="Năm" name="year" id="year" title="Năm" class="form-control">
+                      <option value="0">Chọn chủng sinh khoá </option>
+                      @foreach($nienkhoas as $lstnienkhoa)
+                      <option value="{{$lstnienkhoa->id}}"> Khoá {{$lstnienkhoa->khoa}} ({{$lstnienkhoa->nienkhoa}}) </option>
+                      @endforeach
+                    </select>
+                  @endif
               </div>
              
 
@@ -224,6 +230,7 @@ q {font-style: italic;}
 
   @include('chungsinh.show')
   @include('chungsinh.create')
+  @include('chungsinh.createKhoa')
   @include('user.layout.footer')
 </div>
 
@@ -233,6 +240,9 @@ q {font-style: italic;}
     });
     $("[id='showSeminas']").click(function(){
      $("#viewSemina").modal({backdrop: false});
+    });
+    $("[id='addKhoa']").click(function(){
+      $("#createKhoa").modal({backdrop: false});
     });
   </script>
   <script>

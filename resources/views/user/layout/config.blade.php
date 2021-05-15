@@ -1,3 +1,4 @@
+ @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
 <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
 <i class="fa fa-gear fa-spin right_config" onclick="openNav()" style="font-size:35px"></i>
 <div id="mySidenav" class="sidenav">
@@ -33,3 +34,4 @@ function closeNav() {
           $("body").css("background-color", b);
        });
  </script>
+ @endif

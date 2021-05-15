@@ -37,8 +37,9 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Thông tin</h4>
+          <h4 class="modal-title">Thêm mới chủng sinh</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
       <form action="{{route('save.chungsinh')}}" method="POST">
             @csrf
         <div class="modal-body" style="height: auto;">
@@ -64,12 +65,14 @@
               <input type="text" id="ngayvaodcv" autocomplete="off" value=""  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
             </div>
               <div class="formgroup">
-                <select id="khoa" type="text" class="form-control custom-select browser-default " name="khoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
-                        <option value="">Chọn khoá</option>
-                        <option value="1">Khoá 1 (2012-2013)</option>
-                        <option value="2">Khoá 2 (2013-2014)</option>
-                        
-              </select>
+                @if(!empty($nienkhoas))
+                    <select id="khoa" type="text" class="form-control custom-select browser-default " name="idkhoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
+                      <option value="0">Chọn khoá </option>
+                      @foreach($nienkhoas as $lstnienkhoa)
+                      <option value="{{$lstnienkhoa->id}}"> Khoá {{$lstnienkhoa->khoa}} ({{$lstnienkhoa->nienkhoa}}) </option>
+                      @endforeach
+                    </select>
+                @endif
               </div>
             </div>
               

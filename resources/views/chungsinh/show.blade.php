@@ -159,12 +159,14 @@ p{
               <input type="text" id="ngayvaodcv" autocomplete="off" value="{{$chungsinh->ngayvaodcv}}"  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
             </div>
               <div class="formgroup">
-                <select id="khoa" type="text" class="form-control custom-select browser-default " name="khoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
-                        <option value="">Chọn khoá</option>
-                        <option value="1">Khoá 1 (2012-2013)</option>
-                        <option value="2">Khoá 2 (2013-2014)</option>
-                        
-              </select>
+                @if(!empty($nienkhoas))
+                    <select id="khoa" type="text" class="form-control custom-select browser-default " name="idkhoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
+                      <option value="0">Chọn khoá </option>
+                      @foreach($nienkhoas as $lstnienkhoa)
+                      <option value="{{$lstnienkhoa->id}}"> Khoá {{$lstnienkhoa->khoa}} ({{$lstnienkhoa->nienkhoa}}) </option>
+                      @endforeach
+                    </select>
+                @endif
               </div>
       </div>
       <button style="height: 28px;border-radius: 50px;padding: 0;margin-top: 3px;background: none;color: #d43f3a;float: right;margin-top: 10px;margin-right: -28px;" type="button" class="btn-edit btn btn-danger" id="{{$chungsinh->id}}" onclick="chinhsua(this.id)">Chỉnh sửa</button>
