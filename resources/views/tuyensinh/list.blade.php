@@ -28,6 +28,8 @@
                     <a href="#" style="float: right;margin-bottom: 5px;" role="button" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm ứng sinh</a>
                    <?php
                    $getyear = 1;
+                   $index = 1;
+                   $sbd = 1;
                     ?>
                 @if ($getyear==0) <!-- sua lai danh sach ->count()==0 -->
                   <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
@@ -46,18 +48,26 @@
 		            </tr>
 		            </thead>
            <tbody>
+            @foreach($tuyensinhs as $tuyensinh)
                   <tr>
-                    <td>1</td>
-                      <td>001 </td>
-                      <td>Giuse Nguyễn Anh Tuấn</td>
-                      <td>09/9/1996</td>
-                      <td>Khe Gát</td>
-                      <td hidden="true"></td>
-                      <td >tuanna.it96@gmail.com</td>
-                      <td>
-                        <a class="fa fa-eye" style="color:green; padding-right: 10%" href="#"></a>                   
-                      </td>
+                    <td>{{$index++}}</td>
+                    <td>@if($sbd<10)
+                      00{{$sbd++}}
+                      @elseif($sbd<100||$sbd<9)
+                      0{{$sbd++}}
+                      @else {{$sbd++}}
+                      @endif
+                    </td>
+                    <td>{{$tuyensinh->holyname.' '.$tuyensinh->fullname.' '.$tuyensinh->name}}</td>
+                    <td>{{$tuyensinh->dob}}</td>
+                    <td>{{$tuyensinh->parish}}</td>
+                    <td hidden="true"></td>
+                    <td >{{$tuyensinh->email}}</td>
+                    <td>
+                      <a class="fa fa-eye" style="color:green; padding-right: 10%" href="#"></a>                   
+                    </td>
                   </tr>
+              @endforeach
              </tbody>
                 </table>
                 @endif

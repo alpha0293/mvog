@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TuyenSinh;
 use Illuminate\Http\Request;
-
+use App\Dutu;
 class TuyenSinhController extends Controller
 {
     /**
@@ -27,8 +27,32 @@ class TuyenSinhController extends Controller
      */
     public function create()
     {
-        //
-        return view('tuyensinh.create');
+        //Load những ứng sinh đã đk dự thi trong năm hiện tại
+        $tuyensinhs = TuyenSinh::all()->where('year',now()->year);
+        // load dự tu có đủ điều kiện dự thi;
+        $tuoi = now()->year - setting('config.tuoithidcv',''); //Load tuổi
+        // return $tuoi;
+        $dutus = Dutu::with('getuser')->where('idstatus',1)->where('idyear',4)->whereYear('dob','>',$tuoi)->get()->sortBy('name');
+        // duyệt danh sách, rồi loại bỏ những dự tu đã đăng kí vào năm này...
+        // for ($i = 0; $i < $dutus->count(); $i++) {
+        //     foreach ($tuyensinhs as $tuyensinh) {
+        //         if ($dutus[$i]->getuser->email == $tuyensinh->email) {
+        //             $dutus->pull($i);
+        //         }    
+        //     }
+        // }
+
+        $i=0;
+        foreach ($dutus as $dutu) {
+            foreach ($tuyensinhs as $tuyensinh) {
+                if ($dutu->getuser->email == $tuyensinh->email) {
+                    $dutus->pull($i);
+                    // return $i;
+                }
+            }
+            $i++;
+        }
+        return view('tuyensinh.create',compact('dutus'));
     }
 
     /**
@@ -40,6 +64,21 @@ class TuyenSinhController extends Controller
     public function store(Request $request)
     {
         //
+        $arrName = explode(" ",$request->name);
+        $request['holyname'] = array_shift($arrName);
+        $request['name'] = array_pop($arrName);
+        $request['fullname'] = implode(" ", $arrName);
+        if (TuyenSinh::validator($request->all())->fails()) {
+            # code...
+            return Redirect::back()->withErrors(TuyenSinh::validator($request->all()));
+        }
+        try {
+
+            TuyenSinh::create($request->all());
+            return Redirect::route('tuyensinh.index');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -48,7 +87,7 @@ class TuyenSinhController extends Controller
      * @param  \App\TuyenSinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
-    public function show(TuyenSinh $tuyenSinh)
+    public function show($id)
     {
         //
     }
@@ -59,7 +98,7 @@ class TuyenSinhController extends Controller
      * @param  \App\TuyenSinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
-    public function edit(TuyenSinh $tuyenSinh)
+    public function edit($id)
     {
         //
     }
@@ -71,9 +110,31 @@ class TuyenSinhController extends Controller
      * @param  \App\TuyenSinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TuyenSinh $tuyenSinh)
+    public function update(Request $request, $id)
     {
         //
+        $arrName = explode(" ",$request->name);
+        $request['holyname'] = array_shift($arrName);
+        $request['name'] = array_pop($arrName);
+        $request['fullname'] = implode(" ", $arrName);
+        if (TuyenSinh::validator($request->all())->fails()) {
+            # code...
+            return Redirect::back()->withErrors(TuyenSinh::validator($request->all()));
+        }
+        try {
+            TuyenSinh::where('id',$id)->update([
+                'email' => $request->email,
+                'holyname' => $request->holyname,
+                'fullname' => $request->fullname,
+                'name' => $request->name,
+                'dob' => $request->dob,
+                'parish' => $request->parish,
+
+            ]);
+            return Redirect::route('tuyensinh.index');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -82,8 +143,14 @@ class TuyenSinhController extends Controller
      * @param  \App\TuyenSinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TuyenSinh $tuyenSinh)
+    public function destroy($id)
     {
         //
+        try {
+            TuyenSinh::where('id',$id)->delete();
+            return Redirect::back()->with('message','Xoá ứng sinh thành công!!!');
+        } catch (\Exception $e) {
+            return Redirect::back()->with('message','Không xoá được ứng sinh!!!');
+        }
     }
 }
