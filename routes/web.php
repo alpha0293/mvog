@@ -340,10 +340,12 @@ Route::prefix('configs')->middleware(['auth'])->group(function(){
     Route::get('/', ['middleware' => ['permission:configs-read'], 'uses'=>'ConfigController@index','as'=>'create.config']);
     Route::post('/', ['middleware' => ['permission:configs-update'], 'uses'=>'ConfigController@store','as'=>'save.config']);
 });
-//tuyensinh
-Route::get('listtuyensinh', function () {
-    return view('tuyensinh.list');
+
+Route::prefix('tuyensinh')->middleware(['auth'])->group(function(){
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@index','as'=>'index.tuyensinh']);
+    Route::post('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@store','as'=>'save.tuyensinh']);
+    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
+    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
+    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
 });
-Route::get('create/tuyensinh', function () {
-    return view('tuyensinh.create');
-});
+
