@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Dutu;
 use Redirect;
 use Mail;
+use App\Http\Requests\UngsinhRequest;
 class UngsinhController extends Controller
 {
     /**
@@ -53,7 +54,7 @@ class UngsinhController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UngsinhRequest $request)
     {
         //
         $data = $request->all();
@@ -63,10 +64,6 @@ class UngsinhController extends Controller
         $request['fullname'] = implode(" ", $arrName);
         $request['year'] = now()->year;
 
-        if (Ungsinh::validator($request->all())->fails()) {
-            # code...
-            return Redirect::back()->withErrors(Ungsinh::validator($request->all()));
-        }
         
         try {
             Ungsinh::create($request->all());
@@ -77,6 +74,7 @@ class UngsinhController extends Controller
                     $message->to($data['email']);
                     $message->subject('Thông báo nhận hồ sơ');
                 });
+                return Redirect::route('index.tuyensinh');
             }
             // return Redirect::route('tuyensinh.index');
         } catch (\Exception $e) {

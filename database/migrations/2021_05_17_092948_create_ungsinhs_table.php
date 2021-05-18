@@ -22,6 +22,7 @@ class CreateUngsinhsTable extends Migration
             $table->datetime('dob');
             $table->string('parish');
             $table->integer('year');
+            $table->string('phonenumber');
             $table->unique(['email','year']);
             $table->timestamps();
         });
