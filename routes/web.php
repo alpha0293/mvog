@@ -340,3 +340,10 @@ Route::prefix('configs')->middleware(['auth'])->group(function(){
     Route::get('/', ['middleware' => ['permission:configs-read'], 'uses'=>'ConfigController@index','as'=>'create.config']);
     Route::post('/', ['middleware' => ['permission:configs-update'], 'uses'=>'ConfigController@store','as'=>'save.config']);
 });
+//tuyensinh
+Route::get('listtuyensinh', function () {
+    return view('tuyensinh.list');
+});
+Route::get('create/tuyensinh', function () {
+    return view('tuyensinh.create');
+});

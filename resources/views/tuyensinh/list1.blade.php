@@ -3,12 +3,7 @@
   @extends('admin.layout.layout')
   @section('content')
   <!--------------------------------------------------------->
-<style type="text/css">
-  .form-control{
-    width: auto;
-  }
 
-</style>
     <section class="content">
       <div class="container-fluid">
        <div class="row">
@@ -46,9 +41,10 @@
 		            </tr>
 		            </thead>
            <tbody>
+                @for($i=0;$i<11;$i++)
                   <tr>
-                    <td>1</td>
-                      <td>001 </td>
+                    <td>{{$i+1}}</td>
+                      <td>00{{$i+1}} </td>
                       <td>Giuse Nguyễn Anh Tuấn</td>
                       <td>09/9/1996</td>
                       <td>Khe Gát</td>
@@ -58,6 +54,7 @@
                         <a class="fa fa-eye" style="color:green; padding-right: 10%" href="#"></a>                   
                       </td>
                   </tr>
+                  @endfor
              </tbody>
                 </table>
                 @endif
