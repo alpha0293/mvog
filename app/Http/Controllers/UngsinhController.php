@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\TuyenSinh;
+use App\Ungsinh;
 use Illuminate\Http\Request;
 use App\Dutu;
 use Redirect;
-class TuyenSinhController extends Controller
+use Mail;
+class UngsinhController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class TuyenSinhController extends Controller
     public function index()
     {
         //
-        $tuyensinhs = TuyenSinh::all()->where('year',now()->year);
+        $tuyensinhs = Ungsinh::all()->where('year',now()->year);
         // return $tuyensinhs;
         return view('tuyensinh.list',compact('tuyensinhs'));
     }
@@ -29,7 +30,7 @@ class TuyenSinhController extends Controller
     public function create()
     {
         //Load những ứng sinh đã đk dự thi trong năm hiện tại
-        $tuyensinhs = TuyenSinh::all()->where('year',now()->year);
+        $tuyensinhs = Ungsinh::all()->where('year',now()->year);
         // load dự tu có đủ điều kiện dự thi;
         $tuoi = now()->year - setting('config.tuoithidcv',''); //Load tuổi
         // return $tuoi;
@@ -55,19 +56,29 @@ class TuyenSinhController extends Controller
     public function store(Request $request)
     {
         //
-        return 'TuyenSinhController';
+        $data = $request->all();
         $arrName = explode(" ",$request->name);
         $request['holyname'] = array_shift($arrName);
         $request['name'] = array_pop($arrName);
         $request['fullname'] = implode(" ", $arrName);
-        // $request['year'] = now()->year;
-        if (TuyenSinh::validator($request->all())->fails()) {
+        $request['year'] = now()->year;
+
+        if (Ungsinh::validator($request->all())->fails()) {
             # code...
-            return Redirect::back()->withErrors(TuyenSinh::validator($request->all()));
+            return Redirect::back()->withErrors(Ungsinh::validator($request->all()));
         }
+        
         try {
-            TuyenSinh::create($request->all());
-            return Redirect::route('tuyensinh.index');
+            Ungsinh::create($request->all());
+            if(!$request->ajax()) //request không là AJ thì gửi mail thông báo
+            {
+                Mail::send('email.nhanhoso',$data, function($message) use($data) {
+                    $message->from('mvog@gmail.com');
+                    $message->to($data['email']);
+                    $message->subject('Thông báo nhận hồ sơ');
+                });
+            }
+            // return Redirect::route('tuyensinh.index');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -76,7 +87,7 @@ class TuyenSinhController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TuyenSinh  $tuyenSinh
+     * @param  \App\Ungsinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -87,7 +98,7 @@ class TuyenSinhController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TuyenSinh  $tuyenSinh
+     * @param  \App\Ungsinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -99,7 +110,7 @@ class TuyenSinhController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TuyenSinh  $tuyenSinh
+     * @param  \App\Ungsinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -109,12 +120,12 @@ class TuyenSinhController extends Controller
         $request['holyname'] = array_shift($arrName);
         $request['name'] = array_pop($arrName);
         $request['fullname'] = implode(" ", $arrName);
-        if (TuyenSinh::validator($request->all())->fails()) {
+        if (Ungsinh::validator($request->all())->fails()) {
             # code...
-            return Redirect::back()->withErrors(TuyenSinh::validator($request->all()));
+            return Redirect::back()->withErrors(Ungsinh::validator($request->all()));
         }
         try {
-            TuyenSinh::where('id',$id)->update([
+            Ungsinh::where('id',$id)->update([
                 'email' => $request->email,
                 'holyname' => $request->holyname,
                 'fullname' => $request->fullname,
@@ -132,14 +143,14 @@ class TuyenSinhController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TuyenSinh  $tuyenSinh
+     * @param  \App\Ungsinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
         try {
-            TuyenSinh::where('id',$id)->delete();
+            Ungsinh::where('id',$id)->delete();
             return Redirect::back()->with('message','Xoá ứng sinh thành công!!!');
         } catch (\Exception $e) {
             return Redirect::back()->with('message','Không xoá được ứng sinh!!!');
@@ -159,13 +170,13 @@ class TuyenSinhController extends Controller
         $request['name'] = array_pop($arrName);
         $request['fullname'] = implode(" ", $arrName);
         return $request->all();
-        if (TuyenSinh::validator($request->all())->fails()) {
+        if (Ungsinh::validator($request->all())->fails()) {
             # code...
-            return Redirect::back()->withErrors(TuyenSinh::validator($request->all()));
+            return Redirect::back()->withErrors(Ungsinh::validator($request->all()));
         }
         // try {
         //     return $request->all();
-        //     TuyenSinh::create($request->all());
+        //     Ungsinh::create($request->all());
         //     return Redirect::route('tuyensinh.index');
         // } catch (\Exception $e) {
         //     return $e->getMessage();

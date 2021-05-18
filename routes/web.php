@@ -341,4 +341,10 @@ Route::prefix('configs')->middleware(['auth'])->group(function(){
     Route::post('/', ['middleware' => ['permission:configs-update'], 'uses'=>'ConfigController@store','as'=>'save.config']);
 });
 
-Route::resource('tuyensinh', 'TuyenSinhController');
+Route::prefix('tuyensinh')->middleware(['auth'])->group(function(){
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@index','as'=>'index.tuyensinh']);
+    Route::post('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@store','as'=>'save.tuyensinh']);
+    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
+    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
+    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
+});
