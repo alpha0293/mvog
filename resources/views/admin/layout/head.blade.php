@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="{{asset('admin_asset/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{asset('admin_asset/plugins/daterangepicker/daterangepicker.css')}}">
+  <!-- datetimepicker -->
+  <link rel="stylesheet" href="{{asset('admin_asset/dist/css/bootstrap-datetimepicker.css')}} " rel="stylesheet" media="screen">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('admin_asset/plugins/summernote/summernote-bs4.css')}}">
   <!-- summernote -->

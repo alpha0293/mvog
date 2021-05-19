@@ -77,9 +77,6 @@
                       <div class="form-group">
                         <input name="parish" type="text" class="form-control" placeholder="Nhập giáo xứ ...">
                       </div>
-                       <div class="form-group">
-                        <input name="year" hidden="true" type="text" class="form-control" placeholder="Nhập năm ..." value="{{now()->year}}">
-                      </div>
                     </div>
                   </div>
 
@@ -208,8 +205,7 @@
                 'dob':$('#dob'+id).attr("dob"),
                 'email':$('#email'+id).attr("email"),
                 'phonenumber':$('#phone'+id).attr("phonenumber"),
-                'parish':$('#parish'+id).attr("parish"),
-                'year': {{now()->year}}
+                'parish':$('#parish'+id).attr("parish")
               } 
                 ,function(data){
                   console.log(data);

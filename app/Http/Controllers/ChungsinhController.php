@@ -17,9 +17,9 @@ class ChungsinhController extends Controller
     public function index()
     {
         //
-        
+        $nienkhoas = Nienkhoa::all();
         $chungsinhs = Chungsinh::all();
-        return view('chungsinh.list',compact('chungsinhs'));
+        return view('chungsinh.list',compact('chungsinhs','nienkhoas'));
     }
 
     /**
@@ -43,7 +43,7 @@ class ChungsinhController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->all());
+        //dd($request->all());
         $arrName = explode(" ",$request->name);
         $request['tenthanh'] = array_shift($arrName);
         $request['tengoi'] = array_pop($arrName);
@@ -98,6 +98,7 @@ class ChungsinhController extends Controller
     {
         //
         // return gettype($request);
+        // dd($request->all());
         $arrName = explode(" ",$request->name);
         $request['tenthanh'] = array_shift($arrName);
         $request['tengoi'] = array_pop($arrName);

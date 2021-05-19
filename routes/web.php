@@ -348,3 +348,4 @@ Route::prefix('tuyensinh')->middleware(['auth'])->group(function(){
     Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
     Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
 });
+
