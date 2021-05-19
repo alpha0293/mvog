@@ -1,116 +1,224 @@
  <!-- Content Wrapper. Contains page content -->
 
-  @extends('admin.layout.layout')
-  @section('content')
-  <!--------------------------------------------------------->
-<style type="text/css">
+ @extends('admin.layout.layout')
+ @section('content')
+ <!--------------------------------------------------------->
+ <style type="text/css">
   .form-control{
     width: auto;
   }
-
+  .fa-chevron-right, .fa-chevron-left, .switch, .day{
+    cursor: pointer;
+  }
+  #tbid_filter label {
+    float: right;
+    display: inline-flex;
+  }
+  #tbid_filter label input.form-control.form-control-sm {
+    margin-left: 8px;
+  }
 </style>
-    <section class="content">
-      <div class="container-fluid">
-       <div class="row">
-        <div>
-        <form action="{{route('save.tuyensinh')}}" method="post">
-          @csrf
-          <input type="text" name="email" placeholder="Email">
-          <input type="text" name="name" placeholder="Tên thánh - Họ và tên">
-          <input type="date" name="dob" placeholder="Ngày sinh">
-          <input type="text" name="parish" placeholder="Giáo xứ">
-          <button>Submit</button>
-        </form>
+<section class="content">
+  <div class="container-fluid">
+   <div class="row">
+    <!-- het thu --> 
+    <div class="col-md-12" id="danhsach_nhom">
+      <div class="card card-secondary">
+        <div class="card-header">
+          <h3 class="card-title" id="addnhom_title">Thêm ứng sinh đăng ký dự thi chủng viện</h3>
+          <h4 id="addnhom_title">năm tuyển sinh: {{now()->year}}</h4>
+          <h6 style="text-align: center;">(Đã hoàn thành năm dự tu và Không quá {{setting('config.tuoithidcv','')}} tuổi)</h6>
+          @if(session('message'))
+          <h4>{{session('message')}}</h4>                  
+          @endif
         </div>
-        <!-- het thu --> 
-        <div class="col-md-12" id="danhsach_nhom">
-            <div class="card card-secondary">
-              <div class="card-header">
-                <h3 class="card-title" id="addnhom_title">Danh sách dự tu đủ điều kiện đăng kí thi ĐCV</h3>
-                <h4 id="addnhom_title">năm tuyển sinh: {{now()->year}}</h4>
-                <h4 id="addnhom_title">Đã hoàn thành năm dự tu và tuổi không quá {{setting('config.tuoithidcv','')}}</h4>
-                @if(session('message'))
-                <h4>{{session('message')}}</h4>                  
-                @endif
-              </div>
 
-              <!-- /.card-header -->
-              <div class="card-body">
-                   <?php
-                   $getyear = 1;
-                   $index = 1;
-                   $sbd = 1;
-                    ?>
-                @if ($getyear==0) <!-- sua lai danh sach ->count()==0 -->
-                  <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
-                @else
-	                <table id="example" class="table table-bordered table-striped">
-						<thead>
-							<th>STT</th>
-							<th>Email</th>
-							<th>Tên thánh - Họ và tên</th>
-							<th>Giáo xứ</th>
-							<th>Trường học</th>
-						</thead>
-						@foreach($dutus as $dutu)
-							<tr>
-								<td>{{$index++}}</td>
-								<td>{{$dutu->getuser->email}}</td>
-								<td>{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
-								<td>{{$dutu->parish}}</td>
-								<td>{{$dutu->school}}</td>
-							</tr>
-						@endforeach
-					</table>
-                @endif
-              </div>
-              <!-- /.card-body -->
-              
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="row" style="margin-bottom: 5px;">
+            <a href="#" role="button" class="btn btn-primary"><i class="fas fa-list"></i> Danh sách ứng sinh</a>
+          </div>
+
+
+          <div class="card-info card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-plus"></i>
+                Nhập ứng sinh bằng tay
+              </h3>
             </div>
-        </div>
-       </div>
-      </div>
-   </section>
-    <script type="text/javascript">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+            <div class="card-body">
+              <form action="{{route('save.tuyensinh')}}" method="post">
+                @csrf
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <input name="name" type="text" class="form-control" placeholder="Nhập tên thánh và họ tên ...">
+                      </div>
 
-    <script type="text/javascript">
-    $(document).ready( function() {
-        $('#example').DataTable( {
-            dom: 'Bfrtip',
-            
-            buttons: [ {
-                extend: 'excelHtml5',
-                autoFilter: true,
-                sheetName: 'Exported data',
-                customize: function ( xlsx ){
-                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
-     
-                    // jQuery selector to add a border
-                    $('row c[r*="2"]', sheet).attr( 's', '20' );
-                    $('c', sheet).attr( 's', '25' );
-                    $('row c[r^="C"]', sheet).each( function () {
-                        // Get the value
-                        if ( $('is t', this).text() == 'New York' ) {
-                            $(this).attr( 's', '20' );
-                        }
-                    });
-                    $('row:first c', sheet).attr( 's', '42' );
-                    // $('row c[r^="C"]', sheet).attr( 's', '2' );
-                }
-            },
-            'pdf', 'print' ]
-        } );
-    } );
-  </script>
-  </script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
- @endsection
+                      <div class="form-group">
+                        <input name="dob" type="text" value=""  class="form_datetime form-control " placeholder="Ngày sinh ..." autocomplete="off" >
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <input name="email" type="text" class="form-control" placeholder="Nhập email ...">
+                      </div>
+
+                      <div class="form-group">
+                        <input name="phonenumber" type="text" class="form-control" placeholder="Nhập Số điện thoại ..." >
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <input name="parish" type="text" class="form-control" placeholder="Nhập giáo xứ ...">
+                      </div>
+                       <div class="form-group">
+                        <input name="year" hidden="true" type="text" class="form-control" placeholder="Nhập năm ..." value="{{now()->year}}">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="text-muted mt-3">
+                  <button type="submit" class="btn btn-primary" style="float: right;"> Thêm vào danh sách</button>
+                </div>
+              </form>
+            </div>
+          </div>  
+          <!-- card nhap bang tay  -->
+          <div class="card-info card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-plus"></i>
+                Từ danh sách dự tu
+              </h3>
+            </div>
+            <div class="card-body">
+              <?php
+              $getyear = 1;
+              $index = 1;
+              $sbd = 1;
+              ?>
+              @if (1==0) <!-- sua lai danh sach ->count()==0 -->
+              <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
+              @else
+              <h3 class="card-title" id="addnhom_title" style="color: #007bff;margin-bottom: 2%">Danh sách dự tu đủ điều kiện thi vào chủng viện</h3>
+              <div class="card-body table-responsive p-0">
+                <table id="tbid" class="table text-nowrap table-bordered table-striped">
+                 <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th >Tên</th>
+                    <th >Ngày sinh</th>
+                    <th >Email</th>
+                    <th >SĐT</th>
+                    <th >Giáo xứ</th>
+                    <th> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($dutus as $dutu)
+                  <tr>
+                    <td>{{$index++}}</td>
+                    <td id="name{{$dutu->id}}" name="{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}">{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
+                    <td id="dob{{$dutu->id}}" dob="{{$dutu->dob}}">{{$dutu->dob}}</td>
+                    <td id="email{{$dutu->id}}" email="{{$dutu->getuser->email}}">{{$dutu->getuser->email}}</td>
+                    <td id="phone{{$dutu->id}}" phonenumber="{{$dutu->phonenumber}}">{{$dutu->phonenumber}}</td>
+                    <td id="parish{{$dutu->id}}" parish="{{$dutu->parish}}">{{$dutu->parish}}</td>
+
+                    <td>
+                      <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" class="custom-control-input" id="{{$dutu->id}}" onclick="addungsinh({{$dutu->id}}, this.checked);">
+                                <label class="custom-control-label" for="{{$dutu->id}}"></label>
+                            </div>
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+            @endif
+
+            <div class="text-muted mt-3">
+
+            </div>
+          </div>
+        </div>  
+        <!-- Them tu du tu  -->
+
+      </div>
+      <!-- /.card-body -->
+
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<script src="{{asset('js/datetime_picker/bootstrap-datetimepicker.js')}}"></script>
+<script type="text/javascript">
+  $(".form_datetime").datetimepicker({
+    format: 'yyyy-mm-dd',
+    language:  'vi',
+    weekStart: 1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0
+  });
+</script> 
+<script>
+  $(function () {
+    $("#tbid").DataTable({
+      "autoWidth": false,
+      "autoFill": true,
+      "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+      "pageLength": 25,
+      language: {
+        search: "Tìm kiếm",
+        lengthMenu: "Số lượng bản ghi _MENU_ ",
+        info: "Từ _START_ đến _END_ trong _TOTAL_ bản ghi",
+        infoEmpty: "Không có dữ liệu ",
+        zeroRecords: "Tìm kiếm không trùng",
+        emptyTable: "Không có dữ liệu",
+        paginate: {
+          first: "Trang đầu",
+          previous: "Trang trước",
+          next: "Trang sau",
+          last: "Trang cuối"
+        },
+      },
+    });
+  });
+</script>
+<script type="text/javascript">
+      
+       function addungsinh(id, value) {
+
+        console.log();
+        $.post('{{route('save.tuyensinh')}}',
+                {'_token': "{{ csrf_token() }}",
+                'value': value,
+                'name':$('#name'+id).attr("name"),
+                'dob':$('#dob'+id).attr("dob"),
+                'email':$('#email'+id).attr("email"),
+                'phonenumber':$('#phone'+id).attr("phonenumber"),
+                'parish':$('#parish'+id).attr("parish"),
+                'year': {{now()->year}}
+              } 
+                ,function(data){
+                  console.log(data);
+               //    toastr.success('Thành công!!!','THÔNG BÁO');
+               // console.log(JSON.stringify(data));
+              });
+      }
+
+        
+     </script>
+@endsection
+

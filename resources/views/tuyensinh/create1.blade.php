@@ -13,10 +13,10 @@
   #tbid_filter label {
     float: right;
     display: inline-flex;
-}
-#tbid_filter label input.form-control.form-control-sm {
+  }
+  #tbid_filter label input.form-control.form-control-sm {
     margin-left: 8px;
-}
+  }
 </style>
 <section class="content">
   <div class="container-fluid">
@@ -26,7 +26,8 @@
       <div class="card card-secondary">
         <div class="card-header">
           <h3 class="card-title" id="addnhom_title">Thêm ứng sinh đăng ký dự thi chủng viện</h3>
-          <h4 id="addnhom_title">năm tuyển sinh: ?</h4>
+          <h4 id="addnhom_title">năm tuyển sinh: {{now()->year}}</h4>
+          <h6 style="text-align: center;">(Đã hoàn thành năm dự tu và Không quá {{setting('config.tuoithidcv','')}} tuổi)</h6>
           @if(session('message'))
           <h4>{{session('message')}}</h4>                  
           @endif
@@ -47,41 +48,43 @@
               </h3>
             </div>
             <div class="card-body">
-              <form></form>
-              <div class="col-sm-12">
-                <div class="row">
-                  <div class="col-sm-4">
-                    <!-- text input -->
-                    <div class="form-group">
-                      <input name="name" type="text" class="form-control" placeholder="Nhập tên thánh và họ tên ...">
-                    </div>
+              <form action="{{route('save.tuyensinh')}}" method="post">
+                @csrf
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <input name="name" type="text" class="form-control" placeholder="Nhập tên thánh và họ tên ...">
+                      </div>
 
-                    <div class="form-group">
-                      <input name="dob" type="text" value=""  class="form_datetime form-control " placeholder="Ngày sinh ..." autocomplete="off" >
+                      <div class="form-group">
+                        <input name="dob" type="text" value=""  class="form_datetime form-control " placeholder="Ngày sinh ..." autocomplete="off" >
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <!-- textarea -->
-                    <div class="form-group">
-                      <input name="email" type="text" class="form-control" placeholder="Nhập email ...">
-                    </div>
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <input name="email" type="text" class="form-control" placeholder="Nhập email ...">
+                      </div>
 
-                    <div class="form-group">
-                      <input name="numberphone" type="text" class="form-control" placeholder="Nhập Số điện thoại ..." >
+                      <div class="form-group">
+                        <input name="phonenumber" type="text" class="form-control" placeholder="Nhập Số điện thoại ..." >
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <input name="parish" type="text" class="form-control" placeholder="Nhập giáo xứ ...">
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <!-- textarea -->
-                    <div class="form-group">
-                      <input name="parish" type="text" class="form-control" placeholder="Nhập giáo xứ ...">
-                    </div>
-                  </div>
+
                 </div>
-
-              </div>
-              <div class="text-muted mt-3">
-                <button type="submit" class="btn btn-primary" style="float: right;"> Thêm vào danh sách</button>
-              </div>
+                <div class="text-muted mt-3">
+                  <button type="submit" class="btn btn-primary" style="float: right;"> Thêm vào danh sách</button>
+                </div>
+              </form>
             </div>
           </div>  
           <!-- card nhap bang tay  -->
@@ -93,6 +96,11 @@
               </h3>
             </div>
             <div class="card-body">
+              <?php
+              $getyear = 1;
+              $index = 1;
+              $sbd = 1;
+              ?>
               @if (1==0) <!-- sua lai danh sach ->count()==0 -->
               <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
               @else
@@ -102,30 +110,32 @@
                  <thead>
                   <tr>
                     <th>STT</th>
-                    <th>SBD</th>
                     <th >Tên</th>
                     <th >Ngày sinh</th>
-                    <th >Giáo xứ</th>
-                    <th hidden="true" ></th>
                     <th >Email</th>
-                    <th> <input style="padding-right: 10%" type="checkbox" id="checkboxPrimary1" >  </th>
+                    <th >SĐT</th>
+                    <th >Giáo xứ</th>
+                    <th> </th>
                   </tr>
                 </thead>
                 <tbody>
-                  @for($i=0;$i<11;$i++)
+                  @foreach($dutus as $dutu)
                   <tr>
-                    <td>{{$i+1}}</td>
-                    <td>00{{$i+1}} </td>
-                    <td>Giuse Nguyễn Anh Tuấn</td>
-                    <td>09/9/1996</td>
-                    <td>Khe Gát</td>
-                    <td hidden="true"></td>
-                    <td >tuanna.it96@gmail.com</td>
+                    <td>{{$index++}}</td>
+                    <td id="name{{$dutu->id}}" name="{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}">{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
+                    <td id="dob{{$dutu->id}}" dob="{{$dutu->dob}}">{{$dutu->dob}}</td>
+                    <td id="email{{$dutu->id}}" email="{{$dutu->getuser->email}}">{{$dutu->getuser->email}}</td>
+                    <td id="phone{{$dutu->id}}" phonenumber="{{$dutu->phonenumber}}">{{$dutu->phonenumber}}</td>
+                    <td id="parish{{$dutu->id}}" parish="{{$dutu->parish}}">{{$dutu->parish}}</td>
+
                     <td>
-                      <input style="padding-right: 10%" type="checkbox" id="checkboxPrimary1" >                  
+                      <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" class="custom-control-input" id="{{$dutu->id}}" onclick="addungsinh({{$dutu->id}}, this.checked);">
+                                <label class="custom-control-label" for="{{$dutu->id}}"></label>
+                            </div>
                     </td>
                   </tr>
-                  @endfor
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -174,17 +184,37 @@
         zeroRecords: "Tìm kiếm không trùng",
         emptyTable: "Không có dữ liệu",
         paginate: {
-            first: "Trang đầu",
-            previous: "Trang trước",
-            next: "Trang sau",
-            last: "Trang cuối"
+          first: "Trang đầu",
+          previous: "Trang trước",
+          next: "Trang sau",
+          last: "Trang cuối"
         },
-    },
+      },
     });
   });
 </script>
 <script type="text/javascript">
- 
-</script>
+      
+       function addungsinh(id, value) {
+
+        console.log();
+        $.post('{{route('save.tuyensinh')}}',
+                {'_token': "{{ csrf_token() }}",
+                'value': value,
+                'name':$('#name'+id).attr("name"),
+                'dob':$('#dob'+id).attr("dob"),
+                'email':$('#email'+id).attr("email"),
+                'phonenumber':$('#phone'+id).attr("phonenumber"),
+                'parish':$('#parish'+id).attr("parish")
+              } 
+                ,function(data){
+                  console.log(data);
+               //    toastr.success('Thành công!!!','THÔNG BÁO');
+               // console.log(JSON.stringify(data));
+              });
+      }
+
+        
+     </script>
 @endsection
 
