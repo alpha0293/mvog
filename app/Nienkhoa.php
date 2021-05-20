@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Validator;
 class Nienkhoa extends Model
 {
     //
