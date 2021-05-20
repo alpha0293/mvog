@@ -157,7 +157,10 @@ class AdminController extends Controller
             $status = 2;
         }
         try {
-            Dutu::where('id',$request->id)->update(['idstatus' => $status]);
+            Dutu::where('id',$request->id)->update([
+                'idstatus' => $status,
+                'check' => 1,
+            ]);
             return "Thanh cong";
         } catch (Exception $e) {
             return $e->getMessage();
