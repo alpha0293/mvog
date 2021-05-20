@@ -46,6 +46,7 @@ tr:nth-child(even) {
                       <th>Giáo xứ</th>
                       <th>Năm dự tu</th>
                       <th>Nhóm</th>
+                      <th hidden="true"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,6 +62,7 @@ tr:nth-child(even) {
                             <td id="xu">{{$i->parish}}</td>
                             <td id="nam">{{$i->nameyear->name}}</td>
                             <td id="nhom">{{$i->namezone->name}}</td>
+                            <td id="id" hidden="true" ma="{{$i->id}}">{{$i->id}}</td>
                           </tr>
                         @endforeach
                   </tbody>
@@ -92,9 +94,18 @@ tr:nth-child(even) {
               });
       }
       function lenlopall(){
-        // console.log(value);
+        dutuList = $('[id="id"]')
+          data = []
+          for(i=0;i<dutuList.length;i++) {
+          std = {
+            'id': jQuery(dutuList[i]).attr('ma')
+           }
+                data.push(std)
+              }
+         
         $.post('{{ route('lenlopall') }}',
                 {'_token': "{{ csrf_token() }}",
+                'data': JSON.stringify(data)
                 } 
                 ,function(data){
                   console.log(data);
