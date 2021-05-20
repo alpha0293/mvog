@@ -344,8 +344,8 @@ Route::prefix('configs')->middleware(['auth'])->group(function(){
 Route::prefix('tuyensinh')->middleware(['auth'])->group(function(){
     Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@index','as'=>'index.tuyensinh']);
     Route::post('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@store','as'=>'save.tuyensinh']);
-    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
-    Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
+    Route::post('edit', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@update','as'=>'update.tuyensinh']);
+    Route::get('delete/{id}', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@destroy','as'=>'delete.tuyensinh']);
     Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
 });
 

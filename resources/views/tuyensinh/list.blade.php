@@ -61,6 +61,7 @@
 
               @foreach($tuyensinhs as $tuyensinh)
               <tr>
+
                 <td>{{$index++}}</td>
                 <td>@if($sbd<10)
                   00{{$sbd++}}
@@ -69,14 +70,14 @@
                   @else {{$sbd++}}
                   @endif
                 </td>
-                <td id="name{{$tuyensinh->id}}" name="{{$tuyensinh->holyname.' '.$tuyensinh->fullname.' '.$tuyensinh->name}}">{{$tuyensinh->holyname.' '.$tuyensinh->fullname.' '.$tuyensinh->name}}</td>
+                <td ma="{{$tuyensinh->id}}" id="name{{$tuyensinh->id}}" name="{{$tuyensinh->holyname.' '.$tuyensinh->fullname.' '.$tuyensinh->name}}">{{$tuyensinh->holyname.' '.$tuyensinh->fullname.' '.$tuyensinh->name}}</td>
                 <td id="dob{{$tuyensinh->id}}" dob="{{$tuyensinh->dob}}">{{$tuyensinh->dob}}</td>
                 <td id="email{{$tuyensinh->id}}" email="{{$tuyensinh->email}}" hidden="true" >{{$tuyensinh->email}}</td>
                 <td id="phone{{$tuyensinh->id}}" phonenumber="{{$tuyensinh->phonenumber}}">{{$tuyensinh->phonenumber}}</td>
                 <td id="parish{{$tuyensinh->id}}" parish="{{$tuyensinh->parish}}">{{$tuyensinh->parish}}</td>
                 <td>
                   <span id="{{$tuyensinh->id}}" class="fa fa-eye" style="color:green; padding-right: 10%" onclick="editungsinh(this.id);"></span>  
-                  <a class="fas fa-trash-alt" style="color:red; padding-right: 10%" href="#"></a>                 
+                  <a class="fa fa-trash-alt" style="color:red; padding-right: 10%" href="{{route('delete.tuyensinh',$tuyensinh->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa ứng sinh này không?');" title="Xóa"></a>
                 </td>
               </tr>
               @endforeach
@@ -97,7 +98,7 @@
 
       <!-- Modal content-->
       <div class="modal-content">
-        <form action="" method="post">
+        <form action="{{route('update.tuyensinh')}}" method="post">
           @csrf
           <div class="modal-header">
             <h4 class="modal-title">Chỉnh sửa ứng sinh</h4>
@@ -117,7 +118,7 @@
                       <input id="txtdob" name="dob" type="text" value=""  class="form_datetime form-control " placeholder="Ngày sinh ..." autocomplete="off" >
                     </div>
                     <div class="form-group">
-                      <input id="txtemail" name="email" type="text" disabled class="form-control" placeholder="Nhập email ...">
+                      <input id="txtemail" name="email" type="text"  class="form-control" placeholder="Nhập email ...">
                     </div>
                   </div>
 
@@ -131,6 +132,7 @@
                     </div>
                     <div class="form-group">
                       <input id="txtyear" name="year" hidden="true" type="text" class="form-control" placeholder="Nhập năm ..." value="{{now()->year}}">
+                      <input id="txtid" hidden="true" type="text" name="id" >
                     </div>
                   </div>
                 </div>
@@ -195,8 +197,9 @@
   $('#txtname').val($('#name'+id).attr("name"));
   $('#txtdob').val($('#dob'+id).attr("dob"));
   $('#txtemail').val($('#email'+id).attr("email"));
-  $('#txtphonenumber').val($('#phonenumber'+id).attr("phonenumber"));
+  $('#txtphonenumber').val($('#phone'+id).attr("phonenumber"));
   $('#txtparish').val($('#parish'+id).attr("parish"));
+  $('#txtid').val($('#name'+id).attr("ma"));
   $('#txtyear').val({{now()->year}});
    $("#editungsinh").modal({backdrop: false});
  }

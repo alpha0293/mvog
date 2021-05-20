@@ -19,7 +19,7 @@ class CreateUngsinhsTable extends Migration
             $table->string('holyname');
             $table->string('fullname');
             $table->string('name');
-            $table->datetime('dob');
+            $table->date('dob');
             $table->string('parish');
             $table->integer('year');
             $table->string('phonenumber');
