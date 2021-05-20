@@ -193,7 +193,10 @@ class AdminController extends Controller
             $year = $idyear - 1;
         }
         try {
-            Dutu::where('id',$request->id)->update(['idyear' => $year]);
+            Dutu::where('id',$request->id)->update([
+                'idyear' => $year,
+                'checklenlop' => 1,
+        ]);
             return 'Thanh cong';
         } catch (Exception $e) {
             return $e->getMessage();
@@ -201,10 +204,14 @@ class AdminController extends Controller
     }
      public function lenlopall(Request $request)
     {
-       $lstdutu = Dutu::where('idyear','<>',4)->get();
-       foreach ($lstdutu as $dutu) {
-            $dutu->idyear += 1;
-       }           
+        $data = json_decode($request->data, true);
+        foreach ($data as $dt) {
+            $dutu = Dutu::findOrFail($dt['id']);
+            $dutu->idyear +=1;
+            $dutu->checklenlop = 1;
+            $dutu->save();
+        }
+        return "thành công";       
     }
 
     public function lstnhomtruong() //load danh sách Dự tu ra để set nhóm trưởng
@@ -269,7 +276,7 @@ class AdminController extends Controller
 
     public function canhbao()
     {
-        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->get()->sortBy('name');
+        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->where('checklenlop',0)->get()->sortBy('name');
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
             $vang = 0;
