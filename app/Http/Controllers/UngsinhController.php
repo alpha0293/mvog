@@ -8,6 +8,7 @@ use App\Dutu;
 use Redirect;
 use Mail;
 use App\Http\Requests\UngsinhRequest;
+use App\Rules\NameCountMin;
 class UngsinhController extends Controller
 {
     /**
@@ -111,28 +112,53 @@ class UngsinhController extends Controller
      * @param  \App\Ungsinh  $tuyenSinh
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $name = $request->name;
+        $validated = $request->validate([
+            'name' => ['required','string','max:255', new NameCountMin($name)],
+            'dob' => ['required','date','after:01-01-1900','before:30-12-3000'],
+            'parish' => ['required','string','max:255'],
+            'year' => ['required','int'],
+            'phonenumber' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
+        ],
+        [
+            'required' => ':attribute không được để trống',
+            'string' => ':attribute khỉ được nhập chữ',
+            'max' => ':attribute tối đa 255 kí tự',
+            'date' => ':attribute đúng định dạng ngày tháng',
+            'int' => ':attribute chỉ được nhập số',
+            'after' => ':attribute phải sau ngày 01/01/1900',
+            'before' => ':attribute phải trước ngày 31/12/3000',
+            'min' => ':attribute tối thiếu 10 kí tự',
+            'regex' => ':attribute không đúng định dạng',
+            'email' => ':attribute không đúng định dạng',
+        ],
+        [
+            'email' => 'Email',
+            'holyname' => 'Tên thánh',
+            'fullname' => 'Tên họ',
+            'name' => 'Tên gọi',
+            'dob' => 'Ngày sinh',
+            'parish' => 'Giáo xứ',
+            'year' => 'Năm dự thi',
+            'phonenumber' => 'Số điện thoại',
+        ]);
         $arrName = explode(" ",$request->name);
         $request['holyname'] = array_shift($arrName);
         $request['name'] = array_pop($arrName);
         $request['fullname'] = implode(" ", $arrName);
-        if (Ungsinh::validator($request->all())->fails()) {
-            # code...
-            return Redirect::back()->withErrors(Ungsinh::validator($request->all()));
-        }
         try {
-            Ungsinh::where('id',$id)->update([
-                'email' => $request->email,
+            Ungsinh::where('id',$request->id)->update([
                 'holyname' => $request->holyname,
                 'fullname' => $request->fullname,
                 'name' => $request->name,
                 'dob' => $request->dob,
                 'parish' => $request->parish,
-
+                'phonenumber' => $request->phonenumber,
             ]);
-            return Redirect::route('tuyensinh.index');
+            return Redirect::route('index.tuyensinh')->with('message','Cập nhật thông tin ứng sinh thành công!!!');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -153,31 +179,5 @@ class UngsinhController extends Controller
         } catch (\Exception $e) {
             return Redirect::back()->with('message','Không xoá được ứng sinh!!!');
         }
-    }
-
-    public function createungsinh()
-    {
-        return view('tuyensinh.create_ungsinh');
-    }
-
-    public function storeungsinh(Request $request)
-    {
-        // return 12;
-        $arrName = explode(" ",$request->name);
-        $request['holyname'] = array_shift($arrName);
-        $request['name'] = array_pop($arrName);
-        $request['fullname'] = implode(" ", $arrName);
-        return $request->all();
-        if (Ungsinh::validator($request->all())->fails()) {
-            # code...
-            return Redirect::back()->withErrors(Ungsinh::validator($request->all()));
-        }
-        // try {
-        //     return $request->all();
-        //     Ungsinh::create($request->all());
-        //     return Redirect::route('tuyensinh.index');
-        // } catch (\Exception $e) {
-        //     return $e->getMessage();
-        // }
     }
 }
