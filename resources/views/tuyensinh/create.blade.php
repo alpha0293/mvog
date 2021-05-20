@@ -200,7 +200,6 @@
       
        function addungsinh(id, value) {
 
-        console.log();
         $.post('{{route('save.tuyensinh')}}',
                 {'_token': "{{ csrf_token() }}",
                 'value': value,
@@ -210,15 +209,21 @@
                 'phonenumber':$('#phone'+id).attr("phonenumber"),
                 'parish':$('#parish'+id).attr("parish"),
                 'year': {{now()->year}}
-              } 
-                ,function(data){
-                  console.log(data);
-               //    toastr.success('Thành công!!!','THÔNG BÁO');
-               // console.log(JSON.stringify(data));
-              });
-      }
-
-        
+              },
+               function(data){
+                  toastr.success('Thành công!!!','THÔNG BÁO');
+               console.log(data);
+              }).fail(function(data) {
+                console.log(data);
+                var response = JSON.parse(data.responseText);
+                var errorString = '';
+                $.each( response.errors, function( key, value) {
+                    errorString += '' + value + '</br>';
+                });
+                toastr.error(errorString,'THÔNG BÁO');
+                
+                });
+      }        
      </script>
 @endsection
 
