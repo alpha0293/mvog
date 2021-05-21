@@ -29,10 +29,10 @@ class DutuController extends Controller
      */
     public function index()
     {
-    	$dutu = Dutu::all();
-    	return $dutu;
-		return ('Đây là trang view dự tu');
-        //
+    	// $iddt = Dutu::where('idstatus',1)->with('nameyear','namezone');
+    	$iddt = Dutu::all()->where('idstatus',1)->where('idyear','<>',4)->load('nameyear','namezone')->sortBy('name');;
+    	$index = 1;
+		return view('admin.dutu.dangsinhhoat',compact('iddt','index'));
     }
 
     /**
