@@ -8,7 +8,7 @@
         <h4 class="modal-title">Thêm mới khoá chủng viện</h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
-      <form action="{{route('save.tuyensinh')}}" method="POST">
+      <form action="{{route('save.nienkhoa')}}" method="POST">
         @csrf
         <div class="modal-body" style="height: auto;">
           <div class="formgroup ">

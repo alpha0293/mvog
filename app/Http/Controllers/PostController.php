@@ -180,4 +180,15 @@ class PostController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function search()
+    {
+        return view('search');
+    }
+
+    public function searchFullText(Request $request)
+    {
+        $posts = Post::where('title', 'like', '%' . $request->value . '%')->get();
+        return response()->json($posts); 
+    }
 }

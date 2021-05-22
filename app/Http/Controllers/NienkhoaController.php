@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Nienkhoa;
 use Illuminate\Http\Request;
-
+use Redirect;
 class NienkhoaController extends Controller
 {
     /**
