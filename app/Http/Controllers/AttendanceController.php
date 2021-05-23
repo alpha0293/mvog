@@ -18,19 +18,54 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->year) {
+            # code...
+            $cur_year = $request->year;
+        }
+        else
+        {
+            if (date("m")<9) {
+                $cur_year = (date("Y")-1). "-" .date("Y"); 
+            }
+            else{
+                $cur_year = date("Y"). "-" .(date("Y")+1); 
+            }
+        }
         $index = 1;
         if (!Auth::user()->hasRole('superadministrator|administrator')) {
             //return về một route khi người dùng không là admin
             return redirect()->route('home');
         }
-        $iddt=Dutu::get()->where('idstatus','1');
-        //get all dutu from zone...
-        $izone=Attendance::get();
-        // dd($iddt->first->attend);
-        return view('admin.diemdanh.list',compact('index','iddt','izone'));
-        //return view('admin.diemdanh.list');
+        $lstdutu2 = collect([]);
+        $iddt = Dutu::get()->where('idyear','<>',4)->where('idstatus','1')->load(['getattend' => function($query) use($cur_year){
+            $query->where('year',$cur_year);
+        }])->sortby('name');
+        foreach ($iddt as $key => $value) {
+            $getattend2 = (array)[1=>null, 2=>null, 3=>null, 4=>null, 5=>null, 6=>null, 7=>null, 8=>null, 9=>null, 10=>null,11=>null,12=>null];
+            foreach ($value->getattend as $key => $value2) {
+                //check tháng, nếu có tháng thì gán theo vị trí 9, 10, 11.....
+                //nếu không có thì mặc định bản ghi đó null
+                if ($value2->month >= 9) {
+                    $month = $value2->month - 9;
+                }
+                else
+                {
+                    $month = $value2->month + 3;
+                }
+                $getattend2 = collect($getattend2);
+                $getattend2->put($month+1,$value2);
+            }
+            $value = collect($value);
+            $value->put('diemdanh',$getattend2);
+            $lstdutu2->push($value);
+        }
+        $lstdutu2 = collect($lstdutu2);
+        $izone = Attendance::get()->groupby('year');
+        // return $izone;
+        return view('admin.diemdanh.list_new',compact('index','lstdutu2','izone'));
+        // return view('admin.diemdanh.list',compact('index','iddt','izone'));
     }
 
     /**
