@@ -10,13 +10,6 @@
   .fa-chevron-right, .fa-chevron-left, .switch, .day{
     cursor: pointer;
   }
-  #tbid_filter label {
-    float: right;
-    display: inline-flex;
-  }
-  #tbid_filter label input.form-control.form-control-sm {
-    margin-left: 8px;
-  }
 </style>
  <section class="content">
   <div class="container-fluid">
@@ -44,7 +37,7 @@
           <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
           @else
           <div class="card-body table-responsive p-0">
-            <table id="tbid" class="table text-nowrap table-bordered table-striped">
+            <table id="tableid" class="table text-nowrap table-bordered table-striped">
              <thead>
               <tr>
                 <th>STT</th>
@@ -168,30 +161,7 @@
     forceParse: 0
   });
 </script> 
-<script>
-  $(function () {
-    $("#tbid").DataTable({
-      "autoWidth": false,
-      "autoFill": true,
-      "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-      "pageLength": 25,
-      language: {
-        search: "Tìm kiếm",
-        lengthMenu: "Số lượng bản ghi _MENU_ ",
-        info: "Từ _START_ đến _END_ trong _TOTAL_ bản ghi",
-        infoEmpty: "Không có dữ liệu ",
-        zeroRecords: "Tìm kiếm không trùng",
-        emptyTable: "Không có dữ liệu",
-        paginate: {
-          first: "Trang đầu",
-          previous: "Trang trước",
-          next: "Trang sau",
-          last: "Trang cuối"
-        },
-      },
-    });
-  });
-</script>
+
 <script type="text/javascript">
  function editungsinh(id) {
   $('#txtname').val($('#name'+id).attr("name"));

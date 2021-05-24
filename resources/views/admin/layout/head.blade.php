@@ -38,5 +38,13 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <style type="text/css">
     .toast-message{white-space : pre-line !important;}
+    #tableID_filter label {
+      float: right;
+      display: inline-flex;
+    }
+    #tableID_filter label input.form-control.form-control-sm {
+      margin-left: 8px;
+    }
   </style>
+
 </head>

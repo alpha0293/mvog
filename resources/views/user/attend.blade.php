@@ -71,7 +71,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0" style="clear: left;">
-                <table id="tableID" class="table table-striped table-bordered"><thead>
+                <table id="tableid" class="table table-striped table-bordered"><thead>
                     <tr>
                       <th style="width: 10px">STT</th>
                       <th>Tên dự tu</th>
@@ -85,7 +85,7 @@
                  @foreach($lstdutu as $dutu)
                     <tr>
                       <td>{{$index++}}</td>
-                      <td> {{$dutu->name}}</td>
+                      <td> {{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>

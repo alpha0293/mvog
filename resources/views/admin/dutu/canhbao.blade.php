@@ -49,7 +49,9 @@ tr:nth-child(even) {
                     <th>Số lần vắng</th>
                     <th>Điểm</th>
                     <th>Điểm TB</th>
+                    <th hidden="true"></th>
                     <th>Lên lớp</th>
+
                   </tr>
                   </thead>
                   <tbody>
@@ -65,6 +67,7 @@ tr:nth-child(even) {
                             <td id="tylevang">{{$i['vang']}}/{{$i['tongdiemdanh']}}<small class="badge badge-primary"></small></td>
                             <td>@if($i['getdiem']!=null) {{$i['getdiem'][0]['diem']}} @endif</td>
                             <td>{{$i['diemtb']}}</td>
+                            <td id="id" hidden="true" ma="{{$i['id']}}">{{$i['id']}}</td>
                             <td> 
                               <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                 <input type="checkbox" class="custom-control-input" id="{{$i['id']}}" onclick="lenlop({{$i['id']}},this.checked);">
@@ -103,9 +106,18 @@ tr:nth-child(even) {
               });
       }
       function lenlopall(){
-        // console.log(value);
+        dutuList = $('[id="id"]')
+          data = []
+          for(i=0;i<dutuList.length;i++) {
+          std = {
+            'id': jQuery(dutuList[i]).attr('ma')
+           }
+                data.push(std)
+              }
+         
         $.post('{{ route('lenlopall') }}',
                 {'_token': "{{ csrf_token() }}",
+                'data': JSON.stringify(data)
                 } 
                 ,function(data){
                   console.log(data);

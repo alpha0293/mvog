@@ -98,7 +98,7 @@ class ChungsinhController extends Controller
     {
         //
         // return gettype($request);
-        // dd($request->all());
+       
         $arrName = explode(" ",$request->name);
         $request['tenthanh'] = array_shift($arrName);
         $request['tengoi'] = array_pop($arrName);
@@ -115,8 +115,7 @@ class ChungsinhController extends Controller
                 'ngaysinh' => $request->ngaysinh,
                 'ngayvaodcv' => $request->ngayvaodcv,
                 'giaoxu' => $request->giaoxu,
-                'nienkhoa' => $request->nienkhoa,
-                'khoa' => $request->khoa,
+                'idkhoa' => $request->idkhoa,
             ]);
             return Redirect::route('chungsinh.index')->with('message','Cập nhật thông tin chủng sinh thành công!!!');
         } catch (\Exception $e) {

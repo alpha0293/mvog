@@ -85,7 +85,7 @@
                  @foreach($lstdutu as $dutu)
                     <tr>
                       <td>{{$index++}}</td>
-                      <td> {{$dutu->name}}</td>
+                      <td> {{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>

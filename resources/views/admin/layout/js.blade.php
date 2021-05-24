@@ -97,5 +97,29 @@
       });
       
     </script>
+    <script type="text/javascript">
+      $(function () {
+    $("#tableID").DataTable({
+      "autoWidth": false,
+      "autoFill": true,
+      "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+      "pageLength": 25,
+      language: {
+        search: "Tìm kiếm",
+        lengthMenu: "Số lượng bản ghi _MENU_ ",
+        info: "Từ _START_ đến _END_ trong _TOTAL_ bản ghi",
+        infoEmpty: "Không có dữ liệu ",
+        zeroRecords: "Tìm kiếm không trùng",
+        emptyTable: "Không có dữ liệu",
+        paginate: {
+          first: "Trang đầu",
+          previous: "Trang trước",
+          next: "Trang sau",
+          last: "Trang cuối"
+        },
+      },
+    });
+  });
+    </script>
    
     

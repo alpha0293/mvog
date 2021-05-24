@@ -45,7 +45,7 @@
         <div class="col-md-12" id="danhsach_nhom">
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title" id="addnhom_title">Danh sách thành viên dự tu</h3>
+                <h3 class="card-title" id="addnhom_title">Danh sách điểm danh</h3>
 
                 @if(session('message'))
                 <h4>{{session('message')}}</h4>                  
@@ -103,7 +103,7 @@
                         @foreach ($iddt as $i)
                         <tr>
                           <td id="stt">{{$index++}}</td>
-                          <td id="ten">{{$i->name}} _{{$i->id}}</td>
+                          <td id="ten">{{$i->holyname.' '.$i->fullname.' '.$i->name}}</td>
                                   @for($k=1;$k<=12;$k++)
                             <td></td>
                                   @endfor
@@ -182,15 +182,7 @@
         });
         tero = tero.next();
       });
-       $('#mytable').dataTable({
-            // "retrieve": true,
-            "autoWidth":false,
-            "pageLength": 25,
-            "paging": true,
-            "bSort": true,
-            "language": {
-            "lengthMenu": "Hiển thị _MENU_ Dòng"}
-        });
+      
       })
     })
     
@@ -230,13 +222,7 @@
         tero = tero.next();
       });
 
-      $('#mytable').dataTable({
-            "pageLength": 25,
-            "paging": true,
-            "bSort": true,
-            "language": {
-            "lengthMenu": "Hiển thị _MENU_ Dòng"  } 
-        });
+      
       })
     })
   </script>

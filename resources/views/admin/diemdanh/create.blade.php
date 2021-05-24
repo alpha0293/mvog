@@ -62,7 +62,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap"><thead>
+                <table id="tableID" class="table table-hover text-nowrap"><thead>
                     <tr>
                       <th style="width: 10px">STT</th>
                       <th>Tên dự tu</th>
@@ -75,7 +75,7 @@
                  @foreach($lstdutu as $dutu)
                     <tr>
                       <td>{{$index++}}</td>
-                      <td> {{$dutu->name}}</td>
+                      <td> {{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
                       <td>{{$dutu->parish}}</td>
                       <td>
                         <input name="{{$dutu->id}}" type="checkbox" id="checkboxPrimary2">

@@ -20,8 +20,8 @@
             <!-- anh khong link -->
             <div class="n-link{{$chungsinh->id}} col-sm-4 div-anh" id="{{$chungsinh->id}}">
               <img src="{{$chungsinh->profileimg}}" class="avatarImg" id="preview{{$chungsinh->id}}" style="height: 100%;"   >
-              </div>
-               @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
+            </div>
+            @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
             <!-- anh co link -->
             <div class="f-link{{$chungsinh->id}} col-sm-4 fake-link div-anh" id="{{$chungsinh->id}}" style="display: none;" onclick="chonanh(this.id);">
               <img src="{{$chungsinh->profileimg}}" class="avatarImg" id="preview{{$chungsinh->id}}" style="height: 100%;"   >
@@ -38,34 +38,43 @@
               <p>Khoá: {{$chungsinh->khoa}}</p>
               <p>Niên khoá: {{$chungsinh->nienkhoa}}</p>
             </div>
-             @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
-            <div class="col-sm-8 div-thongtin sua-thongtin" id="sua{{$chungsinh->id}}" style="display: none;">
-              <div class="formgroup ">
-                <input type="text" style="display: none;" id="slc_anh{{$chungsinh->id}}" name="profileimg">
-                <input type="text" value="{{$chungsinh->tenthanh}} {{$chungsinh->ho}} {{$chungsinh->tengoi}}" class="form-control txtmodal" placeholder="Nhập Thánh và họ tên ..." name="name" required>
+            @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
+            <form action="{{route('update.chungsinh',$chungsinh->id)}}" method="POST">
+              @csrf
+              <div class="col-sm-8 div-thongtin sua-thongtin" id="sua{{$chungsinh->id}}" style="display: none;">
+                <div class="formgroup ">
+                  <input type="text" style="display: none;" id="slc_anh{{$chungsinh->id}}" name="profileimg" value="{{$chungsinh->profileimg}}">
+                  <input type="text" value="{{$chungsinh->tenthanh}} {{$chungsinh->ho}} {{$chungsinh->tengoi}}" class="form-control txtmodal" placeholder="Nhập Thánh và họ tên ..." name="name" required>
+                </div>
+                <div class="formgroup">
+                  <input type="text" id="dob" value="{{$chungsinh->ngaysinh}}"  class="form_datetime form-control " required placeholder="Ngày sinh" autofocus autocomplete="off" name="ngaysinh" >
+                </div>
+                <div class="formgroup">
+                  <input type="text" value="{{$chungsinh->giaoxu}}" class="form-control txtmodal" placeholder="Nhập Giáo xứ ..." required name="giaoxu">
+                </div>
+                <div class="formgroup">
+                  <input type="text" id="ngayvaodcv" autocomplete="off" value="{{$chungsinh->ngayvaodcv}}"  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
+                </div>
+                <div class="formgroup">
+                  @if(!empty($nienkhoas))
+                  <select id="khoa" type="text" class="form-control custom-select browser-default " name="idkhoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
+                    <option value="0">Chọn khoá </option>
+                    @foreach($nienkhoas as $lstnienkhoa)
+                    <option value="{{$lstnienkhoa->id}}" @if($lstnienkhoa->id == $chungsinh->idkhoa) selected @endif > Khoá {{$lstnienkhoa->khoa}} ({{$lstnienkhoa->nienkhoa}}) </option>
+                    @endforeach
+                  </select>
+                  @endif
+                </div>
+               
               </div>
-              <div class="formgroup">
-                <input type="text" id="dob" value="{{$chungsinh->ngaysinh}}"  class="form_datetime form-control " required placeholder="Ngày sinh" autofocus autocomplete="off" name="dob" >
-              </div>
-              <div class="formgroup">
-                <input type="text" value="{{$chungsinh->giaoxu}}" class="form-control txtmodal" placeholder="Nhập Giáo xứ ..." required name="name">
-              </div>
-              <div class="formgroup">
-                <input type="text" id="ngayvaodcv" autocomplete="off" value="{{$chungsinh->ngayvaodcv}}"  class="form_datetime form-control " required placeholder="Ngày vào chủng viện" autofocus  name="ngayvaodcv" >
-              </div>
-              <div class="formgroup">
-                @if(!empty($nienkhoas))
-                <select id="khoa" type="text" class="form-control custom-select browser-default " name="idkhoa" value="" autocomplete="khoa" autofocus   style="width: 100%;" required>
-                  <option value="0">Chọn khoá </option>
-                  @foreach($nienkhoas as $lstnienkhoa)
-                  <option value="{{$lstnienkhoa->id}}"> Khoá {{$lstnienkhoa->khoa}} ({{$lstnienkhoa->nienkhoa}}) </option>
-                  @endforeach
-                </select>
-                @endif
-              </div>
-            </div>
+               <button type="submit" id="btn-submit{{$chungsinh->id}}" style="float: right;margin-right: -28px; display: none;" class="btn btn-primary">Lưu</button>
+               </form>
+
+             
+
             <button style="height: 28px;border-radius: 50px;padding: 0;margin-top: 3px;background: none;color: #d43f3a;float: right;margin-top: 10px;margin-right: -28px;" type="button" class="btn-edit{{$chungsinh->id}} btn btn-danger" id="{{$chungsinh->id}}" onclick="chinhsua(this.id)">Chỉnh sửa</button>
             @endif
+             
           </div>
           @endforeach
 
@@ -81,14 +90,11 @@
       </div>
 
       <div class="modal-footer">
-         @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
-        <button type="submit" id="btn-submit" class="btn btn-primary" style="display: none;">Lưu</button>
-        @endif
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-      </div> 
-    </div>    
-  </div>
+     </div> 
+   </div>    
+ </div>
 </div>
 <script type="text/javascript">
     // Instantiate the Bootstrap carousel
@@ -124,12 +130,12 @@ $('.multi-item-carousel .item').each(function(){
     forceParse: 0
   });
 </script> 
- @if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
+@if(Auth::check() && Auth::user()->hasRole('superadministrator|administrator'))
 <script type="text/javascript">
   function chinhsua(id){
     $(".n-link"+id).css({"display":"none"});
     $(".f-link"+id).css({"display":""});
-    $("#btn-submit").css({"display":""});
+    $("#btn-submit"+id).css({"display":""});
     $("#tt"+id).css({"display":"none"});
     $("#sua"+id).css({"display":""});
     $(".btn-edit"+id).css({"display":"none"});

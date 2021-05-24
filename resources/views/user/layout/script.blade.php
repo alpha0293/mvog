@@ -6,6 +6,11 @@
 <script src="{{asset('user_asset/assets/js/jquery.newsTicker.min.js')}}"></script> 
 <script src="{{asset('user_asset/assets/js/jquery.fancybox.pack.js')}}"></script> 
 <script src="{{asset('user_asset/assets/js/custom.js')}}"></script>
+ <!-- DataTables -->
+    <script src="{{asset('admin_asset/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('admin_asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('admin_asset/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('admin_asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <!-- Toastr -->
     <script src="{{asset('toastr/toastr.min.js')}}"></script>
 <!-- <script src="{{asset('admin_asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script> -->
@@ -67,3 +72,27 @@
           $("body").css("background-color", b);
        });
  </script>
+  <script>
+  $(function () {
+    $("#tableid").DataTable({
+      "autoWidth": false,
+      "autoFill": true,
+      "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+      "pageLength": 25,
+      language: {
+        search: "Tìm kiếm",
+        lengthMenu: "Số lượng bản ghi _MENU_ ",
+        info: "Từ _START_ đến _END_ trong _TOTAL_ bản ghi",
+        infoEmpty: "Không có dữ liệu ",
+        zeroRecords: "Tìm kiếm không trùng",
+        emptyTable: "Không có dữ liệu",
+        paginate: {
+          first: "Trang đầu",
+          previous: "Trang trước",
+          next: "Trang sau",
+          last: "Trang cuối"
+        },
+      },
+    });
+  });
+</script>

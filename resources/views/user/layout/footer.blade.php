@@ -37,3 +37,4 @@
       <p class="developer">Developed By Wpfreeware</p>
     </div>
   </footer>
+ 

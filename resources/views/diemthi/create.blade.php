@@ -64,7 +64,7 @@
                 @if ($lstdutu->count()==0)
                   <h3 class="card-title" id="addnhom_title">Chưa có số liệu thống kê!!!</h3>
                 @else
-                <table id="tableID" class="table table-bordered table-striped">
+                <table id="tableid" class="table table-bordered table-striped">
                    <thead>
             <tr>
               <th>STT</th>

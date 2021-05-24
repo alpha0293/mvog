@@ -19,6 +19,7 @@ class DiemthiController extends Controller
     public function index(Request $request)
     {
         //
+
         if ($request->year) {
             # code...
             $cur_year = $request->year;
