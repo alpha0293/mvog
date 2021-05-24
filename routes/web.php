@@ -349,3 +349,11 @@ Route::prefix('tuyensinh')->middleware(['auth'])->group(function(){
     Route::get('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'UngsinhController@create','as'=>'create.tuyensinh']);
 });
 
+Route::prefix('nienkhoa')->middleware(['auth'])->group(function(){
+    Route::get('/', ['middleware' => ['permission:admins-manage'], 'uses'=>'NienkhoaController@index','as'=>'index.nienkhoa']);
+    Route::post('create', ['middleware' => ['permission:admins-manage'], 'uses'=>'NienkhoaController@store','as'=>'save.nienkhoa']);
+});
+
+Route::post('search','PostController@searchFullText')->name('search');
+Route::get('search','PostController@search');
+

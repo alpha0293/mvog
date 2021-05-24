@@ -33,7 +33,8 @@ return [
             'zones' => 'c,r,u,d',
             'chungsinhs' => 'c,r,u,d',
             'admins' => 'm',
-            'nienkhoas' => 'c,r,u,d'
+            'nienkhoas' => 'c,r,u,d',
+            'tuyensinh' => 'c,r,u,d'
         ],
         'administrator' => [
             'categories' => 'c,r,u,d',
@@ -51,7 +52,8 @@ return [
             'zones' => 'c,r,u,d',
             'chungsinhs' => 'c,r,u,d',
             'admins' => 'm',
-            'nienkhoas' => 'c,r,u,d'
+            'nienkhoas' => 'c,r,u,d',
+            'tuyensinh' => 'c,r,u,d'
         ],
         'nhomtruong' => [
             'dutus' => 'c,r,u,d',
