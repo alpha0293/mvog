@@ -85,7 +85,7 @@
                  @foreach($lstdutu as $dutu)
                     <tr>
                       <td>{{$index++}}</td>
-                      <td> {{$dutu->name}}</td>
+                      <td> {{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>
@@ -123,13 +123,16 @@
                 std = {
                 'iddutu': jQuery(statusList[i]).attr('name'),
                 'status': jQuery(statusList[i]).prop('checked'),
-                'note': jQuery('[name=note_'+jQuery(statusList[i]).attr('name')+']').val()
+                'note': jQuery('[name=note_'+jQuery(statusList[i]).attr('name')+']').val(),
+                'month': jQuery('[name=month]').val(),
+                'year': jQuery('[name=year]').val(),
+                'created_at': '{{now()}}',
+                'iduser': {{Auth::id()}}
                     }
                     data.push(std)
               }
               
             }
-            
           
               $.post('{{ route('save.attend') }}',
                 {'_token': "{{ csrf_token() }}",

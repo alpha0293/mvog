@@ -85,7 +85,7 @@
                  @foreach($lstdutu as $dutu)
                     <tr>
                       <td>{{$index++}}</td>
-                      <td> {{$dutu->name}}</td>
+                      <td>{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>
@@ -101,7 +101,9 @@
               </div>
               <!-- /.card-body -->
     </div>
-            <button class="btn btn-warning" id="Save" >Save</button>
+            @if($checktime)
+              <button class="btn btn-warning" id="Save" >Save</button>
+            @endif
        </div>
      </div><hr  width="100%" size="10px" align="center"  />  
     

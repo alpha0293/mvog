@@ -10,7 +10,7 @@ use App\Zone;
 use App\Attendance;
 use Auth;
 use Redirect;
-
+use Carbon\Carbon;
 class AttendanceController extends Controller
 {
     /**
@@ -106,7 +106,7 @@ class AttendanceController extends Controller
                 if ($idzone != null) {
                     //dd('idzone !=');
                     // $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
-                    $lstdutu = Dutu::all()->where('idstatus',1)->where('idzone',$idzone);
+                    $lstdutu = Dutu::all()->where('idstatus',1)->where('idzone',$idzone)->whereNotin('idyear',4)->sortby('name');
                     if ($lstdutu->count() == 0)
                     {
                         abort (404);
@@ -124,7 +124,7 @@ class AttendanceController extends Controller
             }
             else
             {
-                $lstdutu = Dutu::all()->where('idstatus','1');
+                $lstdutu = Dutu::all()->where('idstatus','1')->whereNotin('idyear',4)->sortby('name');
                 if ($lstdutu->count() == 0)
                 {
                         abort (404);
@@ -150,73 +150,10 @@ class AttendanceController extends Controller
         $errors_validate = collect([]);
         $errors_sql = collect([]);
         $data = json_decode($request->data, true);
-        if(Auth::user()->hasRole('superadministrator|administrator|nhomtruong') )
-        {
-            foreach ($data as $dt) 
-            {
-
-                $dutu2 = Dutu::find($dt['iddutu']); //thử lấy dutu2 là ID được gửi từ bảng điểmm danh vào
-                if(!$dutu2)
-                {
-                    continue;
-                }
-
-                if(Auth::user()->hasRole('nhomtruong'))
-                {
-                    $user = Dutu::findOrFail(Auth::id()); //Lấy Trưởng nhóm vừa đăng nhập
-                    $y1 = $user->idzone; 
-                    $y2 = $dutu2->idzone; //dutu 2 khac vùng sh thì không nhập dữ liệu vào bảng điểm danh
-                    if ($y1 != $y2) {
-                        continue;
-                    }
-                }
-                $dt['month'] = $request->month;
-                if ($dt['month'] == 0) {
-                    return response()->json(['error' => 'Vui lòng chọn tháng/năm hợp lệ!!!'], 400);
-                }
-                $dt['year'] = $request->year;
-                if(Attendance::validator($dt)->fails())
-                {
-                    // return "Validate Errors";không return errors mà đẩy vào 1 biến rồi show ra view
-                    $errors_validate->push(Attendance::validator($dt)->errors());
-                }
-                else
-                {
-                    $check=Dutu::get()->where('id',$dt['iddutu'])->first()->getattend->where('month',$request->month)->where('year',$request->year);
-                    if(count($check) == 0) //Chưa có  bản ghi nào, INSERT
-                    {
-                        try {
-                        Attendance::create(
-                            ['iddutu' => $dt['iddutu'],
-                            'month' => $request->month,
-                            'year' => $request->year,
-                            'status' => $dt['status'],
-                            'note' => $dt['note'],
-                            'iduser' => Auth::id(),
-                            ]);                        
-                        } catch (\Exception $e) {
-                            $errors_sql->push($e->getMessage());
-                            // return $e->getMessage(); ghi log lỗi, đẩy lỗi vào biến và show ra view
-                            
-                        }
-                    }
-                    else{
-                        try {
-                        Attendance::where('iddutu',$dt['iddutu'])->where('month',$request->month)->where('year',$request->year)->update(
-                            ['status' => $dt['status'],
-                            'note' => $dt['note'],
-                            ]);                        
-                        } catch (\Exception $e) {
-                            $errors_sql->push($e->getMessage());
-                            // return $e->getMessage(); ghi log, đẩy lỗi vào biến rồi return ra view
-                            
-                        }
-                    }
-                    
-                }
-            }
-            return $errors_sql; //return kèm lỗi
-        }
+        $dataInsert = [];
+        $dataUpdate = [];
+        Attendance::insert($data);
+        return 'thành công';
     }
 
     /**
@@ -233,12 +170,13 @@ class AttendanceController extends Controller
         //     abort(403,"Bạn không có quyền truy cập vào trang này!!!");
         // }
         $index = 1;
+        $checktime = false;
         if(Auth::user()->hasRole('nhomtruong'))
         {
             $idzone = Dutu::findOrFail(Auth::user()->id)->idzone;
-            $lstdutu = Dutu::where('idstatus',1)->where('idzone',$idzone)->with(['getattend' => function($query) use ( $month,$year ){
+            $lstdutu = Dutu::where('idstatus',1)->where('idzone',$idzone)->where('idyear','<>',4)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
-            }])->get(); //Constraining Eager Loads
+            }])->get()->sortby('name'); //Constraining Eager Loads
             if($lstdutu->count() == 0)
             {
                 abort (404);
@@ -248,7 +186,7 @@ class AttendanceController extends Controller
         {
             $lstdutu = Dutu::where('idstatus',1)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
-            }])->get(); //Constraining Eager Loads
+            }])->get()->sortby('name'); //Constraining Eager Loads
             if ($lstdutu->count() == 0)
             {
                 abort (404);
@@ -259,8 +197,20 @@ class AttendanceController extends Controller
         {
             // abort (404);
         }
-        // dd($lstdutu);
-        return view ('admin.diemdanh.show',compact('lstdutu','index'));
+        if (count($lstdutu->first()->getattend) == 0) {
+            abort (404);
+        }
+        $time = $lstdutu->first()->getattend->first()->created_at;
+        $time2 = $time->addHours(setting('config.timediemdanhlai',''));
+        // return $time2.' ht '.Carbon::now();
+        if ($time2 < Carbon::now()) {
+            $checktime = false;
+        }
+        else{
+            $checktime = true;
+        }
+        // return $checktime;
+        return view ('admin.diemdanh.show',compact('lstdutu','index','checktime'));
         
     }
 
