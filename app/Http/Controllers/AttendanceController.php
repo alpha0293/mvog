@@ -11,6 +11,7 @@ use App\Attendance;
 use Auth;
 use Redirect;
 use Carbon\Carbon;
+use Batch;
 class AttendanceController extends Controller
 {
     /**
@@ -36,7 +37,7 @@ class AttendanceController extends Controller
         $index = 1;
         if (!Auth::user()->hasRole('superadministrator|administrator')) {
             //return về một route khi người dùng không là admin
-            return redirect()->route('home');
+            abort (403);
         }
         $lstdutu2 = collect([]);
         $iddt = Dutu::get()->where('idyear','<>',4)->where('idstatus','1')->load(['getattend' => function($query) use($cur_year){
@@ -181,10 +182,22 @@ class AttendanceController extends Controller
             {
                 abort (404);
             }
+            if (count($lstdutu->first()->getattend) == 0) {
+                abort (404);
+            }
+            $time = $lstdutu->first()->getattend->first()->created_at;
+            $time2 = $time->addHours(setting('config.timediemdanhlai',''));
+            // return $time2.' ht '.Carbon::now();
+            if ($time2 < Carbon::now()) {
+                $checktime = false;
+            }
+            else{
+                $checktime = true;
+            }
         }
         else
         {
-            $lstdutu = Dutu::where('idstatus',1)->with(['getattend' => function($query) use ( $month,$year ){
+            $lstdutu = Dutu::where('idstatus',1)->where('idyear','<>',4)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
             }])->get()->sortby('name'); //Constraining Eager Loads
             if ($lstdutu->count() == 0)
@@ -197,18 +210,8 @@ class AttendanceController extends Controller
         {
             // abort (404);
         }
-        if (count($lstdutu->first()->getattend) == 0) {
-            abort (404);
-        }
-        $time = $lstdutu->first()->getattend->first()->created_at;
-        $time2 = $time->addHours(setting('config.timediemdanhlai',''));
-        // return $time2.' ht '.Carbon::now();
-        if ($time2 < Carbon::now()) {
-            $checktime = false;
-        }
-        else{
-            $checktime = true;
-        }
+        
+        
         // return $checktime;
         return view ('admin.diemdanh.show',compact('lstdutu','index','checktime'));
         
@@ -233,9 +236,21 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $data = json_decode($request->data, true);
+        // return $data;
+        // return $data;
+        $value = $data;
+        $userInstance = new Attendance;
+        $index = 'id';
+        try {
+            Batch::update($userInstance, $value, $index);
+            return 'thanh cong';
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
         dd('update AttendanceController');
     }
 

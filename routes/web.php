@@ -189,7 +189,7 @@ Route::prefix('attdances')->middleware('auth')->group(function () {
     Route::post('/store', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@store','as'=>'save.attend']);
     Route::get('/{month}/{year}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@show','as'=>'show.attend']);
     Route::get('/edit/{id}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@edit','as'=>'edit.attend']);
-    Route::post('/edit/{id}', ['middleware' => ['permission:attendances-delete'], 'uses'=>'AttendanceController@update','as'=>'update.attend']);
+    Route::post('/edit', ['middleware' => ['permission:attendances-delete'], 'uses'=>'AttendanceController@update','as'=>'update.attend']);
 });
 
 //Route Bài viết
