@@ -7,7 +7,7 @@
 
 <body>
 
-
+    <hr class="hr_menu" />
    @include('user.layout.loader')
     <!-- ***** Preloader End ***** -->
  

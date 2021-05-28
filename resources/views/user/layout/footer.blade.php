@@ -1,5 +1,5 @@
 <footer id="footer">
-    <div class="footer_top" id="color-bar">
+    <div class="footer_top" style="border-top: 2px solid #55a0ff;border-radius: 10px;" id="color-bar">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="footer_widget wow fadeInLeftBig">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="footer_bottom">
+    <div class="footer_bottom" style="border-top: 2px solid #55a0ff;border-radius: 10px;">
       <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
       <p class="developer">Developed By Wpfreeware</p>
     </div>

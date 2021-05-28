@@ -2,217 +2,325 @@
 @section('content')
 <style type="text/css">
   .setMenu{
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 3%;
-  left: 95%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 999;
-  border-radius: 50%;
-  background: #ff000000;
-  border-style: none;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 3%;
+    left: 95%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 999;
+    border-radius: 50%;
+    background: #ff000000;
+    border-style: none;
   }
-.fadeInDown:hover .featured_img {
-  opacity: 0.3;
-}
+  .fadeInDown:hover .featured_img {
+    opacity: 0.3;
+  }
 
-.fadeInDown:hover .setMenu {
-  opacity: 1;
-}
+  .fadeInDown:hover .setMenu {
+    opacity: 1;
+  }
 
-.showSet {
-  display: none;
-  position: absolute;
-  background-color: rgb(187 243 167 / 71%);
-  width: auto;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-.showSet li{
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-.showSet a:hover {background-color: #ddd;}
+  .showSet {
+    display: none;
+    position: absolute;
+    background-color: rgb(187 243 167 / 71%);
+    width: auto;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .showSet li{
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  .showSet a:hover {background-color: #ddd;}
 
-.show {display: block;}
- 
-.media.wow.fadeInDown.animated {
-  display: inline-flex;
-  font-size: 17px;
-  line-height: 1;
-}
-.small-post li{
-  margin-bottom: 20px;
-}
-</style> 
-<section class="col-lg-8 col-md-8 col-sm-8">
-        <div class="left_content">
-          @foreach($lstcat as $cat)
-            <p style="display:none">{{$i++}}</p>
+  .show {display: block;}
+
+  .media.wow.fadeInDown.animated {
+    display: inline-flex;
+    font-size: 17px;
+    line-height: 1;
+  }
+  .small-post li{
+    margin-bottom: 20px;
+  }
+  /*ribon*/
+  .ribbon-wrapper {
+    position: relative;
+    z-index:2;
+  }
+  .ribbon-front {
+    background-color: #5ba3ff;  
+    height: 100%;
+    width: fit-content;
+    padding: 0 5px 0 5px;
+    position: relative;
+    left:-10px;
+    z-index: 2;   text-align:center;text-shadow: 0px 1px 2px #cc6666;
+  }
+
+  .ribbon-front,
+  .ribbon-back-left,
+  .ribbon-back-right
+  {
+    -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.55);
+    -khtml-box-shadow: 0px 0px 4px rgba(0,0,0,0.55);
+    -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.55);
+    -o-box-shadow: 0px 0px 4px rgba(0,0,0,0.55);
+  }
+
+  .ribbon-edge-topleft,
+  .ribbon-edge-topright,
+  .ribbon-edge-bottomleft,
+  .ribbon-edge-bottomright {
+    position: absolute;
+    z-index: 1;
+    border-style:solid;
+    height:0px;
+    width:0px;
+  }
+
+  .ribbon-edge-topleft,
+  .ribbon-edge-topright {
+  }
+
+  .ribbon-edge-bottomleft,
+  .ribbon-edge-bottomright {
+    top: 50px;
+  }
+
+  .ribbon-edge-topleft,
+  .ribbon-edge-bottomleft {
+    left: -10px;
+    border-color: transparent #9B1724 transparent transparent;
+  }
+
+  .ribbon-edge-topleft {
+    top: -5px;
+    border-width: 5px 10px 0 0;
+  }
+  .ribbon-edge-bottomleft {
+    border-width: 0 10px 0px 0;
+  }
+
+  .ribbon-edge-topright,
+  .ribbon-edge-bottomright {
+    left: 220px;
+    border-color: transparent transparent transparent #9B1724;
+  }
+
+  .ribbon-edge-topright {
+    top: 0px;
+    border-width: 0px 0 0 10px;
+  }
+  .ribbon-edge-bottomright {
+    border-width: 0 0 5px 10px;
+  }
+
+
+  
+  
+
+ </style> 
+ <section class="col-lg-8 col-md-8 col-sm-8">
+  <div class="left_content">
+    @foreach($lstcat as $cat)
+    <p style="display:none">{{$i++}}</p>
 
 
 
-            @if($i%3 == 1)            
+    @if($i%3 == 1)            
+    <div class="single_post_content">
+      <h2 id="color-bar">
+        <div class="ribbon-wrapper">
+          
+          <div class="ribbon-front">
+            <a href="#" style="color:#f8f8f8;" >
+              {{$cat->name}}
+            </a>
+          </div>
+          <div class="ribbon-edge-topleft"></div>
+        </div>
+
+      </h2>
+
+      <div class="single_post_content_left">
+        <ul class="business_catgnav  wow fadeInDown">
+          <li>
+            <figure class="bsbig_fig wow fadeInDown">
+              @if(Auth::check() && Auth::user()->hasPermission('posts-update'))  
+              <button class="fa fa-ellipsis-v setMenu" 
+              onclick="setPost({{$cat->getpost[0]->id}});"></button> 
+              <ul class="showSet" id="{{$cat->getpost[0]->id}}">
+                <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$cat->getpost[0]->id)}}"></a></li>
+                <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$cat->getpost[0]->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+              </ul>
+              @endif
+              <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> 
+                <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span></a>
+
+                <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{Str::substr($cat->getpost[0]->title,0,70)}}...</a>
+                  <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($cat->getpost[0]->updated_at,"d/m/Y")}}</h6>
+                </figcaption>
+
+                <p>{{Str::substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,150)}}...</p>
+              </figure>
+            </li>
+          </ul>
+        </div>
+
+        <div class="single_post_content_right">
+          <ul class="spost_nav small-post">
+            @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
+
+            <li>
+              <div class="media wow fadeInDown"> 
+                @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
+                <button class="fa fa-ellipsis-v setMenu"
+                onclick="setPost({{$post->id}});"></button> 
+                <ul class="showSet" id="{{$post->id}}">
+                  <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
+                  <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                </ul>
+                @endif
+                <a href="{{route('show.post',$post->id)}}" class="media-left"> 
+                  <img alt="" src="{{$post->thumbimg}}"> </a>
+                  <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{ Str::substr($post->title,0,70)}}...</a>
+                    <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6> 
+                  </div>
+                </div>
+              </li>
+              @endforeach
+
+            </ul>
+          </div>
+        </div>
+
+
+
+        @elseif($i%3 == 2)
+        <div class="fashion_technology_area">
+
+          <div class="fashion">
             <div class="single_post_content">
-            <h2 id="color-bar"><span>{{$cat->name}}</span></h2>
-
-            <div class="single_post_content_left">
-              <ul class="business_catgnav  wow fadeInDown">
+              <h2 id="color-bar">
+                <div class="ribbon-wrapper">
+                  
+                  <div class="ribbon-front">
+                    <a href="#" style="color:#f8f8f8;" >
+                      {{$cat->name}}
+                    </a>
+                  </div>
+                  <div class="ribbon-edge-topleft"></div>
+                </div>
+              </h2>
+              <ul class="business_catgnav wow fadeInDown">
                 <li>
-                  <figure class="bsbig_fig wow fadeInDown">
-                  @if(Auth::check() && Auth::user()->hasPermission('posts-update'))  
-                      <button class="fa fa-ellipsis-v setMenu" 
-                      onclick="setPost({{$cat->getpost[0]->id}});"></button> 
-                      <ul class="showSet" id="{{$cat->getpost[0]->id}}">
-                        <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$cat->getpost[0]->id)}}"></a></li>
-                        <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$cat->getpost[0]->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
-                      </ul>
-                  @endif
-                    <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> 
-                      <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span></a>
-
-                    <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{Str::substr($cat->getpost[0]->title,0,70)}}...</a>
+                  <figure class="bsbig_fig wow fadeInDown"> 
+                    @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
+                    <button class="fa fa-ellipsis-v setMenu" 
+                    onclick="setPost({{$cat->getpost[0]->id}});"></button> 
+                    <ul class="showSet" id="{{$cat->getpost[0]->id}}">
+                      <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$cat->getpost[0]->id)}}"></a></li>
+                      <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$cat->getpost[0]->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                    </ul>
+                    @endif
+                    <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> 
                       <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($cat->getpost[0]->updated_at,"d/m/Y")}}</h6>
                     </figcaption>
-
                     <p>{{Str::substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,150)}}...</p>
                   </figure>
                 </li>
               </ul>
-            </div>
-
-            <div class="single_post_content_right">
-              <ul class="spost_nav small-post">
+              <ul class="spost_nav">
                 @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
-
                 <li>
-                  <div class="media wow fadeInDown"> 
+                  <div class="media wow fadeInDown">
                     @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
-                      <button class="fa fa-ellipsis-v setMenu"
-                      onclick="setPost({{$post->id}});"></button> 
-                        <ul class="showSet" id="{{$post->id}}">
-                          <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
-                          <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
-                        </ul>
+                    <button class="fa fa-ellipsis-v setMenu"
+                    onclick="setPost({{$post->id}});"></button> 
+                    <ul class="showSet" id="{{$post->id}}">
+                      <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
+                      <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                    </ul> 
                     @endif
-                    <a href="{{route('show.post',$post->id)}}" class="media-left"> 
-                      <img alt="" src="{{$post->thumbimg}}"> </a>
-                    <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{ Str::substr($post->title,0,70)}}...</a>
-                    <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6> 
+                    <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
+                    <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{strlen($post->title) > 70 ? Str::substr($post->title,0,70) : $post->title}}...</a> 
+                      <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6>
                     </div>
                   </div>
                 </li>
                 @endforeach
-                
               </ul>
             </div>
           </div>
-         
 
 
- @elseif($i%3 == 2)
-          <div class="fashion_technology_area">
-           
-            <div class="fashion">
-              <div class="single_post_content">
-                <h2 id="color-bar"><span>{{$cat->name}}</span></h2>
-                <ul class="business_catgnav wow fadeInDown">
-                  <li>
-                    <figure class="bsbig_fig wow fadeInDown"> 
-                      @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
-                      <button class="fa fa-ellipsis-v setMenu" 
-                      onclick="setPost({{$cat->getpost[0]->id}});"></button> 
-                      <ul class="showSet" id="{{$cat->getpost[0]->id}}">
-                        <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$cat->getpost[0]->id)}}"></a></li>
-                        <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$cat->getpost[0]->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
-                      </ul>
-                      @endif
-                      <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a> 
-                        <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($cat->getpost[0]->updated_at,"d/m/Y")}}</h6>
-                      </figcaption>
-                      <p>{{Str::substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,150)}}...</p>
-                    </figure>
-                  </li>
-                </ul>
-                <ul class="spost_nav">
-                  @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
-                  <li>
-                    <div class="media wow fadeInDown">
-                      @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
-                      <button class="fa fa-ellipsis-v setMenu"
-                      onclick="setPost({{$post->id}});"></button> 
-                        <ul class="showSet" id="{{$post->id}}">
-                          <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
-                          <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
-                        </ul> 
-                        @endif
-                      <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{strlen($post->title) > 70 ? Str::substr($post->title,0,70) : $post->title}}...</a> 
-                        <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6>
-                      </div>
-                    </div>
-                  </li>
-                  @endforeach
-                </ul>
-              </div>
-            </div>
-            
-
-  @elseif($i%3 == 0)
-            <div class="technology">
-              <div class="single_post_content">
-                <h2 id="color-bar"><span>{{$cat->name}}</span></h2>
-                <ul class="business_catgnav">
-                  <li>
-                    <figure class="bsbig_fig wow fadeInDown"> 
-                      @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
-                      <button class="fa fa-ellipsis-v setMenu" 
-                      onclick="setPost({{$cat->getpost[0]->id}});"></button> 
-                      <ul class="showSet" id="{{$cat->getpost[0]->id}}">
-                        <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$cat->getpost[0]->id)}}"></a></li>
-                        <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$cat->getpost[0]->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
-                      </ul>
-                      @endif
-                      <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a>
+          @elseif($i%3 == 0)
+          <div class="technology">
+            <div class="single_post_content">
+              <h2 id="color-bar">
+                <div class="ribbon-wrapper">
+                  
+                  <div class="ribbon-front">
+                    <a href="#" style="color:#f8f8f8;" >
+                      {{$cat->name}}
+                    </a>
+                  </div>
+                  <div class="ribbon-edge-topleft"></div>
+                </div>
+              </h2>
+              <ul class="business_catgnav">
+                <li>
+                  <figure class="bsbig_fig wow fadeInDown"> 
+                    @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
+                    <button class="fa fa-ellipsis-v setMenu" 
+                    onclick="setPost({{$cat->getpost[0]->id}});"></button> 
+                    <ul class="showSet" id="{{$cat->getpost[0]->id}}">
+                      <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$cat->getpost[0]->id)}}"></a></li>
+                      <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$cat->getpost[0]->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                    </ul>
+                    @endif
+                    <a href="{{route('show.post',$cat->getpost[0]->id)}}" class="featured_img"> <img style="max-height: 200px" alt="" src="{{$cat->getpost[0]->thumbimg}}"> <span class="overlay"></span> </a>
+                    <figcaption> <a href="{{route('show.post',$cat->getpost[0]->id)}}">{{$cat->getpost[0]->title}}</a>
                       <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($cat->getpost[0]->updated_at,"d/m/Y")}}</h6> 
-                      </figcaption>
-                      <p>{{Str::substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,150)}}...</p>
-                    </figure>
-                  </li>
-                </ul>
-                <ul class="spost_nav">
-                  @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
-                  <li>
-                    <div class="media wow fadeInDown">
-                      @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
-                        <button class="fa fa-ellipsis-v setMenu"
-                      onclick="setPost({{$post->id}});"></button> 
-                        <ul class="showSet" id="{{$post->id}}">
-                          <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
-                          <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
-                        </ul> 
-                        @endif
-                      <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
-                      <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{strlen($post->title) > 70 ? Str::substr($post->title,0,70) : $post->title}}...</a> 
-                        <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6>
-                      </div>
+                    </figcaption>
+                    <p>{{Str::substr(html_entity_decode(strip_tags($cat->getpost[0]->content)),0,150)}}...</p>
+                  </figure>
+                </li>
+              </ul>
+              <ul class="spost_nav">
+                @foreach($cat->getpost->take(-($cat->getpost->count()-1))->take(4) as $post)
+                <li>
+                  <div class="media wow fadeInDown">
+                    @if(Auth::check() && Auth::user()->hasPermission('posts-update')) 
+                    <button class="fa fa-ellipsis-v setMenu"
+                    onclick="setPost({{$post->id}});"></button> 
+                    <ul class="showSet" id="{{$post->id}}">
+                      <li><a style="color:blue;" class="fa fa-edit" href="{{route('getupdate.post',$post->id)}}"></a></li>
+                      <li><a style="color:red;" class="fa fa-trash-o" href={{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a></li>
+                    </ul> 
+                    @endif
+                    <a href="{{route('show.post',$post->id)}}" class="media-left"> <img alt="" src="{{$post->thumbimg}}"> </a>
+                    <div class="media-body"> <a href="{{route('show.post',$post->id)}}" class="catg_title"> {{strlen($post->title) > 70 ? Str::substr($post->title,0,70) : $post->title}}...</a> 
+                      <br/><h6 style="font-family: initial; font-style: italic; display: unset;"> -- {{date_format($post->updated_at,"d/m/Y")}}</h6>
                     </div>
-                  </li>
-                  @endforeach
-                </ul>
-              </div>
-            </div> 
+                  </div>
+                </li>
+                @endforeach
+              </ul>
+            </div>
+          </div> 
 
-          </div>
-       
-  @endif
+        </div>
+
+        @endif
 
 
 
@@ -292,7 +400,7 @@
             </div>
           </div> -->
           @endforeach
-            <div class="single_post_content">
+          <div class="single_post_content">
             <h2><span>Photography</span></h2>
             <ul class="photograph_nav  wow fadeInDown">
               <li>
@@ -330,4 +438,4 @@
         </div>
       </section>
       
-@endsection
+      @endsection
