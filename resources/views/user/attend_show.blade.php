@@ -34,31 +34,32 @@
   <section id="contentSection">
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
-     <div class="header-attend">
-      <h3><b>Điểm danh nhóm {{$lstdutu->first()->namezone->name}}</b></h3>
-      <h4 style="padding:15px;">Trưởng nhóm: {{Auth::user()->name}}</h4>
-      <select aria-label="Tháng" name="month" id="month" title="Tháng" class="sl_at">
-        <option value="0">Tháng</option>
-        @for($i=1; $i<=12; $i++)
-            <option @if($i==date("m")) selected @endif value="@if($i<10)0{{$i}}@else{{$i}}@endif">Tháng {{$i}}</option>
-        @endfor
-      </select>
-      <!-- select năm -->
-      <select aria-label="Năm" name="year" id="year" title="Năm" class="sl_at">
-        <option value="0">Năm học</option>
-                      @for($i=2016; $i<=date("Y"); $i++)
-                      @if(date("m")<9)
-                      <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
-                      @else
-                      <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
-                      @endif
-                      @endfor
-        <!-- <option value="0">Năm</option>
-        @for($i=2019; $i<=date("Y"); $i++)
-        <option @if($i==date("Y")) selected @endif value="{{$i}}">{{$i}}</option>
-        @endfor -->
-      </select>
-    </div>
+     	<div class="header-attend">
+	      <h3><b>Bản ghi điểm danh nhóm {{$lstdutu[0]->namezone->name}}</b></h3>
+        <h4 style="padding:15px;">Trưởng nhóm: {{Auth::user()->name}}</h4>
+	      <h4 style="padding:15px;">Bạn sẽ có {{setting('config.timediemdanhlai','')}} (giờ) để thực hiện cập nhật các bản ghi điểm danh. Sau thời gian này, hệ thống sẽ tự động khoá không cho cập nhật</h4>
+	      <select aria-label="Tháng" name="month" id="month" title="Tháng" class="sl_at">
+	        <option value="0">Tháng</option>
+	        @for($i=1; $i<=12; $i++)
+	            <option @if($i==date("m")) selected @endif value="@if($i<10)0{{$i}}@else{{$i}}@endif">Tháng {{$i}}</option>
+	        @endfor
+	      </select>
+	      <!-- select năm -->
+	      <select aria-label="Năm" name="year" id="year" title="Năm" class="sl_at">
+	        <option value="0">Năm học</option>
+	                      @for($i=2016; $i<=date("Y"); $i++)
+	                      @if(date("m")<9)
+	                      <option @if($i==date("Y")) selected @endif value="{{$i-1}}-{{$i}}">{{$i-1}}-{{$i}}</option>
+	                      @else
+	                      <option @if($i==date("Y")) selected @endif value="{{$i}}-{{$i+1}}">{{$i}}-{{$i+1}}</option>
+	                      @endif
+	                      @endfor
+	        <!-- <option value="0">Năm</option>
+	        @for($i=2019; $i<=date("Y"); $i++)
+	        <option @if($i==date("Y")) selected @endif value="{{$i}}">{{$i}}</option>
+	        @endfor -->
+	      </select>
+	    </div>
     <div class="card">
               <div class="card-header">
                 <select style="float: left;  margin-bottom: 7px; border-radius: 9px;" aria-label="Năm SH" name="ac_year" id="ac_year" title="Năm SH" class="custom-select sl_at">
@@ -71,7 +72,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0" style="clear: left;">
-                <table id="tableid" class="table table-striped table-bordered"><thead>
+                <table id="tableID" class="table table-striped table-bordered"><thead>
                     <tr>
                       <th style="width: 10px">STT</th>
                       <th>Tên dự tu</th>
@@ -85,23 +86,25 @@
                  @foreach($lstdutu as $dutu)
                     <tr>
                       <td>{{$index++}}</td>
-                      <td> {{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
+                      <td>{{$dutu->holyname.' '.$dutu->fullname.' '.$dutu->name}}</td>
                       <td>{{$dutu->parish}}</td>
                       <td hidden="true" >{{$dutu->idyear}}</td>
                       <td>
-                        <input namdutu="{{$dutu->idyear}}" name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
+                        <input created="{{$dutu->getattend->first()->created_at}}" ma="{{$dutu->getattend->first()->id}}" @if(($dutu->getattend->count() != 0) && $dutu->getattend[0]->status == 1) checked="checked" @endif namdutu="{{$dutu->idyear}}" name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
                       </td>
                       <td>
-                        <input name="note_{{$dutu->id}}" type="text" class="form-control" maxlength="255">
+                        <input name="note_{{$dutu->id}}" type="text" class="form-control" @if($dutu->getattend->count() != 0) value="{{$dutu->getattend[0]->note}}" @endif>
                       </td>
                     </tr>
-                    @endforeach          
+                 @endforeach          
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
     </div>
-            <button class="btn btn-warning" id="Save" >Save</button>
+            @if($checktime)
+              <button class="btn btn-warning" id="Save" >Cập nhật</button>
+            @endif
        </div>
      </div><hr  width="100%" size="10px" align="center"  />  
     
@@ -121,23 +124,28 @@
           for(i=0;i<statusList.length;i++) {
               if (jQuery(statusList[i]).attr('namdutu')===jQuery('[name=ac_year]').val() || jQuery('[name=ac_year]').val()==="ALL") {
                 std = {
+                  'id': jQuery(statusList[i]).attr('ma'),
                 'iddutu': jQuery(statusList[i]).attr('name'),
                 'status': jQuery(statusList[i]).prop('checked'),
                 'note': jQuery('[name=note_'+jQuery(statusList[i]).attr('name')+']').val(),
-                'month': jQuery('[name=month]').val(),
-                'year': jQuery('[name=year]').val(),
-                'created_at': '{{now()}}',
-                'iduser': {{Auth::id()}}
+                'created_at': jQuery(statusList[i]).attr('created'),
+                'updated_at': '{{now()}}'
                     }
                     data.push(std)
               }
               
             }
-              $.post('{{ route('save.attend') }}',
+            
+          
+              $.post('{{ route('update.attend') }}',
                 {'_token': "{{ csrf_token() }}",
+                'month': jQuery('[name=month]').val(),
+                'year': jQuery('[name=year]').val(),
+                'namdutu': jQuery('[name=ac_year]').val(),
                 'data': JSON.stringify(data)} 
                 ,function(data){
                   toastr.success(data,'THÔNG BÁO');
+               console.log(JSON.stringify(data));
               });
 
             });
