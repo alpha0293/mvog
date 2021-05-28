@@ -74,7 +74,7 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         // if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
         // {
@@ -107,7 +107,7 @@ class AttendanceController extends Controller
                 if ($idzone != null) {
                     //dd('idzone !=');
                     // $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
-                    $lstdutu = Dutu::all()->where('idstatus',1)->where('idzone',$idzone)->whereNotin('idyear',4)->sortby('name');
+                    $lstdutu = Dutu::all()->where('idstatus',1)->where('idzone',$idzone)->where('idyear',$request->yearsh)->sortby('name');
                     if ($lstdutu->count() == 0)
                     {
                         abort (404);
@@ -151,8 +151,14 @@ class AttendanceController extends Controller
         $errors_validate = collect([]);
         $errors_sql = collect([]);
         $data = json_decode($request->data, true);
-        $dataInsert = [];
-        $dataUpdate = [];
+        $value = $data[0];
+        if ($value['month'] == 0) {
+            return "Chọn tháng trước khi điểm danh";
+        }
+        $check = Attendance::all()->where('iddutu',$value['iddutu'])->where('month',$value['month'])->where('year',$value['year']);
+        if ($check->count()){
+            return "Nhóm dã điểm danh";
+        }
         Attendance::insert($data);
         return 'thành công';
     }
@@ -163,8 +169,12 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($month,$year)
+    public function show(Request $request)
     {
+        $month = $request->month;
+        $year = $request->year;
+        $yearsh = $request->yearsh;
+        $zonesh = $request->zonesh;
         //
         // if(Auth::user()->roleid != 1 && Auth::user()->roleid != 2)
         // {
@@ -175,9 +185,9 @@ class AttendanceController extends Controller
         if(Auth::user()->hasRole('nhomtruong'))
         {
             $idzone = Dutu::findOrFail(Auth::user()->id)->idzone;
-            $lstdutu = Dutu::where('idstatus',1)->where('idzone',$idzone)->where('idyear','<>',4)->with(['getattend' => function($query) use ( $month,$year ){
+            $lstdutu = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('idstatus',1)->where('idzone',$idzone)->where('idyear',$yearsh)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
-            }])->get()->sortby('name'); //Constraining Eager Loads
+            }])->get(); //Constraining Eager Loads
             if($lstdutu->count() == 0)
             {
                 abort (404);
@@ -194,27 +204,19 @@ class AttendanceController extends Controller
             else{
                 $checktime = true;
             }
+            return view('user.attend_show',compact('lstdutu','index','checktime'));
         }
         else
         {
-            $lstdutu = Dutu::where('idstatus',1)->where('idyear','<>',4)->with(['getattend' => function($query) use ( $month,$year ){
+            $lstdutu = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('idstatus',1)->where('idyear',$yearsh)->where('idzone',$zonesh)->with(['getattend' => function($query) use ( $month,$year ){
                 $query->where('month',$month)->where('year',$year);
-            }])->get()->sortby('name'); //Constraining Eager Loads
+            }])->get(); //Constraining Eager Loads
             if ($lstdutu->count() == 0)
             {
                 abort (404);
             }
+            return view ('admin.diemdanh.show',compact('lstdutu','index','checktime'));
         }
-        
-        if($lstdutu->first()->getattend->count() == 0)
-        {
-            // abort (404);
-        }
-        
-        
-        // return $checktime;
-        return view ('admin.diemdanh.show',compact('lstdutu','index','checktime'));
-        
     }
 
     /**
@@ -240,6 +242,12 @@ class AttendanceController extends Controller
     {
         //
         $data = json_decode($request->data, true);
+        // return $data[0];
+        $time = Carbon::parse($data[0]['created_at']);
+        $time2 = $time->addHours(setting('config.timediemdanhlai',''));
+        if ($time2 < Carbon::now()) {
+            return "Đã hết thời gian điểm danh lại";
+        }
         // return $data;
         // return $data;
         $value = $data;
@@ -247,11 +255,10 @@ class AttendanceController extends Controller
         $index = 'id';
         try {
             Batch::update($userInstance, $value, $index);
-            return 'thanh cong';
+            return "Cập nhật điểm danh thành công";
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        dd('update AttendanceController');
     }
 
     /**

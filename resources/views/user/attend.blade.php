@@ -92,7 +92,7 @@
                         <input namdutu="{{$dutu->idyear}}" name="{{$dutu->id}}" style="min-width: 20px" type="checkbox" id="checkboxPrimary2">
                       </td>
                       <td>
-                        <input name="note_{{$dutu->id}}" type="text" class="form-control">
+                        <input name="note_{{$dutu->id}}" type="text" class="form-control" maxlength="255">
                       </td>
                     </tr>
                     @endforeach          
@@ -133,16 +133,11 @@
               }
               
             }
-          
               $.post('{{ route('save.attend') }}',
                 {'_token': "{{ csrf_token() }}",
-                'month': jQuery('[name=month]').val(),
-                'year': jQuery('[name=year]').val(),
-                'namdutu': jQuery('[name=ac_year]').val(),
                 'data': JSON.stringify(data)} 
                 ,function(data){
-                  toastr.success('Thành công!!!','THÔNG BÁO');
-               console.log(JSON.stringify(data));
+                  toastr.success(data,'THÔNG BÁO');
               });
 
             });

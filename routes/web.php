@@ -187,7 +187,7 @@ Route::prefix('attdances')->middleware('auth')->group(function () {
     Route::get('/', ['middleware' => ['permission:attendances-read'], 'uses'=>'AttendanceController@index','as'=>'diemdanh']);
     Route::get('/create', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@create','as'=>'create.attend']);
     Route::post('/store', ['middleware' => ['permission:attendances-create'], 'uses'=>'AttendanceController@store','as'=>'save.attend']);
-    Route::get('/{month}/{year}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@show','as'=>'show.attend']);
+    Route::get('view', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@show','as'=>'show.attend']);
     Route::get('/edit/{id}', ['middleware' => ['permission:attendances-update'], 'uses'=>'AttendanceController@edit','as'=>'edit.attend']);
     Route::post('/edit', ['middleware' => ['permission:attendances-delete'], 'uses'=>'AttendanceController@update','as'=>'update.attend']);
 });
