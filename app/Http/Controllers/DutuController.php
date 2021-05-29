@@ -30,7 +30,7 @@ class DutuController extends Controller
     public function index()
     {
     	// $iddt = Dutu::where('idstatus',1)->with('nameyear','namezone');
-    	$iddt = Dutu::all()->where('idstatus',1)->where('idyear','<>',4)->load('nameyear','namezone')->sortBy('name');;
+    	$iddt = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('idstatus',1)->where('idyear','<>',4)->with('nameyear','namezone')->get();
     	$index = 1;
 		return view('admin.dutu.dangsinhhoat',compact('iddt','index'));
     }

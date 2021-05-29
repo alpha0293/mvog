@@ -18,7 +18,7 @@ class ChungsinhController extends Controller
     {
         //
         $nienkhoas = Nienkhoa::all();
-        $chungsinhs = Chungsinh::all();
+        $chungsinhs = Chungsinh::orderByRaw('tengoi collate utf8mb4_vietnamese_ci')->get();
         return view('chungsinh.list',compact('chungsinhs','nienkhoas'));
     }
 

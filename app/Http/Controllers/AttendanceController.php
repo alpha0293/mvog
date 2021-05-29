@@ -40,9 +40,9 @@ class AttendanceController extends Controller
             abort (403);
         }
         $lstdutu2 = collect([]);
-        $iddt = Dutu::get()->where('idyear','<>',4)->where('idstatus','1')->load(['getattend' => function($query) use($cur_year){
+        $iddt = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('idyear','<>',4)->where('idstatus','1')->with(['getattend' => function($query) use($cur_year){
             $query->where('year',$cur_year);
-        }])->sortby('name');
+        }])->get();
         foreach ($iddt as $key => $value) {
             $getattend2 = (array)[1=>null, 2=>null, 3=>null, 4=>null, 5=>null, 6=>null, 7=>null, 8=>null, 9=>null, 10=>null,11=>null,12=>null];
             foreach ($value->getattend as $key => $value2) {
@@ -107,7 +107,7 @@ class AttendanceController extends Controller
                 if ($idzone != null) {
                     //dd('idzone !=');
                     // $lstdutu = Zone::findOrFail($idzone)->dutu->where('idstatus',1)->all();
-                    $lstdutu = Dutu::all()->where('idstatus',1)->where('idzone',$idzone)->where('idyear',$request->yearsh)->sortby('name');
+                    $lstdutu = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('idstatus',1)->where('idzone',$idzone)->where('idyear',$request->yearsh)->get();
                     if ($lstdutu->count() == 0)
                     {
                         abort (404);
@@ -125,7 +125,7 @@ class AttendanceController extends Controller
             }
             else
             {
-                $lstdutu = Dutu::all()->where('idstatus','1')->whereNotin('idyear',4)->sortby('name');
+                $lstdutu = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('idstatus','1')->whereNotin('idyear',4)->get();
                 if ($lstdutu->count() == 0)
                 {
                         abort (404);
