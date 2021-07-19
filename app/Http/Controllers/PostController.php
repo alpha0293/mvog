@@ -188,7 +188,9 @@ class PostController extends Controller
 
     public function searchFullText(Request $request)
     {
-        $posts = Post::where('title', 'like', '%' . $request->value . '%')->get();
+        foreach (explode(' ', $request->search) as $term) {
+            $posts = Post::where('status',1)->where('title', 'LIKE', '%' . $term . '%')->get();
+        }
         return response()->json($posts); 
     }
 }
