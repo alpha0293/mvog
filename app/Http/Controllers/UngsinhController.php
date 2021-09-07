@@ -19,7 +19,7 @@ class UngsinhController extends Controller
     public function index()
     {
         //
-        $tuyensinhs = Ungsinh::all()->where('year',now()->year);
+        $tuyensinhs = Ungsinh::orderByRaw('name collate utf8mb4_vietnamese_ci')->where('year',now()->year)->get();
         // return $tuyensinhs;
         return view('tuyensinh.list',compact('tuyensinhs'));
     }
@@ -36,7 +36,7 @@ class UngsinhController extends Controller
         // load dự tu có đủ điều kiện dự thi;
         $tuoi = now()->year - setting('config.tuoithidcv',''); //Load tuổi
         // return $tuoi;
-        $dutus = Dutu::with('getuser')->where('idstatus',1)->where('idyear',4)->whereYear('dob','>',$tuoi)->get()->sortBy('name');
+        $dutus = Dutu::orderByRaw('name collate utf8mb4_vietnamese_ci')->with('getuser')->where('idstatus',1)->where('idyear',4)->whereYear('dob','>',$tuoi)->get();
         // duyệt danh sách, rồi loại bỏ những dự tu đã đăng kí vào năm này...
         for ($i = 0; $i < $dutus->count(); $i++) {
             foreach ($tuyensinhs as $tuyensinh) {
