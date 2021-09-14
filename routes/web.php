@@ -355,4 +355,4 @@ Route::prefix('nienkhoa')->middleware(['auth'])->group(function(){
 });
 
 Route::post('search','PostController@searchFullText')->name('search');
-Route::get('search','PostController@search');
+Route::get('search','PostController@search')->name('searchs');

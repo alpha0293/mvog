@@ -1,5 +1,4 @@
 <!-- jQuery -->
-
     <script src="{{asset('admin_asset/plugins/jquery/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{asset('admin_asset/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
@@ -10,8 +9,6 @@
     <!-- Bootstrap 4 -->
     <script src="{{asset('admin_asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- ChartJS -->
-
-
     <script src="{{asset('admin_asset/plugins/chart.js/Chart.min.js')}}"></script>
     <!-- Sparkline -->
     <script src="{{asset('admin_asset/plugins/sparklines/sparkline.js')}}"></script>
@@ -23,7 +20,6 @@
     <!-- daterangepicker -->
     <script src="{{asset('admin_asset/plugins/moment/moment.min.js')}}"></script>
     <script src="{{asset('admin_asset/plugins/daterangepicker/daterangepicker.js')}}"></script>
-
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{asset('admin_asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
     <!-- Summernote -->

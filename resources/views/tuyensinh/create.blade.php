@@ -73,6 +73,9 @@
                        <div class="form-group">
                         <input name="year" hidden="true" type="text" class="form-control" placeholder="Nhập năm ..." value="{{now()->year}}">
                       </div>
+                      <div class="form-group">
+                        <input name="province" type="text" class="form-control" placeholder="Nhập tỉnh ...">
+                      </div>
                     </div>
                   </div>
 
@@ -111,6 +114,7 @@
                     <th >Email</th>
                     <th >SĐT</th>
                     <th >Giáo xứ</th>
+                    <th >Tỉnh</th>
                     <th> </th>
                   </tr>
                 </thead>
@@ -123,6 +127,7 @@
                     <td id="email{{$dutu->id}}" email="{{$dutu->getuser->email}}">{{$dutu->getuser->email}}</td>
                     <td id="phone{{$dutu->id}}" phonenumber="{{$dutu->phonenumber}}">{{$dutu->phonenumber}}</td>
                     <td id="parish{{$dutu->id}}" parish="{{$dutu->parish}}">{{$dutu->parish}}</td>
+                    <td id="province{{$dutu->province}}" parish="{{$dutu->province}}">{{$dutu->province}}</td>
 
                     <td>
                       <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
@@ -178,6 +183,7 @@
                 'email':$('#email'+id).attr("email"),
                 'phonenumber':$('#phone'+id).attr("phonenumber"),
                 'parish':$('#parish'+id).attr("parish"),
+                'province':$('#province'+id).attr("province"),
                 'year': {{now()->year}}
               },
                function(data){

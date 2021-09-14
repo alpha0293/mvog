@@ -165,7 +165,6 @@ class PostController extends Controller
         } catch (\Exception $e) {
             return Redirect::back()->with('message','Không xoá được bài viết!!!');
         }
-		
     }
     public function offpost(Request $request)
     {
@@ -188,9 +187,10 @@ class PostController extends Controller
 
     public function searchFullText(Request $request)
     {
+        $k=$request->search;
         foreach (explode(' ', $request->search) as $term) {
             $posts = Post::where('status',1)->where('title', 'LIKE', '%' . $term . '%')->get();
         }
-        return response()->json($posts); 
+        return view('resultSearch',compact('posts','k'));
     }
 }

@@ -178,6 +178,19 @@
               {{ $message }} !
              </span>
            @enderror
+        </div>
+
+         <div class="mb-3"> <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-fire"></i></span> 
+          <input id="provice" type="text" class="form-control @error('provice') is-invalid @enderror" name="provice" value="" required placeholder="Tỉnh" autocomplete="provice" autofocus>
+          </div>
+          
+          
+            @error('provice')
+             <span class="invalid-feedback" role="alert">
+              {{ $message }} !
+             </span>
+           @enderror
          
         </div>
 

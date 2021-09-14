@@ -1,5 +1,6 @@
 <section class="col-lg-4 col-md-4 col-sm-4">
-        <aside class="right_content">
+          @include('user.layout.notif-noSlide')
+          <aside class="right_content">
           <div class="single_sidebar">
             <h2 id="color-bar"><span>Bài viết ngẫu nhiên</span></h2>
             <ul class="spost_nav">

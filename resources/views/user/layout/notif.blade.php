@@ -43,7 +43,6 @@
                 </div>
                  <hr style="border: 1px solid red;">
               </li>
-
               @endforeach
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>

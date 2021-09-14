@@ -8,14 +8,10 @@
     <hr class="hr_menu" />
    @include('user.layout.loader')
     <!-- ***** Preloader End ***** -->
+ 
 <div class="container">
    @include('user.layout.header')
    @include('user.layout.chuchay')
-  <section id="sliderSection">
-    <div class="row">
-      @include('user.layout.slide')
-    </div>
-  </section>
   <section id="contentSection">
     <div class="row">
        @yield('content')
@@ -32,10 +28,9 @@
           cleared[t.id] = 1;  // you could use true and false, but that's more typing
           t.value='';         // with more chance of typos
           t.style.color='#fff';
-          }
       }
-      
-    </script>
+  }
+</script>
 </body>
 </html>
 

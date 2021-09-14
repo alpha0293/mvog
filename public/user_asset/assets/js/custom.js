@@ -60,6 +60,26 @@ wow = new WOW({
 });
 wow.init();
 
+$("#site-search").click(function () {
+        $(".header_top_right, .navbar").addClass("fade");
+        setTimeout((function () {
+            $("#search-container").addClass("open");
+            $("#search-text").attr("placeholder", "What are you looking for?");
+            $("#search-text").focus();
+        }), 150)
+    });
+$("#close-search").click(function () {
+        $("#search-text").attr("placeholder", "");
+        $("#search-container").removeClass("open");
+        setTimeout((function () {
+            $(".header_top_right, .navbar").delay(200).removeClass("fade");
+            $("#search-text").blur()
+        }), 250)
+    });
+$("#mobile-nav span").click(function(){
+    $(this).hasClass("fa-bars") ? $(this).removeClass().addClass("fa fa-times") : $(this).removeClass().addClass("fa fa-bars");
+        $("#mobile-shelf").toggle();
+});
 jQuery(window).load(function() { // makes sure the whole site is loaded
     $('#status').fadeOut(); // will first fade out the loading animation
     $('#preloader').delay(100).fadeOut('slow'); // will fade out the white DIV that covers the website.

@@ -18,11 +18,9 @@
   .fadeInDown:hover .featured_img {
     opacity: 0.3;
   }
-
   .fadeInDown:hover .setMenu {
     opacity: 1;
   }
-
   .showSet {
     display: none;
     position: absolute;

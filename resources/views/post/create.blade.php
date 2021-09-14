@@ -88,21 +88,20 @@
 </div>
 <!-- ./wrapper -->
      <script>
-        $('#sl_imgnb').click(function(){
-
-          CKFinder.popup( {
-                 chooseFiles: true,
-                 onInit: function( finder ) {
-                     finder.on( 'files:choose', function( evt ) {
-                         var file = evt.data.files.first();
-                         $('#imgnb' ).attr("src",file.getUrl());
-                     } );
-                     finder.on( 'file:choose:resizedImage', function( evt ) {
-                         $('#imgnb' ).attr("src",evt.data.resizedUrl);
-                     } );
-                 }
-             } );     
-        })
+      $('#sl_imgnb').click(function(){
+        CKFinder.popup( {
+         chooseFiles: true,
+         onInit: function( finder ) {
+           finder.on( 'files:choose', function( evt ) {
+             var file = evt.data.files.first();
+             $('#imgnb' ).attr("src",file.getUrl());
+           });
+           finder.on( 'file:choose:resizedImage', function( evt ) {
+             $('#imgnb' ).attr("src",evt.data.resizedUrl);
+           });
+         }
+       });     
+      })
 
          // function openPopup() {
          //     CKFinder.popup( {
