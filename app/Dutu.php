@@ -13,7 +13,7 @@ class Dutu extends Model
 	
 	protected $fillable = [
 
-        'id','profileimg','name','holyname','dob','school','majors','parish','idzone','idyear','idstatus','check','fullname','phonenumber','checklenlop',
+        'id','profileimg','name','holyname','dob','school','majors','parish','idzone','idyear','idstatus','check','fullname','phonenumber','checklenlop','province',
 
     ];
     //
@@ -65,6 +65,7 @@ class Dutu extends Model
 			'idstatus' => ['required', 'int','max:255'],
             'email' => ['required', 'string','max:255'],
             'phonenumber' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
+            'province' => ['required','string','max:255'],
         ],
     	[
     		'required' => ':attribute không được để trống',
@@ -89,6 +90,7 @@ class Dutu extends Model
             'email' => 'Email',
             'idyear' => 'Năm sinh hoạt',
             'phonenumber' => 'Số điện thoại',
+            'province' => 'Tỉnh',
     	]);
     }
 

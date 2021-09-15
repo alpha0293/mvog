@@ -24,6 +24,7 @@ class CreateUngsinhsTable extends Migration
             $table->integer('year');
             $table->string('phonenumber');
             $table->unique(['email','year']);
+            $table->string('province');
             $table->timestamps();
         });
     }

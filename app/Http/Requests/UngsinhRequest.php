@@ -31,6 +31,7 @@ class UngsinhRequest extends FormRequest
             'parish' => ['required','string','max:255'],
             'year' => ['required','int'],
             'phonenumber' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
+            'province' => ['required','string','max:255'],
         ];
     }
     public function messages()
@@ -59,6 +60,7 @@ class UngsinhRequest extends FormRequest
             'parish' => 'Giáo xứ',
             'year' => 'Năm dự thi',
             'phonenumber' => 'Số điện thoại',
+            'province' => 'Tỉnh',
         ];
     }
 }

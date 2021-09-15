@@ -122,6 +122,7 @@ class UngsinhController extends Controller
             'parish' => ['required','string','max:255'],
             'year' => ['required','int'],
             'phonenumber' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
+            'province' => ['required','string','max:255'],
         ],
         [
             'required' => ':attribute không được để trống',
@@ -144,6 +145,7 @@ class UngsinhController extends Controller
             'parish' => 'Giáo xứ',
             'year' => 'Năm dự thi',
             'phonenumber' => 'Số điện thoại',
+            'province' => 'Tỉnh',
         ]);
         $arrName = explode(" ",$request->name);
         $request['holyname'] = array_shift($arrName);

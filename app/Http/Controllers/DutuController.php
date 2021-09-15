@@ -66,6 +66,7 @@ class DutuController extends Controller
      */
     public function store(Request $request)
     {
+    	// return $request->all();
 		$request['idstatus']=2;
 		if(Dutu::validator($request->all())->fails())
 		{
@@ -96,6 +97,7 @@ class DutuController extends Controller
 				'idstatus'=>$request->idstatus,
 				'check' => 0,
 				'checklenlop' => 0,
+				'province' => $request->province,
 				]);
 				return redirect()->route('home')->with('message','Đăng kí thành công!!!');
 			}
@@ -253,6 +255,7 @@ class DutuController extends Controller
 					'idzone'=>$request->idzone,
 					'idyear'=>$request->idyear,
 					'idstatus'=>$request->idstatus,
+					'province' => $request->province,
 					]);
 				User::where('id',$id)->update(['email'=>$request->email]);
 				return 'success';
