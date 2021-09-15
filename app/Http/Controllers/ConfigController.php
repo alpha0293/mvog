@@ -50,7 +50,11 @@ class ConfigController extends Controller
             \Setting::set('config.diemxetquanam', $request->input('diemxetquanam'));
             \Setting::set('config.tuoithidcv', $request->input('tuoithidcv'));
             \Setting::set('config.logo', $request->input('logo'));
-            \Setting::set('config.banner', $request->input('banner'));
+            \Setting::set('config.favicon', $request->input('favicon'));
+            \Setting::set('config.slide1', $request->input('slide1'));
+            \Setting::set('config.slide2', $request->input('slide2'));
+            \Setting::set('config.slide3', $request->input('slide3'));
+            \Setting::set('config.slide4', $request->input('slide4'));
             \Setting::set('config.footer', $request->input('footer'));
             \Setting::set('config.backgroundcolor', $request->input('backgroundcolor'));
             \Setting::set('config.barcolor', $request->input('barcolor'));

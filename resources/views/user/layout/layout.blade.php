@@ -5,19 +5,17 @@
     <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
 </head>
 <body>
-    <hr class="hr_menu" />
    @include('user.layout.loader')
     <!-- ***** Preloader End ***** -->
-<div class="container">
    @include('user.layout.header')
-   @include('user.layout.chuchay')
+   
   <section id="sliderSection">
-    <div class="row">
       @include('user.layout.slide')
-    </div>
   </section>
+<div class="container-fluid">
   <section id="contentSection">
     <div class="row">
+    @include('user.layout.chuchay')
        @yield('content')
        @include('user.layout.r_category')
     </div>

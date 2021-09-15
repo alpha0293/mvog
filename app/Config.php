@@ -9,7 +9,7 @@ class Config extends Model
 {
     //
     protected $fillable = [
-        'id','title','loichua','timediemdanhlai','tilevang','diemxetquanam','tuoithidcv','logo','banner','footer','backgroundcolor','barcolor',
+        'id','title','loichua','timediemdanhlai','tilevang','diemxetquanam','tuoithidcv','logo','favicon','slide1','slide2','slide3','slide4','footer','backgroundcolor','barcolor',
     ];
 
     public static function validator(array $data)
@@ -22,7 +22,11 @@ class Config extends Model
 			'diemxetquanam' => ['required','numeric','between:0,10'],
 			'tuoithidcv' => ['required','int'],
 			'logo' => ['required','string'],
-			'banner' => ['required','string'],
+			'favicon' => ['required','string'],
+			'slide1' => ['required','string'],
+			'slide2' => ['required','string'],
+			'slide3' => ['required','string'],
+			'slide4' => ['required','string'],
 			'footer' => ['required','string'],
 			'backgroundcolor' => ['required','string'],
 			'barcolor' => ['required','string'],

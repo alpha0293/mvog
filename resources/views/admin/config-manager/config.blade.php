@@ -7,6 +7,25 @@
     background: none;*/
     margin: 0 auto;
   }
+  .img-slide {
+    display: inline-flex;
+    margin: 3em 0;
+}
+.div-slide{
+  flex: 0 0 25%;
+    max-width: 25%;
+    padding-right: 7.5px; 
+    padding-left: 7.5px;
+    width: 25%;
+}
+.img-slide img, .logo img{
+  vertical-align: middle;
+    border-style: none;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+}
 </style>
   <!-- /.row -->
     <section class="content">
@@ -39,21 +58,21 @@
                           <span class="error">{{ $errors->first('loichua') }}</span>
                       @endif
                   </div>
-                  <span>Thời gian cho phép điểm danh lại:</span>
+                  <span>Thời gian cho phép điểm danh lại (Tiếng):</span>
                   <input type="number" class="col-lg-5 form-control cf" name="timediemdanhlai" placeholder="Nhập ..." value="{{ setting('config.timediemdanhlai','') }}">
                   <div>
                       @if($errors->has('timediemdanhlai'))
                           <span class="error">{{ $errors->first('timediemdanhlai') }}</span>
                       @endif
                   </div>
-                  <span>Tỉ lệ vắng không quá:</span>
+                  <span>Tỉ lệ vắng không quá (Buổi):</span>
                   <input type="number" class="col-lg-5 form-control cf" name="tilevang" placeholder="Nhập ..." value="{{ setting('config.tilevang','') }}">
                   <div>
                       @if($errors->has('tilevang'))
                           <span class="error">{{ $errors->first('tilevang') }}</span>
                       @endif
                   </div>
-                  <span>Mức điểm qua năm</span>
+                  <span>Mức điểm qua năm (Điểm)</span>
                   <input type="number" class="col-lg-5 form-control cf" name="diemxetquanam" placeholder="Nhập ..." value="{{ setting('config.diemxetquanam','') }}">
                   <div>
                       @if($errors->has('diemxetquanam'))
@@ -67,27 +86,94 @@
                           <span class="error">{{ $errors->first('tuoithidcv') }}</span>
                       @endif
                   </div>
-                  <span>Chọn logo</span>
-                  <input type="text" class="form-control cf" name="logo" placeholder="Nhập ..." value="{{ setting('config.logo','') }}">
-                  <div>
+                  <div class="img-slide">
+                  <div class="" style="margin-right: 7.5px;">
+                    <span>Chọn logo</span>
+                    <div class="fake-link divAvatarImg">
+                      <img id="preview" src="{{ setting('config.logo','') }}"  alt="Chọn ảnh đại diện">
+                       <input type="text" value="{{ setting('config.logo','') }}" name="logo" id="slc_anh"  style="display: none;">
+                    </div>
+                    <div>
                       @if($errors->has('logo'))
                           <span class="error">{{ $errors->first('logo') }}</span>
                       @endif
                   </div>
-                  <span>Chọn banner</span>
-                  <input type="text" class="form-control cf" name="banner" placeholder="Nhập ..." value="{{ setting('config.banner','') }}">
-                  <div>
-                      @if($errors->has('banner'))
-                          <span class="error">{{ $errors->first('banner') }}</span>
+                  </div>
+                    <div class="">
+                    <span>Chọn favicon</span>
+                    <div class="fake-link divAvatarImg">
+                      <img id="preview" src="{{ setting('config.favicon','') }}"  alt="Chọn ảnh đại diện">
+                       <input type="text" value="{{ setting('config.favicon','') }}" name="favicon" id="slc_anh"  style="display: none;">
+                    </div>
+                    <div>
+                      @if($errors->has('favicon'))
+                          <span class="error">{{ $errors->first('favicon') }}</span>
                       @endif
                   </div>
-                  <span>Chân trang</span>
-                  <input type="text" class="form-control cf" name="footer" placeholder="Nhập ..." value="{{ setting('config.footer','') }}">
-                  <div>
-                      @if($errors->has('footer'))
-                          <span class="error">{{ $errors->first('footer') }}</span>
+                  </div>
+                  </div>
+                  <div class="img-slide">
+                  <div class="div-slide">
+                    <span>Ảnh slide 1</span>
+                    <div class="fake-link divAvatarImg">
+                      <img id="preview" src="{{ setting('config.slide1','') }}"  alt="Chọn ảnh đại diện">
+                       <input type="text" value="{{ setting('config.slide1','') }}" name="slide1" id="slc_anh"  style="display: none;">
+                    </div>
+                     <div>
+                      @if($errors->has('slide1'))
+                          <span class="error">{{ $errors->first('slide1') }}</span>
                       @endif
                   </div>
+                  </div>
+                  <div class="div-slide">
+                    <span>Ảnh slide 1</span>
+                    <div class="fake-link divAvatarImg">
+                      <img id="preview" src="{{ setting('config.slide2','') }}"  alt="Chọn ảnh đại diện">
+                       <input type="text" value="{{ setting('config.slide2','') }}" name="slide2" id="slc_anh"  style="display: none;">
+                    </div>
+                    <div>
+                      @if($errors->has('slide2'))
+                          <span class="error">{{ $errors->first('slide2') }}</span>
+                      @endif
+                  </div>
+                  </div>
+                  <div class="div-slide">
+                    <span>Ảnh slide 3</span>
+                    <div class="fake-link divAvatarImg">
+                      <img id="preview" src="{{ setting('config.slide3','') }}"  alt="Chọn ảnh đại diện">
+                       <input type="text" value="{{ setting('config.slide3','') }}" name="slide3" id="slc_anh"  style="display: none;">
+                    </div>
+                    <div>
+                      @if($errors->has('slide3'))
+                          <span class="error">{{ $errors->first('slide3') }}</span>
+                      @endif
+                  </div>
+                  </div>
+                  <div class="div-slide">
+                     <span>Ảnh slide 4</span>
+                    <div class="fake-link divAvatarImg">
+                      <img id="preview" src="{{ setting('config.slide4','') }}"  alt="Chọn ảnh đại diện">
+                       <input type="text" value="{{ setting('config.slide4','') }}" name="slide4" id="slc_anh"  style="display: none;">
+                    </div>
+                    <div>
+                      @if($errors->has('slide4'))
+                          <span class="error">{{ $errors->first('slide4') }}</span>
+                      @endif
+                  </div>
+                  </div>
+                  </div>
+                  
+                  
+                  <div>
+                   <span>Chân trang</span>
+                   <input type="text" class="form-control cf" name="footer" placeholder="Nhập ..." value="{{ setting('config.footer','') }}">
+                   <div>
+                    @if($errors->has('footer'))
+                    <span class="error">{{ $errors->first('footer') }}</span>
+                    @endif
+                  </div>
+                </div>
+                 
                   <span>Màu background</span>
                   <input type="color" class="form-control cf" name="backgroundcolor" placeholder="Nhập ..." value="{{ setting('config.backgroundcolor','') }}">
                   <div>
@@ -115,5 +201,23 @@
        </div>
      </section>
  
-
+<script type="text/javascript">
+  $(".divAvatarImg").click(function () {
+    var nay = $(this);
+    CKFinder.popup( {
+     chooseFiles: true,
+     onInit: function( finder ) {
+       finder.on( 'files:choose', function( evt ) {
+         var file = evt.data.files.first();
+         nay.find('#preview' ).attr("src",file.getUrl());
+         nay.find('#slc_anh').val(file.getUrl());
+       } );
+       finder.on( 'file:choose:resizedImage', function( evt ) {
+         nay.find('#preview' ).attr("src",evt.data.resizedUrl);
+         nay.find('#slc_anh').value = evt.data.resizedUrl;
+       } );
+     }
+   } ); 
+  });
+</script>
 @endsection

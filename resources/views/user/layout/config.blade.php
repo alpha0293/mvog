@@ -14,24 +14,5 @@
   <input style="margin: 10px;" type="submit" class="btn btn-primary" value="Cập nhật">
 </form>
 </div>
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-}
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
-
-</script>
-<script type="text/javascript">
-       $('#bar_color').change(function(){
-        var a = $('#bar_color').val();
-          $("[id='color-bar']").css("background-color", a);
-       });
-        $('#background_color').change(function(){
-        var b = $('#background_color').val();
-          $("body").css("background-color", b);
-       });
- </script>
  @endif

@@ -61,7 +61,7 @@ background-color: #298841;
     width: 100%;
     position: relative;
     height: 13vh;}
-.top_nav{float: right;}
+.top_nav{float: right;display: inline-flex;}
 .top_nav li{display:inline-block}
 .top_nav li a{display: inline-block;
     color: #fff;
@@ -71,7 +71,6 @@ background-color: #298841;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;}
-.top_nav li a:hover{background-color:#55a0ff}
 .header_bottom{background-color:#fff; display:inline; float:left; padding:15px 30px 15px; width:100%}
 .logo{position: absolute;
     z-index: 99;
@@ -82,16 +81,16 @@ width: 22%;}
 .navbar{border:medium none; border-radius:0}
 .navbar-inverse .navbar-nav > li > a{color: #fff;
     display: inline-block;
-    height: 38px;
-    line-height: 40px;
+    height: 33px;
+    line-height: 38px;
     padding: 0 10px;
-        font-size: 15pt;
+    font-size: 14pt;
     -webkit-transition: all 0.5s;
     -mz-transition: all 0.5s;
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;}
-    .navbar-inverse .navbar-nav > li:after{
+    .navbar-inverse .navbar-nav > li:after, .header_top_right .top_nav>li>a:after{
         position: absolute;
     bottom: -13px;
     left: 50%;
@@ -115,8 +114,13 @@ width: 22%;}
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     }
+    .header_top_right .top_nav>li>a:after{
+        height: 2px;
+        bottom: -4px;
+    }
     @media (pointer: fine){
-  .navbar-inverse .navbar-nav > li:hover:after, .navbar-inverse .navbar-nav > li:focus:after{
+  .navbar-inverse .navbar-nav > li:hover:after, .navbar-inverse .navbar-nav > li:focus:after
+  ,.header_top_right .top_nav>li>a:hover:after, .header_top_right .top_nav>li>a:focus:after{
 width: 100%;
 transition: 0.5s;}
 }
@@ -153,7 +157,7 @@ transition: 0.5s;}
 .social_nav li.youtube a:hover{ background-position:-180px 0px; background-size:270px 60px; background-color:#e32114}
 .social_nav li.mail a{ background-image:url("images/socials.png"); background-position:-240px -30px; background-size:270px 60px; width:32px}
 .social_nav li.mail a:hover{background-position:-240px 0px; background-size:270px 60px; background-color:#bc75d6}
-#sliderSection{background-color:#fff; display:inline; float:left; width:100%; padding:0 30px}
+#sliderSection{background-color:#fff; display:inline; width:100%;}
 .single_iteam{display:inline; float:left; position:relative; width:100%; height:448px}
 .single_iteam img{width:100%; height:100%}
 .single_iteam img:hover{opacity:1}

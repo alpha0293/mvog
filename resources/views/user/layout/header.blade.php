@@ -3,7 +3,7 @@
     #header{
       position: fixed;
     width: 100%;
-    height: 109px;
+    height: 85px;
     z-index: 30;
     background: transparent;
     transition: all 0.2s ease-in-out;

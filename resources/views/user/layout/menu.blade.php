@@ -1,15 +1,18 @@
 <style>
 #navArea{
-  position: fixed;
+    background-color: #318fa242;
+    position: fixed;
     width: 100%;
-    height: 109px;
+    height: 85px;
     z-index: 30;
-    background: transparent;
     transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
+}
+.sticky{
+    background-color: #318fa2 !important;
 }
   .logo{
     position: absolute;
@@ -43,7 +46,7 @@
   }
 .navbar.navbar-inverse{
   position: absolute;
-    top: 52px;
+    top: 35px;
     right: 75px;
     filter: alpha(opacity=100);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -59,7 +62,7 @@
 }
 .header_top_right{
   position: absolute;
-    top: 20px;
+    top: 6px;
     right: 100px;
     filter: alpha(opacity=100);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -253,7 +256,7 @@ header #search-container #site-search:hover input {
 #search-container .icon-close {
   cursor: pointer;
     position: absolute;
-    top: 37px;
+    top: 23px;
     right: 2px;
     width: 40px;
     height: 40px;
@@ -503,7 +506,7 @@ header .navbar.fade {
         <p><strong>Address:</strong> <a href="https://www.google.com/maps/place/1404+E+9th+St,+Cleveland,+OH+44114/data=!4m2!3m1!1s0x8830fa7f0cd93393:0xb8aab14abd92a034?sa=X&amp;ved=2ahUKEwjJ49Pa1NbdAhUPSN8KHQXoD4AQ8gEwAHoECAAQAQ" title="">1404 East 9th Street, Cleveland, OH 44114</a></p>
       </div>
     </div>
-<div id="navArea" style="background-color: #318fa2;">
+<div id="navArea">
    <a class="logo_area logo" href="index.html" ><img src="{{asset('user_asset/images/logo.jpg')}}" alt="MVOG - Hà Tĩnh"></a>
    <div class="header_top_right">
     @auth
@@ -512,7 +515,7 @@ header .navbar.fade {
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf </form>
       <li class="nav-item dropdown" style="float: right;">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          {{ Auth::user()->name }} 
+          {{ Auth::user()->name }} <i class="fa fa-angle-down" aria-hidden="true"></i> 
         </a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="{{route('show.dutu',Auth::user()->id)}}">Thông tin cá nhân</a>
@@ -522,7 +525,7 @@ header .navbar.fade {
     </ul>
     @endauth
     @guest
-    <ul class="top_nav" style="">
+    <ul class="top_nav" style="display: inline-flex;">
       <li style="float: right; "><a href="{{ route('register') }}">Đăng Ký</a></li>
       <li style="float: right; "><a href="{{ route('login') }}">Đăng nhập</a></li>
     </ul>
@@ -535,7 +538,7 @@ header .navbar.fade {
 <div  class="navbar-collapse collapse" id="myNavbar">
   <!-- hiển thị menu cho déktop -->
   <!-- hiển thị menu cho mobile -->
-  <ul class="nav navbar-nav navbar-righ" style="width: 100%;">
+  <ul class="nav navbar-nav navbar-righ" style="width: 100%; ">
     @include('user.layout.meta-main-mennu')
       </ul>
     </div>
