@@ -52,17 +52,17 @@ tr:nth-child(even) {
                   <tbody>
                           @foreach ($lstlenlop as $i)
                           <tr>
-                            <input type="hidden" id="iddutu" name="iddutu" value="{{$i->id}}">
+                            <input type="hidden" id="iddutu" name="iddutu" value="{{$i['id']}}">
                             <td id="stt">{{$index++}}</td>
-                            <td id="holyname">{{$i->holyname}}</td>
-                            <td id="ten">{{$i->name}}</td>
-                            <td id="ns">{{$i->dob}}</td>
-                            <td id="truong">{{$i->school}}</td>
-                            <td id="nganh">{{$i->majors}}</td>
-                            <td id="xu">{{$i->parish}}</td>
-                            <td id="nam">{{$i->nameyear->name}}</td>
-                            <td id="nhom">{{$i->namezone->name}}</td>
-                            <td id="id" hidden="true" ma="{{$i->id}}">{{$i->id}}</td>
+                            <td id="holyname">{{$i['holyname'].' '.$i['fullname'].' '.$i['name']}}</td>
+                            <td id="ten"></td>
+                            <td id="ns">{{$i['dob']}}</td>
+                            <td id="truong">{{$i['school']}}</td>
+                            <td id="nganh">{{$i['majors']}}</td>
+                            <td id="xu">{{$i['parish']}}</td>
+                            <td id="nam">{{$i['nameyear']['name']}}</td>
+                            <td id="nhom">{{$i['namezone']['name']}}</td>
+                            <td id="id" hidden="true" ma="{{$i['id']}}">{{$i['id']}}</td>
                           </tr>
                         @endforeach
                   </tbody>

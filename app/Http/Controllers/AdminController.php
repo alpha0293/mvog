@@ -179,8 +179,50 @@ class AdminController extends Controller
 
     public function lstlenlop() //load danh sách
     {
+        $datebefore = date(date('Y').'-05-00');
+        $dateafter = date(date('Y').'-07-31');
+        $now = date('Y-m-d');
+        if($now < $datebefore || $now > $dateafter)
+            // return view('admin.dutu.blockxetduyet');
         $index = 1;
-        $lstlenlop = Dutu::all()->where('idstatus',1)->where('idyear','<>',4)->where('checklenlop',0)->sortBy('name');
+        $lstlenlop = Dutu::with('getdiem','getattend','nameyear','namezone')->where('idstatus',1)
+        ->where('idyear','<>',4)
+        // ->where('checklenlop',0)
+        ->where('checklenlop','<=',$datebefore)
+        // ->where('checklenlop','>=',$dateafter)
+        ->get()
+        ->sortBy('name');
+
+        //query những ng đủ điều kiện lên lớp
+        if (date("m")<9) {
+            $now = (date("Y")-1). "-" .date("Y"); 
+        }
+        else{
+            $now = date("Y"). "-" .(date("Y")+1); 
+        }
+        $tilevang = setting('config.tilevang','')/100;
+        $diemxetquanam = setting('config.diemxetquanam','');
+
+        
+        $lstdutu2 = collect([]);
+        foreach ($lstlenlop as $lsdtdutu) {
+            $vang = 0;
+            $diemtb = $lsdtdutu->getdiem()->where('nam',$now)->first()->diem;
+            // return $diemtb;
+            foreach ($lsdtdutu->getattend as $attend) {
+                if($attend->status == 0)
+                    $vang++;
+            }
+            if ($lsdtdutu->getattend->count() != 0) {
+                if($vang/$lsdtdutu->getattend->count() <= $tilevang && $diemtb >= $diemxetquanam)
+                {
+                    $lstdutu2->push($lsdtdutu);
+                }
+            }
+            
+        }
+        $lstdutu2 = (object) $lstdutu2;
+        $lstlenlop = $lstdutu2;
         return view('admin.dutu.lenlop',compact('lstlenlop','index'));
     }
 
@@ -198,7 +240,7 @@ class AdminController extends Controller
         try {
             Dutu::where('id',$request->id)->update([
                 'idyear' => $year,
-                'checklenlop' => 1,
+                'checklenlop' => date('Y-m-d'),
         ]);
             return 'Thanh cong';
         } catch (Exception $e) {
@@ -211,7 +253,7 @@ class AdminController extends Controller
         foreach ($data as $dt) {
             $dutu = Dutu::findOrFail($dt['id']);
             $dutu->idyear +=1;
-            $dutu->checklenlop = 1;
+            $dutu->checklenlop = date('Y-m-d');
             $dutu->save();
         }
         return "thành công";       
@@ -279,7 +321,16 @@ class AdminController extends Controller
 
     public function canhbao()
     {
-        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')->where('idstatus',1)->where('idyear','<>',4)->where('checklenlop',0)->get()->sortBy('name');
+        //những dự tu vắng quá tỉ lệ và điểm thi thấp thì sẽ bị cảnh báo
+        $datebefore = date(date('Y').'-05-00');
+        $dateafter = date(date('Y').'-07-31');
+        $tilevang = setting('config.tilevang','')/100;
+        $lstdutu = Dutu::with('namezone','nameyear','namestatus','getattend','getdiem')
+        ->where('idstatus',1)
+        ->where('idyear','<>',4)
+        ->where('checklenlop','<=',$datebefore)
+        // ->where('checklenlop','>=',$dateafter)
+        ->get()->sortBy('name');
         $lstdutu2 = collect([]);
         foreach ($lstdutu as $dutu) {
             $vang = 0;
@@ -290,7 +341,7 @@ class AdminController extends Controller
                     $vang++;
             }
             if ($dutu->getattend->count() != 0) {
-                if($vang/$dutu->getattend->count() >= 1/3)
+                if($vang/$dutu->getattend->count() >= $tilevang)
                 {
                     $tongdiemdanh = $dutu->getattend->count();
                     // dd(gettype($dutu));
