@@ -5,15 +5,16 @@
     <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
 </head>
 <body>
-    <hr class="hr_menu" />
    @include('user.layout.loader')
-    <!-- ***** Preloader End ***** -->
- 
-<div class="container">
    @include('user.layout.header')
-   @include('user.layout.chuchay')
+   
+  <section id="sliderSection">
+      @include('user.layout.page-intro')
+  </section>
+<div class="container-fluid">
   <section id="contentSection">
     <div class="row">
+    @include('user.layout.chuchay')
        @yield('content')
        @include('user.layout.r_category')
     </div>
@@ -28,9 +29,10 @@
           cleared[t.id] = 1;  // you could use true and false, but that's more typing
           t.value='';         // with more chance of typos
           t.style.color='#fff';
+          }
       }
-  }
-</script>
+      
+    </script>
 </body>
 </html>
 

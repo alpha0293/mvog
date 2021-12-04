@@ -6,7 +6,6 @@
 </head>
 <body>
    @include('user.layout.loader')
-    <!-- ***** Preloader End ***** -->
    @include('user.layout.header')
    
   <section id="sliderSection">

@@ -65,7 +65,7 @@
                 <td id="nam">{{$i->nameyear->name}}</td>
                 <td hidden="true">{{$i->namezone->id}}</td>
                 <td id="nhom">{{$i->namezone->name}}</td>
-                <td hidden="true" id="id" ma="$i->id">$i->parish</td>
+                <td hidden="true" id="id" ma="$i->id">{{$i->parish}}</td>
                 <td>
                   <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                     <input type="checkbox" class="custom-control-input" id="{{$i->id}}" onclick="xetduyet({{$i->id}},this.checked);">
@@ -150,7 +150,7 @@
                 data.push(std)
               }
          
-        $.post('{{  }}',
+        $.post('{{ route('xetduyetall') }}',
                 {'_token': "{{ csrf_token() }}",
                 'data': JSON.stringify(data)
                 } 

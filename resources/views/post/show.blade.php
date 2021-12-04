@@ -1,4 +1,4 @@
-@extends('user.layout.layout')
+@extends('user.layout.layout-noSlide')
 @section('content')
 <head>
 	<style type="text/css">

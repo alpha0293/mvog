@@ -154,6 +154,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('offcat',['middleware' => ['permission:admins-manage'], 'uses' => 'CategoryController@offcat','as'=>'offcat']);
     Route::post('ontruongnhom',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@nhomtruong','as'=>'ontruongnhom']);
     Route::post('onxetduyet',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@xetduyet','as'=>'onxetduyet']);
+    Route::post('xetduyetall',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@xetduyetall','as'=>'xetduyetall']);
     Route::post('lenlop',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lenlop','as'=>'lenlop']);
     Route::post('lenlopall',['middleware' => ['permission:admins-manage'], 'uses' => 'AdminController@lenlopall','as'=>'lenlopall']);
     Route::get('tuchoi',['middleware' => ['permission:admins-manage'],'uses' => 'AdminController@lsttuchoi','as' => 'tuchoi']);
