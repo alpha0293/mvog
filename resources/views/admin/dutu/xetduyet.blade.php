@@ -73,7 +73,7 @@
                   </div>
                 </td>
                 <td>
-                  <a class="fas fa-ban" style="color:red;" href="{{route('delete.post',$post->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" title="Xóa"></a>
+                  <a class="fas fa-ban" style="color:red;" href="{{route('delete.dutu',$i->id)}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Dự tu này không?');" title="Xóa"></a>
                   <i class="fas fa-ban" style="color: red;font-size: larger;cursor: pointer;" aria-hidden="true"></i>
                 </td>
               </tr>
