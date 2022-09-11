@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{{asset('user_asset/assets/css/them.css')}}">
 </head>
 <body>
-   @include('user.layout.loader')
    @include('user.layout.header')
    
   <section id="sliderSection">
@@ -14,7 +13,6 @@
 <div class="container-fluid">
   <section id="contentSection">
     <div class="row">
-    @include('user.layout.chuchay')
        @yield('content')
        @include('user.layout.r_category')
     </div>

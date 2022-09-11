@@ -49,7 +49,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User</p>
                 </a>
@@ -67,9 +67,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('index.dutu')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thông tin dự tu</p>
+                  <p>Danh sách dự tu</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -79,7 +79,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="{{route('index.zone')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách nhóm</p>
                 </a>
@@ -109,7 +109,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="{{route('chungsinh.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách chủng sinh</p>
                 </a>
@@ -127,7 +127,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/UI/general.html" class="nav-link">
+                <a href="{{route('index.dongtu')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách dòng tu</p>
                 </a>
@@ -176,7 +176,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="{{route('index.paper')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dự tu</p>
                 </a>

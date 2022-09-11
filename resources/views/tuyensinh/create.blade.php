@@ -127,7 +127,7 @@
                     <td id="email{{$dutu->id}}" email="{{$dutu->getuser->email}}">{{$dutu->getuser->email}}</td>
                     <td id="phone{{$dutu->id}}" phonenumber="{{$dutu->phonenumber}}">{{$dutu->phonenumber}}</td>
                     <td id="parish{{$dutu->id}}" parish="{{$dutu->parish}}">{{$dutu->parish}}</td>
-                    <td id="province{{$dutu->province}}" parish="{{$dutu->province}}">{{$dutu->province}}</td>
+                    <td id="province{{$dutu->province}}" province="{{$dutu->province}}">{{$dutu->province}}</td>
 
                     <td>
                       <div style="display: inline-grid;" class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
