@@ -21,6 +21,7 @@ $factory->define(Dutu::class, function (Faker $faker) {
     $holy = ['Peter','Paul','Phanxico','Jos','GB','Gioan','Luis','Marta','Maria'];
     $name = ['Nam','Anh','Minh','Thông','Công','Mái','Giáp','Đạt','Cường','Quân','Quý','Nam','Giang'];
     $ho = ['Trần Văn','Lê Văn','Đinh Công','Trương Văn','Tuấn Văn','Võ Thị','Màu Văn'];
+    $province = ['Hà Tĩnh','Quảng Bình','Khác'];
     return [
         'name' => $name[random_int(0,12)],
         'holyname' => $holy[random_int(0,8)],
@@ -35,5 +36,6 @@ $factory->define(Dutu::class, function (Faker $faker) {
         'fullname' => $ho[random_int(0,6)],
         'phonenumber' => $faker->phonenumber,
         'checklenlop' => 1,
+        'province' => $province[random_int(0,2)],
     ];
 });
